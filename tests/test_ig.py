@@ -50,7 +50,7 @@ class TestStandardize:
             ("IGHV6-1*03", "IGHV6-1*03", False),
             ("IGLV6-57", "IGLV6-57", True),
             ("IGLV7-35", None, True),
-            ("IGLV7-35", "IGLV7-35", False),
+            ("IGLV7-35*01", "IGLV7-35*01", False),
         ),
     )
     def test_enforce_functional(self, symbol, expected, enforce_functional):
@@ -92,9 +92,10 @@ class TestStandardize:
 class TestStandardizeHomoSapiens:
     @pytest.mark.parametrize("symbol", VALID_HOMOSAPIENS_IG)
     def test_already_correctly_formatted(self, symbol):
-        result = ig.standardize(symbol=symbol, species="homosapiens")
+        result_gene = ig.standardize(symbol=symbol, species="homosapiens", precision="gene")
+        result_allele = ig.standardize(symbol=symbol, species="homosapiens", precision="allele")
 
-        assert result == symbol
+        assert symbol == result_gene or symbol == result_allele
 
     @pytest.mark.parametrize("symbol", ("foobar", "IGHD4-3*01"))
     def test_invalid_tr(self, symbol, caplog):
@@ -103,15 +104,15 @@ class TestStandardizeHomoSapiens:
         assert result == None
 
     @pytest.mark.parametrize(
-        ("symbol", "expected"),
+        ("symbol", "expected", "precision"),
         (
-            ("A10", "IGKV6D-21",),
-            ("IGKV1OR2108", "IGKV1/OR2-108"),
-            ("IGO1", "IGKV1/OR2-108"),
+            ("A10", "IGKV6D-21", "gene"),
+            ("IGKV1OR2108", "IGKV1/OR2-108*01", "allele"),
+            ("IGO1", "IGKV1/OR2-108", "gene"),
         ),
     )
-    def test_resolve_alternate_tr_names(self, symbol, expected):
-        result = ig.standardize(symbol=symbol, species="homosapiens")
+    def test_resolve_alternate_tr_names(self, symbol, expected, precision):
+        result = ig.standardize(symbol=symbol, species="homosapiens", precision=precision)
 
         assert result == expected
 
@@ -119,7 +120,7 @@ class TestStandardizeHomoSapiens:
         ("symbol", "expected"),
         (
             (" IGKJ2*01", "IGKJ2*01"),
-            ("IGLJ2-1", "IGLJ2"),
+            ("IGLJ2-1", "IGLJ2*01"),
             ("IGHD01-01*01", "IGHD1-1*01"),
             ("IGKV19", "IGKV1-9"),
             ("IGHV1OR15-1*01", "IGHV1/OR15-1*01"),

@@ -39,6 +39,7 @@ class StandardizedIgSymbol(StandardizedSymbol):
     def __init__(self, symbol: str) -> None:
         self._parse_ig_symbol(symbol)
         self._resolve_gene_name()
+        self._resolve_allele()
 
     def _parse_ig_symbol(self, ig_symbol: str) -> None:
         cleaned_ig_symbol = self._safe_clean_ig_symbol(ig_symbol)
@@ -81,6 +82,12 @@ class StandardizedIgSymbol(StandardizedSymbol):
                 if self._has_valid_gene_name():
                     return
             self._gene_name = original
+
+    def _resolve_allele(self):
+        if self._has_valid_gene_name() and self._allele_designation is None:
+            possible_alleles = self._valid_ig_dictionary[self._gene_name]
+            if len(possible_alleles) == 1:
+                self._allele_designation = list(possible_alleles.keys())[0]
 
     def _has_valid_gene_name(self) -> bool:
         return self._gene_name in self._valid_ig_dictionary

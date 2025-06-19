@@ -39,6 +39,7 @@ class StandardizedTrSymbol(StandardizedSymbol):
     def __init__(self, symbol: str) -> None:
         self._parse_tr_symbol(symbol)
         self._resolve_gene_name()
+        self._resolve_allele()
 
     def _parse_tr_symbol(self, tr_symbol: str) -> None:
         cleaned_tr_symbol = _utils.clean_and_uppercase(tr_symbol)
@@ -81,6 +82,12 @@ class StandardizedTrSymbol(StandardizedSymbol):
                 if self._has_valid_gene_name():
                     return
             self._gene_name = original
+
+    def _resolve_allele(self):
+        if self._has_valid_gene_name() and self._allele_designation is None:
+            possible_alleles = self._valid_tr_dictionary[self._gene_name]
+            if len(possible_alleles) == 1:
+                self._allele_designation = list(possible_alleles.keys())[0]
 
     def _has_valid_gene_name(self) -> bool:
         return self._gene_name in self._valid_tr_dictionary
