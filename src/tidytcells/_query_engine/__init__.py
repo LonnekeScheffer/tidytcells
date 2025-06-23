@@ -4,4 +4,5 @@ from .homo_sapiens_tr_query_engine import HomoSapiensTrQueryEngine
 from .homo_sapiens_ig_query_engine import HomoSapiensIgQueryEngine
 from .hla_query_engine import HlaQueryEngine
 from .mus_musculus_tr_query_engine import MusMusculusTrQueryEngine
+from .mus_musculus_ig_query_engine import MusMusculusIgQueryEngine
 from .mus_musculus_mh_query_engine import MusMusculusMhQueryEngine
