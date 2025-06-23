@@ -92,9 +92,10 @@ class TestStandardize:
 class TestStandardizeHomoSapiens:
     @pytest.mark.parametrize("symbol", VALID_HOMOSAPIENS_TR)
     def test_already_correctly_formatted(self, symbol):
-        result = tr.standardize(symbol=symbol, species="homosapiens")
+        result_gene = tr.standardize(symbol=symbol, species="homosapiens", precision="gene")
+        result_allele = tr.standardize(symbol=symbol, species="homosapiens", precision="allele")
 
-        assert result == symbol
+        assert symbol == result_gene or symbol == result_allele
 
     @pytest.mark.parametrize("symbol", ("foobar", "TRAV3D-3*01"))
     def test_invalid_tr(self, symbol, caplog):
@@ -103,15 +104,15 @@ class TestStandardizeHomoSapiens:
         assert result == None
 
     @pytest.mark.parametrize(
-        ("symbol", "expected"),
+        ("symbol", "expected", "precision"),
         (
-            ("TCRAV32S1", "TRAV25"),
-            ("TCRAV14S2", "TRAV38-1"),
-            ("TCRBV21S1*01", "TRBV11-1*01"),
+            ("TCRAV32S1", "TRAV25", "gene"),
+            ("TCRAV14S2", "TRAV38-1", "gene"),
+            ("TCRBV21S1*01", "TRBV11-1*01", "allele"),
         ),
     )
-    def test_resolve_alternate_tr_names(self, symbol, expected):
-        result = tr.standardize(symbol=symbol, species="homosapiens")
+    def test_resolve_alternate_tr_names(self, symbol, expected, precision):
+        result = tr.standardize(symbol=symbol, species="homosapiens", precision=precision)
 
         assert result == expected
 
@@ -120,12 +121,12 @@ class TestStandardizeHomoSapiens:
         (
             ("TRAV14DV4", "TRAV14/DV4"),
             ("TRBV20OR9-2", "TRBV20/OR9-2"),
-            ("TRBV01", "TRBV1"),
-            ("TCRBV1", "TRBV1"),
+            ("TRBV01", "TRBV1*01"),
+            ("TCRBV1", "TRBV1*01"),
             ("TRAV14", "TRAV14/DV4"),
             ("TRDV4", "TRAV14/DV4"),
             ("TCRAV13S2", "TRAV13-2"),
-            ("TCRAV38S2", "TRAV38-2/DV8"),
+            ("TCRAV38S2", "TRAV38-2/DV8*01"),
             ("TCRAV30-1", "TRAV30"),
             ("TCRDV01-01*01", "TRDV1*01"),
             ("TCRAV14/4", "TRAV14/DV4"),
@@ -143,9 +144,10 @@ class TestStandardizeHomoSapiens:
 class TestStandardizeMusMusculus:
     @pytest.mark.parametrize("symbol", VALID_MUSMUSCULUS_TR)
     def test_already_correctly_formatted(self, symbol):
-        result = tr.standardize(symbol=symbol, species="musmusculus")
+        result_gene = tr.standardize(symbol=symbol, species="musmusculus", precision="gene")
+        result_allele = tr.standardize(symbol=symbol, species="musmusculus", precision="allele")
 
-        assert result == symbol
+        assert symbol == result_gene or symbol == result_allele
 
     @pytest.mark.parametrize("symbol", ("foobar", "noice"))
     def test_inivalid_tr(self, symbol, caplog):
