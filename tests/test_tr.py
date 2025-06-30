@@ -60,6 +60,23 @@ class TestStandardize:
 
         assert result == expected
 
+    @pytest.mark.filterwarnings("ignore:Failed to standardize")
+    @pytest.mark.parametrize(
+        ("symbol", "expected", "add_info"),
+        (
+            ("TRAV1", "TRAV1-1", True),
+            ("TRAV1", None, False),
+            ("TRBV1", "TRBV1*01", True),
+            ("TRBV1", "TRBV1", False),
+        ),
+    )
+    def test_add_info(self, symbol, expected, add_info):
+        result = tr.standardize(
+            symbol=symbol, species="homosapiens", add_info=add_info
+        )
+
+        assert result == expected
+
     @pytest.mark.parametrize(
         ("symbol", "expected", "precision"),
         (

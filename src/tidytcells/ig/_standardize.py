@@ -20,6 +20,7 @@ def standardize(
     symbol: Optional[str] = None,
     species: Optional[str] = None,
     enforce_functional: Optional[bool] = None,
+    add_info: Optional[bool] = None,
     precision: Optional[Literal["allele", "gene"]] = None,
     on_fail: Optional[Literal["reject", "keep"]] = None,
     log_failures: Optional[str] = None,
@@ -51,6 +52,13 @@ def standardize(
         If ``True``, disallows IG genes / alleles that are recognised by IMGT but are marked as non-functional (ORF or pseudogene).
         Defaults to ``False``.
     :type enforce_functional:
+        bool
+        :param add_info:
+        If ``True``, the following additional info may be added to the gene symbol:
+        - Adding or removing "-1" from the end of the symbol
+        - Adding an allele number if only one allele is known for a given gene
+        Defaults to ``True``.
+    :type add_info:
         bool
     :param precision:
         The maximum level of precision to standardize to.
@@ -136,16 +144,17 @@ def standardize(
                         set standardization status as successful
                         skip rest of standardization
 
-
                     add "IG" to the beginning of the symbol if necessary   //e.g. HV1-18 -> IGHV1-18
                     IF symbol is now in IMGT-compliant form:
                         set standardization status as successful
                         skip rest of standardization
 
-                    try adding or removing "-1" from the end of the symbol //e.g. IGHV6 -> IGHV6-1
-                    IF symbol is now in IMGT-compliant form:
-                        set standardization status as successful
-                        skip rest of standardization
+                    IF add_info is set to True
+                        try adding or removing "-1" from the end of the symbol //e.g. IGHV6 -> IGHV6-1
+                        try adding the allele number if only one allele is known //e.g. IGLJ2 -> IGLJ2*01
+                        IF symbol is now in IMGT-compliant form:
+                            set standardization status as successful
+                            skip rest of standardization
 
                     set standardization status as failed
                 }
@@ -181,6 +190,12 @@ def standardize(
         Parameter(precision, "precision")
         .set_default("allele")
         .throw_error_if_not_one_of("allele", "gene")
+        .value
+    )
+    add_info = (
+        Parameter(add_info, "add_info")
+        .set_default(True)
+        .throw_error_if_not_of_type(bool)
         .value
     )
     on_fail = (
@@ -242,7 +257,7 @@ def standardize(
         return symbol
 
     StandardizedIgSymbolClass = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
-    standardized_ig_symbol = StandardizedIgSymbolClass(symbol)
+    standardized_ig_symbol = StandardizedIgSymbolClass(symbol, add_info)
 
     invalid_reason = standardized_ig_symbol.get_reason_why_invalid(enforce_functional)
 
