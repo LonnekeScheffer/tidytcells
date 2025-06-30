@@ -36,10 +36,11 @@ class StandardizedTrSymbol(StandardizedSymbol):
     def _valid_tr_dictionary(self) -> Dict[str, Dict[int, str]]:
         pass
 
-    def __init__(self, symbol: str) -> None:
+    def __init__(self, symbol: str, add_info: bool = True) -> None:
         self._parse_tr_symbol(symbol)
-        self._resolve_gene_name()
-        self._resolve_allele()
+        self._resolve_gene_name(skip_dash1_section = not add_info)
+        if add_info:
+            self._resolve_allele()
 
     def _parse_tr_symbol(self, tr_symbol: str) -> None:
         cleaned_tr_symbol = _utils.clean_and_uppercase(tr_symbol)

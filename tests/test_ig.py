@@ -60,6 +60,23 @@ class TestStandardize:
 
         assert result == expected
 
+    @pytest.mark.filterwarnings("ignore:Failed to standardize")
+    @pytest.mark.parametrize(
+        ("symbol", "expected", "add_info"),
+        (
+            ("IGHV6", "IGHV6-1", True),
+            ("IGHV6", None, False),
+            ("IGLJ2", "IGLJ2*01", True),
+            ("IGLJ2", "IGLJ2", False),
+        ),
+    )
+    def test_add_info(self, symbol, expected, add_info):
+        result = ig.standardize(
+            symbol=symbol, species="homosapiens", add_info=add_info
+        )
+
+        assert result == expected
+
     @pytest.mark.parametrize(
         ("symbol", "expected", "precision"),
         (

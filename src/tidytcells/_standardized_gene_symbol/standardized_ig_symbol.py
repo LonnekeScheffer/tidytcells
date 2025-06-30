@@ -36,10 +36,11 @@ class StandardizedIgSymbol(StandardizedSymbol):
     def _valid_ig_dictionary(self) -> Dict[str, Dict[int, str]]:
         pass
 
-    def __init__(self, symbol: str) -> None:
+    def __init__(self, symbol: str, add_info: bool = True) -> None:
         self._parse_ig_symbol(symbol)
-        self._resolve_gene_name()
-        self._resolve_allele()
+        self._resolve_gene_name(skip_dash1_section = not add_info)
+        if add_info:
+            self._resolve_allele()
 
     def _parse_ig_symbol(self, ig_symbol: str) -> None:
         cleaned_ig_symbol = self._safe_clean_ig_symbol(ig_symbol)
