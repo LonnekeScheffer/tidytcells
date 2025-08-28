@@ -20,8 +20,9 @@ def standardize(
     symbol: Optional[str] = None,
     species: Optional[str] = None,
     enforce_functional: Optional[bool] = None,
+    allow_subgroup: Optional[bool] = None,
+    precision: Optional[Literal["allele", "gene", "subgroup"]] = None,
     add_info: Optional[bool] = None,
-    precision: Optional[Literal["allele", "gene"]] = None,
     on_fail: Optional[Literal["reject", "keep"]] = None,
     log_failures: Optional[bool] = None,
     gene: Optional[str] = None,
@@ -49,7 +50,13 @@ def standardize(
         Defaults to ``False``.
     :type enforce_functional:
         bool
-        :param add_info:
+    :param allow_subgroup:
+        If ``True``, allows valid subgroups (as well as more specific gene/allele symbos) to pass standardisation.
+        If ``False``, the supplied symbol must point to at least a specific gene.
+        Defaults to ``False``.
+    :type allow_subgroup:
+        bool
+    :param add_info:
         If ``True``, the following additional info may be added to the gene symbol:
         - Adding or removing "-1" from the end of the symbol
         - Adding an allele number if only one allele is known for a given gene
@@ -140,6 +147,7 @@ def standardize(
                         set standardization status as successful
                         skip rest of standardization
 
+
                     add "IG" to the beginning of the symbol if necessary   //e.g. HV1-18 -> IGHV1-18
                     IF symbol is now in IMGT-compliant form:
                         set standardization status as successful
@@ -182,10 +190,16 @@ def standardize(
         .throw_error_if_not_of_type(bool)
         .value
     )
+    allow_subgroup = (
+        Parameter(allow_subgroup, "allow_subgroup")
+        .set_default(False)
+        .throw_error_if_not_of_type(bool)
+        .value
+    )
     precision = (
         Parameter(precision, "precision")
         .set_default("allele")
-        .throw_error_if_not_one_of("allele", "gene")
+        .throw_error_if_not_one_of("allele", "gene", "subgroup")
         .value
     )
     add_info = (
@@ -211,6 +225,7 @@ def standardize(
         .value
     )
 
+    allow_subgroup = True if precision == "subgroup" else allow_subgroup
     species = _utils.clean_and_lowercase(species)
 
     if species == "any":
@@ -222,7 +237,7 @@ def standardize(
             species,
             StandardizedIgSymbolClass,
         ) in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS.items():
-            standardized_ig_symbol = StandardizedIgSymbolClass(symbol)
+            standardized_ig_symbol = StandardizedIgSymbolClass(symbol, allow_subgroup)
             invalid_reason = standardized_ig_symbol.get_reason_why_invalid(
                 enforce_functional
             )
@@ -253,7 +268,7 @@ def standardize(
         return symbol
 
     StandardizedIgSymbolClass = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
-    standardized_ig_symbol = StandardizedIgSymbolClass(symbol, add_info)
+    standardized_ig_symbol = StandardizedIgSymbolClass(symbol, allow_subgroup=allow_subgroup, add_info=add_info)
 
     invalid_reason = standardized_ig_symbol.get_reason_why_invalid(enforce_functional)
 
