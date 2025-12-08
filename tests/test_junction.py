@@ -136,12 +136,14 @@ class Teststandardize:
                 ("CSYAYVF", None, "IGLV2-14", "IG", "homosapiens", "CSYAYVF"),
                 ("MRESENMD", None, None, "TRA", "homosapiens", "CAMRESENMDSSYKLIF"),
                 ("CAGGSYGLTFGAG", None, None, "IG", "musmusculus", "CAGGSYGLTF"),
+                ("ASGDWQGQNT", None, "TRBV13-2*01", "TRB", "musmusculus", "CASGDWQGQNTLYF"),
+                ("AIWDYEFHVMDY", "IGHJ4*01", "IGHV1S34*01", "IG", "musmusculus", "CAIWDYEFHVMDYW"),
         )
     )
     def test_various_examples(self, seq, j_symbol, v_symbol, locus, species, expected):
         result = junction.standardize(seq=seq, j_symbol=j_symbol, v_symbol=v_symbol, species=species, locus=locus, allow_c_correction=True, allow_fw_correction=True, allow_v_reconstruction=True, allow_j_reconstruction=True, enforce_functional_j=True)
 
-        assert result.junction == expected, result.error + result.attempted_fix
+        assert result.junction == expected
         assert result.species == species
 
         if expected is not None:

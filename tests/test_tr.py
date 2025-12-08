@@ -201,6 +201,7 @@ class TestStandardizeHomoSapiens:
             ("TCRBJ2.7", "TRBJ2-7", "homosapiens"),
             ("TRAV15-1", "TRAV15", "homosapiens"),
             ("TRAV15-1", "TRAV15-1/DV6-1", "musmusculus"),
+            ("TCRBJ2S1", "TRBJ2-1", "musmusculus"),
 
         ),
     )

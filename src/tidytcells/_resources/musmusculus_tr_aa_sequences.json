@@ -5054,7 +5054,9 @@
     },
     "TRAJ7*01": {
         "functionality": "ORF",
-        "J-REGION": "DYSNNRLTLGKGTQVVVLP"
+        "J-REGION": "DYSNNRLTLGKGTQVVVLP",
+        "J-LEU": "L",
+        "J-MOTIF": "LGKG"
     },
     "TRAJ8*01": {
         "functionality": "P",

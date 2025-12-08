@@ -145,6 +145,10 @@ def get_j_gene_sequence_data(species: str, gene_groups: Tuple[str]) -> dict:
             data["TRAJ35*01"]["J-MOTIF"] = "CGSG"
         if "TRB" in gene_groups:
             data["TRBJ2-7*02"]["J-VAL"] = "V"
+    elif species == "Mus+musculus":
+        if "TRA" in gene_groups:
+            data["TRAJ7*01"]["J-LEU"] = "L"
+            data["TRAJ7*01"]["J-MOTIF"] = "LGKG"
 
     return add_j_motifs(data, species)
 
@@ -265,6 +269,7 @@ def add_j_motifs(j_aa_dict, species):
             else seq_data["J-TRP"] if "J-TRP" in seq_data \
             else seq_data["J-CYS"] if "J-CYS" in seq_data \
             else seq_data["J-VAL"] if "J-VAL" in seq_data \
+            else seq_data["J-LEU"] if "J-LEU" in seq_data \
             else None
 
         if not ("J-MOTIF" in seq_data and len(seq_data["J-MOTIF"]) == 4):
