@@ -95,28 +95,58 @@ class StandardizedJunction(ABC):
 
         return aas_per_gene
 
-    def correct_sequencing_err(self, best_alignments, conserved_aa):
-        best_score = -1 if len(best_alignments) == 0 else best_alignments[0]["score"]
+    def correct_sequencing_err_j_side(self, best_alignments_orig, conserved_aa):
+        best_score = -1 if len(best_alignments_orig) == 0 else best_alignments_orig[0]["score"]
         corrected_seq = self.orig_seq[:-1] + conserved_aa
+
         corr_best_alignments = align_j_regions(corrected_seq, self.j_aa_dict, self.min_j_score + 1,
                                                self.mismatch_penalty, max_mismatches=0)
-        corr_best_score = -1 if len(corr_best_alignments) == 0 else corr_best_alignments[0]["score"]
+        keep_alignments = []
 
-        if corr_best_score > best_score:
+        for alignment in corr_best_alignments:
+            if alignment["score"] > best_score:
+                new_seq_len = alignment["j_offset"] + alignment["j_conserved_idx"] + 1
+                if len(corrected_seq) == new_seq_len:
+                    keep_alignments.append(alignment)
+
+        if len(keep_alignments) > 0:
             self.corrected_seq = corrected_seq
             self.corrected_last_aa = True
-            return corr_best_alignments
+            return keep_alignments
 
-        return best_alignments
+        return best_alignments_orig
+
+
+    def correct_sequencing_err_v_side(self, best_alignments_orig):
+        best_score = -1 if len(best_alignments_orig) == 0 else best_alignments_orig[0]["score"]
+        corrected_seq = "C" + self.orig_seq[1:]
+
+        corr_best_alignments = align_v_regions(corrected_seq, self.v_aa_dict, self.min_v_score + 1,
+                                               self.mismatch_penalty, 0)
+        keep_alignments = []
+
+        for alignment in corr_best_alignments:
+            if alignment["score"] > best_score:
+                # only allow alignments that keep the same length
+                if alignment["v_conserved_idx"] == alignment["v_offset"]:
+                    keep_alignments.append(alignment)
+
+        if len(keep_alignments) > 0:
+            self.corrected_seq = corrected_seq
+            self.corrected_first_aa = True
+            return keep_alignments
+
+        return best_alignments_orig
+
 
     def align_j(self):
         best_alignments = align_j_regions(self.orig_seq, self.j_aa_dict, self.min_j_score, self.mismatch_penalty, self.max_j_mismatches)
 
         if self.allow_fw_correction and self.orig_seq[-1] in F_MISMATCH_AAS:
-            best_alignments = self.correct_sequencing_err(best_alignments, conserved_aa="F")
+            best_alignments = self.correct_sequencing_err_j_side(best_alignments, conserved_aa="F")
 
         if self.allow_fw_correction and self.orig_seq[-1] in W_MISMATCH_AAS:
-            best_alignments = self.correct_sequencing_err(best_alignments, conserved_aa="W")
+            best_alignments = self.correct_sequencing_err_j_side(best_alignments, conserved_aa="W")
 
         if len(best_alignments) == 0:
             err = "J alignment unsuccessful"
@@ -134,17 +164,7 @@ class StandardizedJunction(ABC):
         best_alignments = align_v_regions(self.orig_seq, self.v_aa_dict, self.min_v_score, self.mismatch_penalty, self.max_v_mismatches)
 
         if self.allow_c_correction and self.orig_seq[0] in C_MISMATCH_AAS:
-            best_score = -1 if len(best_alignments) == 0 else best_alignments[0]["score"]
-            corrected_seq = "C" + self.orig_seq[1:]
-
-            corr_best_alignments = align_v_regions(corrected_seq, self.v_aa_dict, self.min_v_score+1,
-                                                   self.mismatch_penalty, 0)
-            corr_best_score = -1 if len(corr_best_alignments) == 0 else corr_best_alignments[0]["score"]
-
-            if corr_best_score > best_score:
-                self.corrected_seq = corrected_seq
-                self.corrected_first_aa = True
-                best_alignments = corr_best_alignments
+            best_alignments = self.correct_sequencing_err_v_side(best_alignments)
 
         if len(best_alignments) == 0:
             err = "V alignment unsuccessful"
