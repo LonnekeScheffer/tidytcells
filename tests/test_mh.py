@@ -40,19 +40,19 @@ class TestStandardize:
         assert result.success
 
     @pytest.mark.parametrize(
-        ("symbol", "expected", "precision"),
+        ("symbol", "expected", "precision_level"),
         (
             ("HLA-DRB3*01:01:02:01", "HLA-DRB3*01:01:02:01", "allele"),
             ("HLA-DRB3*01:01:02:01", "HLA-DRB3*01:01", "protein"),
             ("HLA-DRB3*01:01:02:01", "HLA-DRB3", "gene"),
         ),
     )
-    def test_precision(self, symbol, expected, precision):
+    def test_precision(self, symbol, expected, precision_level):
         result = mh.standardize(
             symbol=symbol, species="homosapiens"
         )
 
-        assert result.__getattribute__(precision) == expected
+        assert result.__getattribute__(precision_level) == expected
 
     def test_standardise(self):
         result = mh.standardise("HLA-B*07")
