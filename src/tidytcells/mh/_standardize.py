@@ -26,7 +26,7 @@ def standardize(
     log_failures: Optional[bool] = None,
     gene: Optional[str] = None,
     suppress_warnings: Optional[bool] = None,
-) -> Optional[str]:
+) -> MhGeneResult:
     """
     Attempt to standardize an MH gene / allele symbol to be IMGT-compliant. # todo update docs once MRO mapping available
 
