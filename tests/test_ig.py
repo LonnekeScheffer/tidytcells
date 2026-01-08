@@ -215,7 +215,7 @@ class TestQuery:
     @pytest.mark.parametrize(
         ("species", "precision", "expected_len", "expected_in", "expected_not_in"),
         (
-            ("homosapiens", "allele", 1307, "IGKV3-15*02", "IGKV3-15"),
+            ("homosapiens", "allele", 1312, "IGKV3-15*02", "IGKV3-15"),
             ("homosapiens", "gene", 496, "IGKV3-15", "IGKV3-15*02"),
         ),
     )
@@ -265,7 +265,7 @@ class TestQuery:
         ),
         (
             ("homosapiens", "gene", "F", 189, "IGHD6-19", "IGHV1/OR16-21*01"),
-            ("homosapiens", "allele", "NF", 620, "IGHV1/OR16-21*01", "IGL35*01"),
+            ("homosapiens", "allele", "NF", 623, "IGHV1/OR16-21*01", "IGL35*01"),
             ("homosapiens", "gene", "P", 282, "IGKV3D-31", "IGHV3-20*02"),
             ("homosapiens", "allele", "ORF", 102, "IGHV3-20*02", "IGKV3D-31"),
         ),

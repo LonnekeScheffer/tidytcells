@@ -126,7 +126,7 @@ def get_ig_j_gene_sequence_data(species: str) -> dict:
 
 def get_v_gene_sequence_data(species: str, gene_groups: Tuple[str]) -> dict:
     labels = ("FR1-IMGT", "CDR1-IMGT", "FR2-IMGT", "CDR2-IMGT", "FR3-IMGT", "V-REGION")
-    return add_v_motifs(get_gene_sequence_data(labels, gene_groups, species))
+    return get_gene_sequence_data(labels, gene_groups, species)
 
 
 def get_d_gene_sequence_data(species: str, gene_groups: Tuple[str]) -> dict:
@@ -140,13 +140,13 @@ def get_j_gene_sequence_data(species: str, gene_groups: Tuple[str]) -> dict:
 
     # Add known non-canonical cases
     if species == "Homo+sapiens":
-        if "TRA" in gene_groups:
+        if "TRAJ" in gene_groups:
             data["TRAJ35*01"]["J-CYS"] = "C"
             data["TRAJ35*01"]["J-MOTIF"] = "CGSG"
-        if "TRB" in gene_groups:
+        if "TRBJ" in gene_groups:
             data["TRBJ2-7*02"]["J-VAL"] = "V"
     elif species == "Mus+musculus":
-        if "TRA" in gene_groups:
+        if "TRAJ" in gene_groups:
             data["TRAJ7*01"]["J-LEU"] = "L"
             data["TRAJ7*01"]["J-MOTIF"] = "LGKG"
 
@@ -222,21 +222,6 @@ def parse_fasta_header(line: str) -> Tuple[str]:
     functionality = fields[3].strip("()[]")
 
     return gene, allele_designation, functionality
-
-
-def add_v_motifs(v_aa_dict):
-    for allele, seq_data in v_aa_dict.items():
-        if "FR3-IMGT" in seq_data:
-            if seq_data["FR3-IMGT"].endswith("C") and len(seq_data["FR3-IMGT"]) >= 4:
-                v_aa_dict[allele]["V-MOTIF"] = seq_data["FR3-IMGT"][-4:]
-
-                if seq_data["FR3-IMGT"] in seq_data["V-REGION"]:
-                    cdr3_start_motif = seq_data["V-REGION"][seq_data["V-REGION"].index(seq_data["FR3-IMGT"]) + len(seq_data["FR3-IMGT"]) - 1:]
-
-                    if len(cdr3_start_motif) > 0:
-                        v_aa_dict[allele]["V-CDR3-START"] = cdr3_start_motif.rstrip("*")
-
-    return v_aa_dict
 
 
 def get_motif(j_region, conserved_aa):

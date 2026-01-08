@@ -233,7 +233,7 @@ class TestQuery:
     @pytest.mark.parametrize(
         ("species", "precision", "expected_len", "expected_in", "expected_not_in"),
         (
-            ("homosapiens", "allele", 492, "TRAJ8*02", "TRAJ8"),
+            ("homosapiens", "allele", 505, "TRAJ8*02", "TRAJ8"),
             ("homosapiens", "gene", 250, "TRAJ8", "TRAJ8*02"),
             ("musmusculus", "allele", 556, "TRAJ4*01", "TRAJ4"),
             ("musmusculus", "gene", 273, "TRAJ4", "TRAJ4*01"),
@@ -286,7 +286,7 @@ class TestQuery:
         (
             ("homosapiens", "gene", "F", 187, "TRBJ2-7", "TRBV12-1"),
             ("homosapiens", "allele", "NF", 127, "TRAV35*03", "TRAV35*01"),
-            ("homosapiens", "gene", "NF", 81, "TRAV35", "TRAJ30"),
+            ("homosapiens", "gene", "NF", 75, "TRAV35", "TRAJ30"),
             ("musmusculus", "gene", "P", 59, "TRGC3", "TRDV5"),
             ("musmusculus", "allele", "ORF", 24, "TRBV24*03", "TRBV24*01"),
         ),
@@ -328,8 +328,6 @@ class TestGetAaSequence:
                     "FR2-IMGT": "LRWYKQDTGRGPVSLTI",
                     "FR3-IMGT": "KSNGRYTATLDADTKQSSLHITASQLSDSASYIC",
                     "V-REGION": "KNQVEQSPQSLIILEGKNCTLQCNYTVSPFSNLRWYKQDTGRGPVSLTIMTFSENTKSNGRYTATLDADTKQSSLHITASQLSDSASYICVVS",
-                    'V-CDR3-START': 'CVVS',
-                    'V-MOTIF': 'SYIC',
                     'functionality': 'F'
                 },
             ),
@@ -349,7 +347,7 @@ class TestGetAaSequence:
                     "J-PHE": "F",
                     "J-REGION": "EYGNKLVFGAGTILRVKS",
                     'J-MOTIF': 'FGAG',
-                    'functionality': '(F)'
+                    'functionality': 'F'
                 },
             ),
             (
@@ -362,8 +360,6 @@ class TestGetAaSequence:
                     "FR2-IMGT": "LSWYQQREGHAPVFLSY",
                     "FR3-IMGT": "KDSGHFSTFLSRSNGYSYLLLTELQIKDSASYLC",
                     "V-REGION": "GQGVEQPDNLMSVEGTFARVNCTYSTSGFNGLSWYQQREGHAPVFLSYVVLDGLKDSGHFSTFLSRSNGYSYLLLTELQIKDSASYLCAVR",
-                    'V-CDR3-START': 'CAVR',
-                    'V-MOTIF': 'SYLC',
                     'functionality': 'F'
                 },
             ),
