@@ -153,7 +153,7 @@ class TestStandardizeHomoSapiens:
         assert result.highest_precision == symbol
 
     @pytest.mark.parametrize("symbol", ("foobar", "IGHD4-3*01"))
-    def test_invalid_tr(self, symbol, caplog):
+    def test_invalid_ig(self, symbol, caplog):
         result = ig.standardize(symbol=symbol, species="homosapiens")
         assert "Failed to standardize" in caplog.text
         assert result.highest_precision == None
@@ -169,7 +169,7 @@ class TestStandardizeHomoSapiens:
             ("IGO1", "IGKV1/OR2-108"),
         ),
     )
-    def test_resolve_alternate_tr_names(self, symbol, expected):
+    def test_resolve_alternate_ig_names(self, symbol, expected):
         result = ig.standardize(symbol=symbol, species="homosapiens")
 
         assert result.highest_precision == expected
