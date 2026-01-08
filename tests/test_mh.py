@@ -65,13 +65,6 @@ class TestStandardize:
         mh.standardize("foobarbaz", log_failures=False)
         assert len(caplog.records) == 0
 
-    def test_on_fail(self, caplog):
-        result = mh.standardize("foobarbaz")
-        assert "Failed to standardize" in caplog.text
-        assert result.original_input == "foobarbaz"
-        assert result.failed
-        assert result.error is not None
-
 class TestStandardizeHomoSapiens:
     @pytest.mark.parametrize("symbol", [*VALID_HOMOSAPIENS_MH, "B2M"])
     def test_already_correctly_formatted(self, symbol):

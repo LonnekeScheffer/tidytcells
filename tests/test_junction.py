@@ -58,7 +58,7 @@ class Teststandardize:
         junction.standardize(seq="123456", log_failures=False, locus="TR")
         assert len(caplog.records) == 0
 
-    def test_on_fail(self, caplog):
+    def test_failed_input(self, caplog):
         result = junction.standardize("foobarbaz", locus="TR")
         assert "Failed to standardize foobarbaz" in caplog.text
         assert "Not a valid amino acid sequence" in result.error
