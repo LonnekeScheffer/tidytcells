@@ -213,8 +213,8 @@ class JunctionStandardizer(ABC):
                 corrected_seqs = {s for s in corrected_seqs if len(s) == len(seq) + 1}
 
             if self.j_symbol is None:
-                if len(results) > 1:
-                    results = {s for s in results if s[-1] in ("F", "W")}
+                if len(corrected_seqs) > 1:
+                    corrected_seqs = {s for s in corrected_seqs if s[-1] in ("F", "W")}
 
             if len(corrected_seqs) > 1:
                 self.reasons_invalid.append(f"J side reconstruction ambiguous: {corrected_seqs}")
@@ -268,9 +268,6 @@ class JunctionStandardizer(ABC):
         If the CDR3 cannot be standardized (it is invalid), this method returns a string outlining the reason why (incomplete on the left side, right side, etc).
         Returns None if standardisation was successful.
         """
-        # todo optional: check if the same locus is used for V and J.
-        #  however, the difficulty is that multiple alignments (of different loci) are possible
-
         if len(self.reasons_invalid) == 0:
             return None
 
