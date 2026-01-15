@@ -150,8 +150,10 @@ class Teststandardize:
             assert result.cdr3 == expected[1:-1]
             assert result.is_success
             assert result.error is None
+            assert str(result) == expected
         else:
             assert not result.is_success
             assert result.error is not None
             assert len(result.error) > 0
+            assert str(result) == ""
 

@@ -134,6 +134,10 @@ class TestStandardize:
         assert result.gene == expected_gene
         assert result.subgroup == expected_subgroup
         assert result.highest_precision == expected_highest_precision
+        if result.is_success:
+            assert str(result) == expected_highest_precision
+        else:
+            assert str(result) == ""
 
     def test_standardise(self):
         result = ig.standardise("IGLV8/OR8-1*02")
@@ -208,8 +212,7 @@ class TestStandardizeMusMusculus:
         assert not result.is_success
         assert result.highest_precision is None
         assert result.species == "musmusculus"
-
-
+        assert str(result) == ""
 
 class TestQuery:
     @pytest.mark.parametrize(

@@ -15,11 +15,11 @@ class MhGene:
         if self._gene_name is not None and self._allele_designation is not None:
             self._highest_precision = f'{self._gene_name}*{":".join(self._allele_designation)}'
 
-    def __repr__(self):
-        repr = self.highest_precision
+    def __str__(self):
+        str_repr = self.highest_precision
 
-        if repr is not None:
-            return repr
+        if str_repr is not None:
+            return str_repr
         else:
             return ""
 
@@ -89,11 +89,11 @@ class ReceptorGene:
         elif self._subgroup_name is not None:
             self._highest_precision = self._subgroup_name
 
-    def __repr__(self):
-        repr = self.highest_precision
+    def __str__(self):
+        str_repr = self.highest_precision
 
-        if repr is not None:
-            return repr
+        if str_repr is not None:
+            return str_repr
         else:
             return ""
 
@@ -160,11 +160,11 @@ class Junction:
         self._corrected_junction = corrected_junction
         self._species = species
 
-    def __repr__(self):
-        repr = self.junction
+    def __str__(self):
+        str_repr = self.junction
 
-        if repr is not None:
-            return repr
+        if str_repr is not None:
+            return str_repr
         else:
             return ""
 

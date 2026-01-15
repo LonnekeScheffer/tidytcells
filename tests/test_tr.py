@@ -145,6 +145,10 @@ class TestStandardize:
         assert result.gene == expected_gene
         assert result.subgroup == expected_subgroup
         assert result.highest_precision == expected_highest_precision
+        if result.is_success:
+            assert str(result) == expected_highest_precision
+        else:
+            assert str(result) == ""
 
     def test_standardise(self):
         result = tr.standardise("TRBV20/OR9-2*01")
@@ -168,6 +172,7 @@ class TestStandardizeHomoSapiens:
         result = tr.standardize(symbol=symbol, species="homosapiens")
         assert "Failed to standardize" in caplog.text
         assert result.highest_precision is None
+        assert str(result) == ""
 
     @pytest.mark.parametrize(
         ("symbol", "expected"),

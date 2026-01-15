@@ -11,6 +11,7 @@ class TestStandardize:
         assert result.original_input == "HLA-A*01:01:01:01"
         assert not result.is_success
         assert result.highest_precision is None
+        assert str(result) == ""
 
     @pytest.mark.parametrize("symbol", (1234, None))
     def test_bad_type(self, symbol):
@@ -37,6 +38,7 @@ class TestStandardize:
     def test_any_species(self, symbol, expected):
         result = mh.standardize(symbol, species="any")
         assert result.highest_precision == expected
+        assert str(result) == expected
         assert result.is_success
 
     @pytest.mark.parametrize(
