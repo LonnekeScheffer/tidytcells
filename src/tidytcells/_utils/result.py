@@ -1,81 +1,80 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 
 
-class Result(ABC):
-
-    def __init__(self, original_input: str, error: str):
+class MhGene:
+    def __init__(self, original_input, error, gene_name=None, allele_designation=None, species=None):
         self._original_input = original_input
         self._error = None if error == "" else error
-
-    @property
-    def original_input(self):
-        return self._original_input
-
-    @property
-    def error(self):
-        return self._error
-
-    @property
-    def success(self):
-        return self.error is None
-
-    @property
-    def failed(self):
-        return self.error is not None
-
-    @property
-    @abstractmethod
-    def attempted_fix(self):
-        pass
-
-
-class MhGeneResult(Result):
-    def __init__(self, original_input, error, gene_name=None, allele_designation=None):
-        super().__init__(original_input, error)
         self._gene_name = gene_name
         self._allele_designation = allele_designation if allele_designation is not None and len(allele_designation) > 0 else None
+        self._species = species
 
         self._highest_precision = self._gene_name
 
         if self._gene_name is not None and self._allele_designation is not None:
             self._highest_precision = f'{self._gene_name}*{":".join(self._allele_designation)}'
 
+    def __repr__(self):
+        repr = self.highest_precision
+
+        if repr is not None:
+            return repr
+        else:
+            return ""
+
     @property
-    def attempted_fix(self):
-        if self.failed:
+    def original_input(self) -> Optional[str]:
+        return self._original_input
+
+    @property
+    def error(self) -> Optional[str]:
+        return self._error
+
+    @property
+    def is_success(self) -> bool:
+        return self.error is None
+
+    @property
+    def attempted_fix(self) -> Optional[str]:
+        if not self.is_success:
             return self._highest_precision
 
     @property
-    def highest_precision(self):
-        if self.success:
+    def highest_precision(self) -> Optional[str]:
+        if self.is_success:
             return self._highest_precision
 
     @property
-    def allele(self):
-        if self.success and self._allele_designation is not None and self._gene_name is not None:
+    def allele(self) -> Optional[str]:
+        if self.is_success and self._allele_designation is not None and self._gene_name is not None:
             return f'{self._gene_name}*{":".join(self._allele_designation)}'
 
     @property
-    def gene(self):
-        if self.success and self._gene_name is not None:
+    def gene(self) -> Optional[str]:
+        if self.is_success and self._gene_name is not None:
             return self._gene_name
 
+    @property
+    def species(self) -> str:
+        return self._species
 
 
-class HLAGeneResult(MhGeneResult):
+class HLAGene(MhGene):
     def __init__(self, original_input, error, gene_name=None, allele_designation=None):
-        super().__init__(original_input, error, gene_name, allele_designation)
+        super().__init__(original_input, error, gene_name, allele_designation, species="homosapiens")
 
     @property
-    def protein(self):
-        if self.success and self._allele_designation is not None and self._gene_name is not None:
+    def protein(self) -> Optional[str]:
+        if self.is_success and self._allele_designation is not None and self._gene_name is not None:
             return f'{self._gene_name}*{":".join(self._allele_designation[:2])}'
 
 
-class ReceptorGeneResult(Result):
+class ReceptorGene:
 
     def __init__(self, original_input, error, gene_name=None, allele_designation=None, subgroup_name=None, species=None):
-        super().__init__(original_input, error)
+        self._original_input = original_input
+        self._error = None if error == "" else error
         self._gene_name = gene_name
         self._allele_designation = allele_designation
         self._subgroup_name = subgroup_name
@@ -90,59 +89,113 @@ class ReceptorGeneResult(Result):
         elif self._subgroup_name is not None:
             self._highest_precision = self._subgroup_name
 
+    def __repr__(self):
+        repr = self.highest_precision
+
+        if repr is not None:
+            return repr
+        else:
+            return ""
+
     @property
-    def attempted_fix(self):
-        if self.failed:
+    def original_input(self) -> Optional[str]:
+        return self._original_input
+
+    @property
+    def error(self) -> Optional[str]:
+        return self._error
+
+    @property
+    def is_success(self) -> bool:
+        return self.error is None
+
+    @property
+    def attempted_fix(self) -> Optional[str]:
+        if not self.is_success:
             return self._highest_precision
 
     @property
-    def highest_precision(self):
-        if self.success:
+    def highest_precision(self) -> Optional[str]:
+        if self.is_success:
             return self._highest_precision
 
     @property
-    def allele(self):
-        if self.success and self._allele_designation is not None and self._gene_name is not None:
+    def allele(self) -> Optional[str]:
+        if self.is_success and self._allele_designation is not None and self._gene_name is not None:
             return f"{self._gene_name}*{self._allele_designation}"
 
     @property
-    def gene(self):
-        if self.success:
+    def gene(self) -> Optional[str]:
+        if self.is_success:
             return self._gene_name
 
     @property
-    def subgroup(self):
-        if self.success:
+    def subgroup(self) -> Optional[str]:
+        if self.is_success:
             return self._subgroup_name
 
     @property
-    def species(self):
+    def locus(self) -> Optional[str]:
+        if self.is_success:
+            locus = self._gene_name[0:3]
+            if "/D" in self._gene_name:
+                locus += "/D"
+            return locus
+
+    @property
+    def gene_type(self) -> Optional[str]:
+        if self.is_success:
+            return self._gene_name[4]
+
+    @property
+    def species(self) -> str:
         return self._species
 
 
-class JunctionResult(Result):
+class Junction:
 
     def __init__(self, original_input, error, corrected_junction=None, species=None):
-        super().__init__(original_input, error)
+        self._original_input = original_input
+        self._error = None if error == "" else error
         self._corrected_junction = corrected_junction
         self._species = species
 
+    def __repr__(self):
+        repr = self.junction
+
+        if repr is not None:
+            return repr
+        else:
+            return ""
+
     @property
-    def attempted_fix(self):
-        if self.failed:
+    def original_input(self) -> Optional[str]:
+        return self._original_input
+
+    @property
+    def error(self) -> Optional[str]:
+        return self._error
+
+    @property
+    def is_success(self) -> bool:
+        return self.error is None
+
+    @property
+    def attempted_fix(self) -> Optional[str]:
+        if not self.is_success:
             return self._corrected_junction
 
     @property
-    def junction(self):
-        if self.success:
+    def junction(self) -> Optional[str]:
+        if self.is_success:
             return self._corrected_junction
 
     @property
-    def cdr3(self):
-        if self.success:
+    def cdr3(self) -> Optional[str]:
+        if self.is_success:
             if self._corrected_junction is not None and len(self._corrected_junction) > 2:
                 return self._corrected_junction[1:-1]
 
     @property
-    def species(self):
+    def species(self) -> str:
         return self._species

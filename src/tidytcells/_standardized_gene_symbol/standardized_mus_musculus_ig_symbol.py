@@ -1,10 +1,10 @@
 from tidytcells._standardized_gene_symbol.standardized_ig_symbol import (
-    StandardizedIgSymbol,
+    IgSymbolStandardizer,
 )
 from tidytcells._resources import VALID_MUSMUSCULUS_IG
 
 
-class StandardizedMusMusculusIgSymbol(StandardizedIgSymbol):
+class MusMusculusIgSymbolStandardizer(IgSymbolStandardizer):
     _species = "musmusculus"
     _synonym_dictionary = dict()
     _valid_gene_dictionary = VALID_MUSMUSCULUS_IG

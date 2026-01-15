@@ -1,10 +1,10 @@
 from tidytcells._standardized_gene_symbol.standardized_tr_symbol import (
-    StandardizedTrSymbol,
+    TrSymbolStandardizer,
 )
 from tidytcells._resources import VALID_HOMOSAPIENS_TR, HOMOSAPIENS_TR_SYNONYMS
 
 
-class StandardizedHomoSapiensTrSymbol(StandardizedTrSymbol):
+class HomoSapiensTrSymbolStandardizer(TrSymbolStandardizer):
     _species = "homosapiens"
     _synonym_dictionary = HOMOSAPIENS_TR_SYNONYMS
     _valid_gene_dictionary = VALID_HOMOSAPIENS_TR

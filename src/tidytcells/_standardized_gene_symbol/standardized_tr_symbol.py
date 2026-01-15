@@ -4,7 +4,7 @@ import re
 from typing import Tuple, Optional
 from typing import Dict, Optional, List, Set
 from tidytcells import _utils
-from tidytcells._standardized_gene_symbol import StandardizedReceptorGeneSymbol
+from tidytcells._standardized_gene_symbol import ReceptorGeneSymbolStandardizer
 
 
 class TrSymbolParser:
@@ -26,7 +26,7 @@ class TrSymbolParser:
             self.allele_designation = None
 
 
-class StandardizedTrSymbol(StandardizedReceptorGeneSymbol):
+class TrSymbolStandardizer(ReceptorGeneSymbolStandardizer):
 
     def _parse_symbol(self, tr_symbol: str) -> Tuple[Optional[str], Optional[str]]:
         cleaned_tr_symbol = _utils.clean_and_uppercase(tr_symbol)

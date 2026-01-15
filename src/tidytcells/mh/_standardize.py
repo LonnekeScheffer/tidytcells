@@ -2,20 +2,19 @@ import logging
 from tidytcells import _utils
 from tidytcells._utils import Parameter
 from tidytcells._standardized_gene_symbol import (
-    StandardizedSymbol,
-    StandardizedHlaSymbol,
-    StandardizedMusMusculusMhSymbol,
+    HlaSymbolStandardizer,
+    MusMusculusMhSymbolStandardizer,
 )
-from typing import Dict, Optional, Type, Literal
+from typing import Dict, Optional, Type, Union
 
-from tidytcells._utils.result import MhGeneResult
+from tidytcells._utils.result import MhGene
 
 logger = logging.getLogger(__name__)
 
 
-SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Type[StandardizedSymbol]] = {
-    "homosapiens": StandardizedHlaSymbol,
-    "musmusculus": StandardizedMusMusculusMhSymbol,
+SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Type[Union[HlaSymbolStandardizer, MusMusculusMhSymbolStandardizer]]] = {
+    "homosapiens": HlaSymbolStandardizer,
+    "musmusculus": MusMusculusMhSymbolStandardizer,
 }
 
 
@@ -26,7 +25,7 @@ def standardize(
     log_failures: Optional[bool] = None,
     gene: Optional[str] = None,
     suppress_warnings: Optional[bool] = None,
-) -> MhGeneResult:
+) -> MhGene:
     """
     Attempt to standardize an MH gene / allele symbol to be IMGT-compliant. # todo update docs once MRO mapping available
 
@@ -96,7 +95,7 @@ def standardize(
         MH standardised results will be returned as a MhGeneResult (or HLAGeneResult for human genes).
         When standardisation is a success, attributes 'allele', 'protein' and 'gene' can be used to retrieve the corrected information.
         >>> result = tt.mh.standardize("HLA-DRB3*01:01:02:01")
-        >>> result.success
+        >>> result.is_success
         True
         >>> result.allele
         'HLA-DRB3*01:01:02:01'
@@ -208,26 +207,23 @@ def standardize(
     species = _utils.clean_and_lowercase(species)
 
     if species == "any":
-        best_attempt_species = None
-        best_attempt_result = MhGeneResult(symbol, f'Failed with any species')
+        best_attempt_result = MhGene(symbol, f'Failed with any species')
 
         for (
             species,
-            StandardizedMhSymbolClass,
+            standardizer_cls,
         ) in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS.items():
-            mh_standardizer = StandardizedMhSymbolClass(symbol)
+            mh_standardizer = standardizer_cls(symbol)
 
-            if mh_standardizer.result.success:
+            if mh_standardizer.result.is_success:
                 return mh_standardizer.result
 
             if species == "homosapiens":
                 best_attempt_result = mh_standardizer.result
-                best_attempt_species = species
 
         if log_failures:
             _utils.warn_result_failure(
                 result=best_attempt_result,
-                species=best_attempt_species,
                 logger=logger,
             )
 
@@ -236,15 +232,14 @@ def standardize(
     if species not in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS:
         if log_failures:
             _utils.warn_unsupported_species(species, "MH", logger)
-        return MhGeneResult(symbol, f'Unsupported species: {species}')
+        return MhGene(symbol, f'Unsupported species: {species}')
 
-    StandardizedMhSymbolClass = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
-    mh_standardizer = StandardizedMhSymbolClass(symbol)
+    standardizer_cls = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
+    mh_standardizer = standardizer_cls(symbol)
 
-    if mh_standardizer.result.failed and log_failures:
+    if (not mh_standardizer.result.is_success) and log_failures:
         _utils.warn_result_failure(
             result=mh_standardizer.result,
-            species=species,
             logger=logger,
         )
 

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from tidytcells._utils.result import JunctionResult
+from tidytcells._utils.result import Junction
 from tidytcells._utils.alignment import *
 
 
@@ -9,7 +9,7 @@ F_MISMATCH_AAS = {"I", "L", "V", "Y", "S", "C"}
 W_MISMATCH_AAS = {"C", "G", "L", "R", "S"}
 FW_MISMATCH_AAS = F_MISMATCH_AAS.union(W_MISMATCH_AAS)
 
-class StandardizedJunction(ABC):
+class JunctionStandardizer(ABC):
     """
     Abstract base standardizer class.
     """
@@ -52,7 +52,7 @@ class StandardizedJunction(ABC):
         self.reasons_invalid = []
         self._resolve_juncton()
 
-        self.result = JunctionResult(self.orig_seq, "; ".join(self.reasons_invalid), self.corrected_seq, self._species)
+        self.result = Junction(self.orig_seq, "; ".join(self.reasons_invalid), self.corrected_seq, self._species)
 
 
     def _resolve_juncton(self):
@@ -179,7 +179,7 @@ class StandardizedJunction(ABC):
         return best_alignments
 
     def correct_seq_j_side(self, seq):
-        results = set()
+        corrected_seqs = set()
 
         for alignment_details in self.j_alignments:
             j_conserved_idx = alignment_details["j_conserved_idx"]
@@ -192,7 +192,7 @@ class StandardizedJunction(ABC):
                 return seq
 
             elif len(seq) > new_seq_len:
-                results.add(seq[:new_seq_len])
+                corrected_seqs.add(seq[:new_seq_len])
 
             elif len(seq) < new_seq_len:
                 reconstruction_length = new_seq_len - len(seq)
@@ -202,32 +202,32 @@ class StandardizedJunction(ABC):
                     start_j_idx = end_j_idx - reconstruction_length
 
                     reconstructed_aas = alignment_details["j_region"][start_j_idx:end_j_idx]
-                    results.add(seq + reconstructed_aas)
+                    corrected_seqs.add(seq + reconstructed_aas)
 
-        if len(results) > 1:
+        if len(corrected_seqs) > 1:
             # When Junction-reconstruction results are ambiguous (different J's)
             # - prefer the junctions which add 1 aa (conserved anchor), if there are any
             # - without J symbol, prefer to keep only canonical F/W anchors
 
-            if len(seq) + 1 in {len(s) for s in results}:
-                results = {s for s in results if len(s) == len(seq) + 1}
+            if len(seq) + 1 in {len(s) for s in corrected_seqs}:
+                corrected_seqs = {s for s in corrected_seqs if len(s) == len(seq) + 1}
 
             if self.j_symbol is None:
                 if len(results) > 1:
                     results = {s for s in results if s[-1] in ("F", "W")}
 
-            if len(results) > 1:
-                self.reasons_invalid.append(f"J side reconstruction ambiguous: {results}")
+            if len(corrected_seqs) > 1:
+                self.reasons_invalid.append(f"J side reconstruction ambiguous: {corrected_seqs}")
                 return seq
 
-        if len(results) == 0:
+        if len(corrected_seqs) == 0:
             self.reasons_invalid.append(f"J side reconstruction unsuccessful.")
             return seq
 
-        return results.pop()
+        return corrected_seqs.pop()
 
     def correct_seq_v_side(self, seq):
-        results = set()
+        corrected_seqs = set()
 
         for alignment_details in self.v_alignments:
             v_conserved_idx = alignment_details["v_conserved_idx"]
@@ -239,29 +239,29 @@ class StandardizedJunction(ABC):
             if v_conserved_idx > v_offset:
                 n_aas_to_trim = v_conserved_idx - v_offset
                 new_seq = seq[n_aas_to_trim:]
-                results.add(new_seq)
+                corrected_seqs.add(new_seq)
 
             if v_conserved_idx < v_offset:
                 reconstructed_aas = alignment_details["v_region"][v_conserved_idx:][:v_offset]
 
                 if len(reconstructed_aas) <= 1 or self.allow_v_reconstruction:
                     new_seq = reconstructed_aas + seq
-                    results.add(new_seq)
+                    corrected_seqs.add(new_seq)
 
-        results = {seq for seq in results if seq.startswith("C")}
+        corrected_seqs = {seq for seq in corrected_seqs if seq.startswith("C")}
 
-        if "C" + seq in results:
+        if "C" + seq in corrected_seqs:
             return "C" + seq
 
-        if len(results) == 0:
+        if len(corrected_seqs) == 0:
             self.reasons_invalid.append(f"V side reconstruction unsuccessful.")
             return seq
 
-        if len(results) > 1:
-            self.reasons_invalid.append(f"V side reconstruction ambiguous: {results}")
+        if len(corrected_seqs) > 1:
+            self.reasons_invalid.append(f"V side reconstruction ambiguous: {corrected_seqs}")
             return seq
 
-        return results.pop()
+        return corrected_seqs.pop()
 
     def get_reason_why_invalid(self) -> Optional[str]: # optional: enforce_complete / no reconstruction etc
         """

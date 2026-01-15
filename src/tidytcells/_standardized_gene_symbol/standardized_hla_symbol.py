@@ -3,9 +3,8 @@ import re
 from typing import List, Optional
 
 from tidytcells import _utils
-from tidytcells._standardized_gene_symbol import StandardizedSymbol
 from tidytcells._resources import VALID_HOMOSAPIENS_MH, HOMOSAPIENS_MH_SYNONYMS
-from tidytcells._utils.result import HLAGeneResult
+from tidytcells._utils.result import HLAGene
 
 
 class HlaSymbolParser:
@@ -57,7 +56,7 @@ class HlaSymbolParser:
         ]
 
 
-class StandardizedHlaSymbol(StandardizedSymbol):
+class HlaSymbolStandardizer:
     def __init__(self, symbol: str) -> None:
         self._parse_hla_symbol(symbol)
         self._resolve_errors()
@@ -203,8 +202,8 @@ class StandardizedHlaSymbol(StandardizedSymbol):
 
 
     def _compile_result(self):
-        self.result = HLAGeneResult(original_input=self.original_symbol,
-                                    error=self.get_reason_why_invalid(),
-                                    gene_name=self._gene_name,
-                                    allele_designation=self._allele_designation)
+        self.result = HLAGene(original_input=self.original_symbol,
+                              error=self.get_reason_why_invalid(),
+                              gene_name=self._gene_name,
+                              allele_designation=self._allele_designation)
 

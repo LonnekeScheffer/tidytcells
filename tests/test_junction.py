@@ -25,7 +25,7 @@ class Teststandardize:
         assert "Not a valid amino acid sequence" in caplog.text
         assert "Not a valid amino acid sequence" in result.error
         assert result.junction is None
-        assert result.failed
+        assert not result.is_success
 
     @pytest.mark.parametrize(
         ("seq", "expected"),
@@ -51,7 +51,7 @@ class Teststandardize:
         result = junction.standardize(seq="CASSPGGADRRIDGYTF", locus="TR")
 
         assert result.junction == "CASSPGGADRRIDGYTF"
-        assert result.success
+        assert result.is_success
         assert result.error is None
 
     def test_log_failures(self, caplog):
@@ -79,7 +79,7 @@ class Teststandardize:
         assert "J side reconstruction unsuccessful" in result.error
         assert result.original_input == "AAAAAA"
         assert result.junction == None
-        assert result.failed
+        assert not result.is_success
 
     def test_j_symbol_fail_locus(self):
         with pytest.raises(
@@ -96,7 +96,7 @@ class Teststandardize:
         assert "Unsupported" in caplog.text
         assert "Unsupported" in result.error
         assert result.junction is None
-        assert result.failed
+        assert not result.is_success
 
 
     @pytest.mark.parametrize(
@@ -148,10 +148,10 @@ class Teststandardize:
 
         if expected is not None:
             assert result.cdr3 == expected[1:-1]
-            assert result.success
+            assert result.is_success
             assert result.error is None
         else:
-            assert result.failed
+            assert not result.is_success
             assert result.error is not None
             assert len(result.error) > 0
 

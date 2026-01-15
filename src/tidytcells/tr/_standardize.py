@@ -1,11 +1,11 @@
 import logging
 from tidytcells import _utils
-from tidytcells._utils.result import ReceptorGeneResult
+from tidytcells._utils.result import ReceptorGene
 from tidytcells._utils import Parameter
 from tidytcells._standardized_gene_symbol import (
-    StandardizedReceptorGeneSymbol,
-    StandardizedHomoSapiensTrSymbol,
-    StandardizedMusMusculusTrSymbol,
+    ReceptorGeneSymbolStandardizer,
+    HomoSapiensTrSymbolStandardizer,
+    MusMusculusTrSymbolStandardizer,
 )
 from typing import Dict, Optional, Type, Literal
 
@@ -13,9 +13,9 @@ from typing import Dict, Optional, Type, Literal
 logger = logging.getLogger(__name__)
 
 
-SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Type[StandardizedReceptorGeneSymbol]] = {
-    "homosapiens": StandardizedHomoSapiensTrSymbol,
-    "musmusculus": StandardizedMusMusculusTrSymbol,
+SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Type[ReceptorGeneSymbolStandardizer]] = {
+    "homosapiens": HomoSapiensTrSymbolStandardizer,
+    "musmusculus": MusMusculusTrSymbolStandardizer,
 }
 
 
@@ -27,7 +27,7 @@ def standardize(
     log_failures: Optional[str] = None,
     gene: Optional[str] = None,
     suppress_warnings: Optional[bool] = None,
-) -> ReceptorGeneResult:
+) -> ReceptorGene:
     """
     Attempt to standardize a TR gene / allele symbol to be IMGT-compliant.
 
@@ -96,7 +96,7 @@ def standardize(
         TR standardised results will be returned as a ReceptorGeneResult.
         When standardisation is a success, attributes 'allele', 'gene' and 'subgroup' can be used to retrieve the corrected information.
         >>> result = tt.tr.standardize("TRAV1-1*01")
-        >>> result.success
+        >>> result.is_success
         True
         >>> result.allele
         'TRAV1-1*01'
@@ -125,10 +125,8 @@ def standardize(
         For failed standardisations, the 'error' attribute explains why the standardisation failed, and
         the 'attempted_fix' attribute contains the best attempted result found during standardisation.
         >>> result = tt.tr.standardize("tcrBV1", enforce_functional=True)
-        >>> result.success
+        >>> result.is_success
         False
-        >>> result.failed
-        True
         >>> result.error
         'Gene has no functional alleles'
         >>> result.attempted_fix
@@ -227,17 +225,17 @@ def standardize(
     species = _utils.clean_and_lowercase(species)
 
     if species == "any":
-        best_attempt_result = ReceptorGeneResult(symbol, f'Failed with any species')
+        best_attempt_result = ReceptorGene(symbol, f'Failed with any species')
 
         for (
                 species,
-                StandardizedTrSymbolClass,
+                standardizer_cls,
         ) in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS.items():
-            tr_standardizer = StandardizedTrSymbolClass(symbol,
+            tr_standardizer = standardizer_cls(symbol,
                                                         enforce_functional=enforce_functional,
                                                         allow_subgroup=allow_subgroup)
 
-            if tr_standardizer.result.success:
+            if tr_standardizer.result.is_success:
                 return tr_standardizer.result
 
             if species == "homosapiens":
@@ -246,7 +244,6 @@ def standardize(
         if log_failures:
             _utils.warn_result_failure(
                 result=best_attempt_result,
-                species=best_attempt_result.species,
                 logger=logger,
             )
 
@@ -255,17 +252,16 @@ def standardize(
     if species not in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS:
         if log_failures:
             _utils.warn_unsupported_species(species, "TR", logger)
-        return ReceptorGeneResult(symbol, f'Unsupported species: {species}')
+        return ReceptorGene(symbol, f'Unsupported species: {species}')
 
-    StandardizedTrSymbolClass = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
-    tr_standardizer = StandardizedTrSymbolClass(symbol,
+    standardizer_cls = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
+    tr_standardizer = standardizer_cls(symbol,
                                                 enforce_functional=enforce_functional,
                                                 allow_subgroup=allow_subgroup)
 
-    if tr_standardizer.result.failed and log_failures:
+    if (not tr_standardizer.result.is_success) and log_failures:
         _utils.warn_result_failure(
             result=tr_standardizer.result,
-            species=tr_standardizer.result.species,
             logger=logger,
         )
 

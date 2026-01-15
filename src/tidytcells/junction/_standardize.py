@@ -1,15 +1,15 @@
 import logging
 from tidytcells import _utils
 from tidytcells._resources import AMINO_ACIDS
-from tidytcells._utils.result import JunctionResult
+from tidytcells._utils.result import Junction
 from tidytcells._utils.alignment import get_is_valid_locus_gene_fn
 from tidytcells._utils.parameter import Parameter
 from tidytcells._standardized_junction import (
-    StandardizedJunction,
-    StandardizedHomoSapiensTrJunction,
-    StandardizedHomoSapiensIgJunction,
-    StandardizedMusMusculusTrJunction,
-    StandardizedMusMusculusIgJunction,
+    JunctionStandardizer,
+    HomoSapiensTrJunctionStandardizer,
+    HomoSapiensIgJunctionStandardizer,
+    MusMusculusTrJunctionStandardizer,
+    MusMusculusIgJunctionStandardizer,
 )
 
 from typing import Dict, Optional, Type
@@ -17,11 +17,11 @@ from typing import Dict, Optional, Type
 logger = logging.getLogger(__name__)
 
 
-SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Dict[str, Type[StandardizedJunction]]] = {
-    "homosapiens": {"TR": StandardizedHomoSapiensTrJunction,
-                    "IG": StandardizedHomoSapiensIgJunction},
-    "musmusculus": {"TR": StandardizedMusMusculusTrJunction,
-                    "IG": StandardizedMusMusculusIgJunction},
+SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Dict[str, Type[JunctionStandardizer]]] = {
+    "homosapiens": {"TR": HomoSapiensTrJunctionStandardizer,
+                    "IG": HomoSapiensIgJunctionStandardizer},
+    "musmusculus": {"TR": MusMusculusTrJunctionStandardizer,
+                    "IG": MusMusculusIgJunctionStandardizer},
 }
 
 def standardize(
@@ -38,7 +38,7 @@ def standardize(
     allow_j_reconstruction: Optional[bool] = None,
     log_failures: Optional[bool] = None,
     suppress_warnings: Optional[bool] = None,
-) -> JunctionResult:
+) -> Junction:
     """
     Corrects a given CDR3/Junction sequence into a valid
     and complete Junction sequence, based on alignment to V and J genes.
@@ -150,10 +150,8 @@ def standardize(
         'CSADAF'
         >>> result.cdr3
         'SADA'
-        >>> result.success
+        >>> result.is_success
         True
-        >>> result.failed
-        False
 
         Strings that are valid amino acid sequences but do not start and end
         with the appropriate residues can be corrected based on V/J gene or locus information.
@@ -170,9 +168,7 @@ def standardize(
         >>> result = tt.junction.standardize("ASWEHGH", locus="TR")
         >>> print(result.junction)
         None
-        >>> result.failed
-        True
-        >>> result.success
+        >>> result.is_success
         False
         >>> result.error
         'J alignment unsuccessful; J side reconstruction unsuccessful.'
@@ -388,14 +384,14 @@ def standardize(
                 logger.warning(
                     f'Failed to standardize {original_input}. Not a valid amino acid sequence, found: {char}'
                 )
-            return JunctionResult(original_input, f'Not a valid amino acid sequence, found: {char}')
+            return Junction(original_input, f'Not a valid amino acid sequence, found: {char}')
 
 
     if species not in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS:
         if log_failures:
             _utils.warn_unsupported_species(species, "junction", logger)
 
-        return JunctionResult(original_input, f'Unsupported species: {species}')
+        return Junction(original_input, f'Unsupported species: {species}')
 
 
     if locus[0:2] not in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]:
@@ -404,11 +400,11 @@ def standardize(
                 f'Unsupported locus: "{locus}" for species "{species}". ' f"Skipping {type} standardisation."
             )
 
-        return JunctionResult(original_input, f'Unsupported locus: "{locus}" for species "{species}"')
+        return Junction(original_input, f'Unsupported locus: "{locus}" for species "{species}"')
 
 
-    StandardizedJunctionClass = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species][locus[0:2]]
-    result = StandardizedJunctionClass(seq=seq, locus=locus, j_symbol=j_symbol, v_symbol=v_symbol,
+    standardizer_cls = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species][locus[0:2]]
+    result = standardizer_cls(seq=seq, locus=locus, j_symbol=j_symbol, v_symbol=v_symbol,
                                                       allow_c_correction=allow_c_correction,
                                                       allow_fw_correction=allow_fw_correction,
                                                       enforce_functional_v=enforce_functional_v,
@@ -416,10 +412,9 @@ def standardize(
                                                       allow_v_reconstruction=allow_v_reconstruction,
                                                       allow_j_reconstruction=allow_j_reconstruction).result
 
-    if result.failed and log_failures:
+    if (not result.is_success) and log_failures:
         _utils.warn_result_failure(
             result=result,
-            species=species,
             logger=logger,
         )
 

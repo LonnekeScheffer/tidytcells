@@ -11,7 +11,7 @@ class TestStandardize:
         assert "Unsupported" in result.error
         assert result.original_input == "foobarbaz"
         assert result.highest_precision is None
-        assert result.failed
+        assert not result.is_success
         assert result.species is None
 
     @pytest.mark.parametrize("symbol", (1234, None))
@@ -21,7 +21,7 @@ class TestStandardize:
 
     def test_default_homosapiens(self):
         result = ig.standardize("IGHV1/OR15-1*01")
-        assert result.success
+        assert result.is_success
         assert result.error is None
         assert result.highest_precision == "IGHV1/OR15-1*01"
         assert result.species == "homosapiens"
@@ -36,7 +36,7 @@ class TestStandardize:
     )
     def test_any_species(self, symbol, expected):
         result = ig.standardize(symbol, species="any")
-        assert result.success
+        assert result.is_success
         assert result.error is None
         assert result.highest_precision == expected
 
@@ -47,7 +47,7 @@ class TestStandardize:
     def test_remove_pollutants(self, symbol, expected):
         result = ig.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.success
+        assert result.is_success
         assert result.error is None
         assert result.highest_precision == expected
         assert result.allele == expected
@@ -111,7 +111,7 @@ class TestStandardize:
             symbol=symbol, species="homosapiens",
         )
 
-        assert result.success
+        assert result.is_success
         assert result.highest_precision == expected
 
     @pytest.mark.parametrize(
@@ -205,7 +205,7 @@ class TestStandardizeMusMusculus:
     def test_invalid_ig(self, symbol, caplog):
         result = ig.standardize(symbol=symbol, species="musmusculus")
         assert "Failed to standardize" in caplog.text
-        assert result.failed
+        assert not result.is_success
         assert result.highest_precision is None
         assert result.species == "musmusculus"
 

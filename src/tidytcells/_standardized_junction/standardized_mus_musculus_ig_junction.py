@@ -1,9 +1,9 @@
 from tidytcells._standardized_junction.standardized_junction import (
-    StandardizedJunction,
+    JunctionStandardizer,
 )
 from tidytcells._resources import MUSMUSCULUS_IG_AA_SEQUENCES
 
 
-class StandardizedMusMusculusIgJunction(StandardizedJunction):
+class MusMusculusIgJunctionStandardizer(JunctionStandardizer):
     _species = "musmusculus"
     _sequence_dictionary = MUSMUSCULUS_IG_AA_SEQUENCES

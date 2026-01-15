@@ -2,7 +2,7 @@ import re
 import itertools
 from typing import Tuple, Optional
 from tidytcells import _utils
-from tidytcells._standardized_gene_symbol import StandardizedReceptorGeneSymbol
+from tidytcells._standardized_gene_symbol import ReceptorGeneSymbolStandardizer
 
 
 class IgSymbolParser:
@@ -32,7 +32,7 @@ class IgSymbolParser:
             self.allele_designation = None
 
 
-class StandardizedIgSymbol(StandardizedReceptorGeneSymbol):
+class IgSymbolStandardizer(ReceptorGeneSymbolStandardizer):
 
     def _parse_symbol(self, ig_symbol: str) -> Tuple[Optional[str], Optional[str]]:
         cleaned_ig_symbol = self._safe_clean_ig_symbol(ig_symbol)

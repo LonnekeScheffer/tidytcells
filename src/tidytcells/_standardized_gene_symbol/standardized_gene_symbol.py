@@ -2,20 +2,11 @@ from abc import ABC
 from abc import abstractmethod
 from typing import Dict, Optional, Tuple, Set
 
-from tidytcells._utils.result import ReceptorGeneResult
+from tidytcells._utils.result import ReceptorGene
 
 
-class StandardizedSymbol(ABC):
-    """
-    Abstract base standardizer class.
-    """
 
-    @abstractmethod
-    def __init__(self, symbol: str) -> None:
-        pass
-
-
-class StandardizedReceptorGeneSymbol(StandardizedSymbol):
+class ReceptorGeneSymbolStandardizer(ABC):
 
     @property
     @abstractmethod
@@ -106,9 +97,9 @@ class StandardizedReceptorGeneSymbol(StandardizedSymbol):
         subgroup_name = self._gene_name.split("-")[0]
         subgroup_name = subgroup_name if subgroup_name in self._valid_subgroups else None
 
-        self.result =  ReceptorGeneResult(original_input=self.original_symbol,
-                                          error=self.get_reason_why_invalid(),
-                                          allele_designation=self._allele_designation,
-                                          gene_name=gene_name,
-                                          subgroup_name=subgroup_name,
-                                          species=self._species)
+        self.result =  ReceptorGene(original_input=self.original_symbol,
+                                    error=self.get_reason_why_invalid(),
+                                    allele_designation=self._allele_designation,
+                                    gene_name=gene_name,
+                                    subgroup_name=subgroup_name,
+                                    species=self._species)

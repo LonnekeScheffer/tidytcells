@@ -1,18 +1,18 @@
 import logging
 from tidytcells import _utils
-from tidytcells._utils.result import ReceptorGeneResult
+from tidytcells._utils.result import ReceptorGene
 from tidytcells._utils import Parameter
 from tidytcells._standardized_gene_symbol import (
-    StandardizedHomoSapiensIgSymbol, StandardizedMusMusculusIgSymbol, StandardizedReceptorGeneSymbol,
+    HomoSapiensIgSymbolStandardizer, MusMusculusIgSymbolStandardizer, ReceptorGeneSymbolStandardizer,
 )
 from typing import Dict, Optional, Type
 
 logger = logging.getLogger(__name__)
 
 
-SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Type[StandardizedReceptorGeneSymbol]] = {
-    "homosapiens": StandardizedHomoSapiensIgSymbol,
-    "musmusculus": StandardizedMusMusculusIgSymbol,
+SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS: Dict[str, Type[ReceptorGeneSymbolStandardizer]] = {
+    "homosapiens": HomoSapiensIgSymbolStandardizer,
+    "musmusculus": MusMusculusIgSymbolStandardizer,
 }
 
 
@@ -24,7 +24,7 @@ def standardize(
     log_failures: Optional[bool] = None,
     gene: Optional[str] = None,
     suppress_warnings: Optional[bool] = None,
-) -> ReceptorGeneResult:
+) -> ReceptorGene:
     """
     Attempt to standardize a IG gene / allele symbol to be IMGT-compliant.
 
@@ -92,7 +92,7 @@ def standardize(
         IG standardised results will be returned as a ReceptorGeneResult.
         When standardisation is a success, attributes 'allele', 'gene' and 'subgroup' can be used to retrieve the corrected information.
         >>> result = tt.ig.standardize("IGHV1-2*01")
-        >>> result.success
+        >>> result.is_success
         True
         >>> result.allele
         'IGHV1-2*01'
@@ -121,10 +121,8 @@ def standardize(
         For failed standardisations, the 'error' attribute explains why the standardisation failed, and
         the 'attempted_fix' attribute contains the best attempted result found during standardisation.
         >>> result = tt.ig.standardize("ighV1-12", enforce_functional=True)
-        >>> result.success
+        >>> result.is_success
         False
-        >>> result.failed
-        True
         >>> result.error
         'Gene has no functional alleles'
         >>> result.attempted_fix
@@ -216,17 +214,17 @@ def standardize(
     species = _utils.clean_and_lowercase(species)
 
     if species == "any":
-        best_attempt_result = ReceptorGeneResult(symbol, f'Failed with any species')
+        best_attempt_result = ReceptorGene(symbol, f'Failed with any species')
 
         for (
             species,
-            StandardizedIgSymbolClass,
+            standardizer_cls,
         ) in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS.items():
-            ig_standardizer = StandardizedIgSymbolClass(symbol,
+            ig_standardizer = standardizer_cls(symbol,
                                                         enforce_functional=enforce_functional,
                                                         allow_subgroup=allow_subgroup)
 
-            if ig_standardizer.result.success:
+            if ig_standardizer.result.is_success:
                 return ig_standardizer.result
 
             if species == "homosapiens":
@@ -235,7 +233,6 @@ def standardize(
         if log_failures:
             _utils.warn_result_failure(
                 result=best_attempt_result,
-                species=best_attempt_result.species,
                 logger=logger,
             )
 
@@ -244,17 +241,16 @@ def standardize(
     if species not in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS:
         if log_failures:
             _utils.warn_unsupported_species(species, "IG", logger)
-        return ReceptorGeneResult(symbol, f'Unsupported species: {species}')
+        return ReceptorGene(symbol, f'Unsupported species: {species}')
 
-    StandardizedIgSymbolClass = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
-    ig_standardizer = StandardizedIgSymbolClass(symbol,
+    standardizer_cls = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
+    ig_standardizer = standardizer_cls(symbol,
                                                 enforce_functional=enforce_functional,
                                                 allow_subgroup=allow_subgroup)
 
-    if ig_standardizer.result.failed and log_failures:
+    if (not ig_standardizer.result.is_success) and log_failures:
         _utils.warn_result_failure(
             result=ig_standardizer.result,
-            species=ig_standardizer.result.species,
             logger=logger,
         )
 

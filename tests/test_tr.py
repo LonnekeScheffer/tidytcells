@@ -11,7 +11,7 @@ class TestStandardize:
         assert "Unsupported" in result.error
         assert result.original_input == "foobarbaz"
         assert result.highest_precision is None
-        assert result.failed
+        assert not result.is_success
         assert result.species is None
 
     @pytest.mark.parametrize("symbol", (1234, None))
@@ -21,7 +21,7 @@ class TestStandardize:
 
     def test_default_homosapiens(self):
         result = tr.standardize("TRBV20/OR9-2*01")
-        assert result.success
+        assert result.is_success
         assert result.error is None
         assert result.highest_precision == "TRBV20/OR9-2*01"
         assert result.species == "homosapiens"
@@ -37,7 +37,7 @@ class TestStandardize:
     )
     def test_any_species(self, symbol, expected):
         result = tr.standardize(symbol, species="any")
-        assert result.success
+        assert result.is_success
         assert result.error is None
         assert result.highest_precision == expected
 
@@ -48,7 +48,7 @@ class TestStandardize:
     def test_remove_pollutants(self, symbol, expected):
         result = tr.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.success
+        assert result.is_success
         assert result.error is None
         assert result.highest_precision == expected
         assert result.allele == expected
@@ -113,7 +113,7 @@ class TestStandardize:
             symbol=symbol, species="homosapiens",
         )
 
-        assert result.success
+        assert result.is_success
         assert result.highest_precision == expected
         assert result.species == "homosapiens"
 
@@ -224,7 +224,7 @@ class TestStandardizeMusMusculus:
     def test_invalid_tr(self, symbol, caplog):
         result = tr.standardize(symbol=symbol, species="musmusculus")
         assert "Failed to standardize" in caplog.text
-        assert result.failed
+        assert not result.is_success
         assert result.highest_precision is None
         assert result.species == "musmusculus"
 
