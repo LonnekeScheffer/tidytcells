@@ -95,7 +95,7 @@ def standardize(
         MH standardised results will be returned as a MhGeneResult (or HLAGeneResult for human genes).
         When standardisation is a success, attributes 'allele', 'protein' and 'gene' can be used to retrieve the corrected information.
         >>> result = tt.mh.standardize("HLA-DRB3*01:01:02:01")
-        >>> result.is_success
+        >>> result.is_standardized
         True
         >>> result.allele
         'HLA-DRB3*01:01:02:01'
@@ -108,13 +108,13 @@ def standardize(
         Attributes 'allele', 'protein' and 'gene' only return a result if the symbol could be standardised up to that level.
         Attribute 'highest_precision' is never None for a successful standardisation, and always returns the most
         detailed available result between 'allele', 'protein' and 'gene'.
-        >>> tt.mh.standardize("HLA-DRB3*01:01:02:01").highest_precision
+        >>> tt.mh.standardize("HLA-DRB3*01:01:02:01").symbol
         'HLA-DRB3*01:01:02:01'
         >>> tt.mh.standardize("HLA-DRB3").allele
         None
         >>> tt.mh.standardize("HLA-DRB3").gene
         'HLA-DRB3'
-        >>> tt.mh.standardize("HLA-DRB3").highest_precision
+        >>> tt.mh.standardize("HLA-DRB3").symbol
         'HLA-DRB3'
 
         Non-standardised input strings will intelligently be corrected to IMGT-compliant symbols.
@@ -215,7 +215,7 @@ def standardize(
         ) in SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS.items():
             mh_standardizer = standardizer_cls(symbol)
 
-            if mh_standardizer.result.is_success:
+            if mh_standardizer.result.is_standardized:
                 return mh_standardizer.result
 
             if species == "homosapiens":
@@ -237,7 +237,7 @@ def standardize(
     standardizer_cls = SUPPORTED_SPECIES_AND_THEIR_STANDARDIZERS[species]
     mh_standardizer = standardizer_cls(symbol)
 
-    if (not mh_standardizer.result.is_success) and log_failures:
+    if (not mh_standardizer.result.is_standardized) and log_failures:
         _utils.warn_result_failure(
             result=mh_standardizer.result,
             logger=logger,

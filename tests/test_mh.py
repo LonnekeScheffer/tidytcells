@@ -9,8 +9,8 @@ class TestStandardize:
         result = mh.standardize(symbol="HLA-A*01:01:01:01", species=species)
         assert "Unsupported" in caplog.text
         assert result.original_input == "HLA-A*01:01:01:01"
-        assert not result.is_success
-        assert result.highest_precision is None
+        assert not result.is_standardized
+        assert result.symbol is None
         assert str(result) == ""
 
     @pytest.mark.parametrize("symbol", (1234, None))
@@ -20,11 +20,11 @@ class TestStandardize:
 
     def test_default_homosapiens(self):
         result = mh.standardize("HLA-B*07")
-        assert result.highest_precision == "HLA-B*07"
+        assert result.symbol == "HLA-B*07"
         assert result.allele == "HLA-B*07"
         assert result.protein == "HLA-B*07"
         assert result.gene == "HLA-B"
-        assert result.is_success
+        assert result.is_standardized
 
     @pytest.mark.parametrize(
         ("symbol", "expected"),
@@ -37,9 +37,9 @@ class TestStandardize:
     )
     def test_any_species(self, symbol, expected):
         result = mh.standardize(symbol, species="any")
-        assert result.highest_precision == expected
+        assert result.symbol == expected
         assert str(result) == expected
-        assert result.is_success
+        assert result.is_standardized
 
     @pytest.mark.parametrize(
         ("symbol", "expected", "precision_level"),
@@ -59,8 +59,8 @@ class TestStandardize:
     def test_standardise(self):
         result = mh.standardise("HLA-B*07")
 
-        assert result.highest_precision == "HLA-B*07"
-        assert result.is_success
+        assert result.symbol == "HLA-B*07"
+        assert result.is_standardized
         assert result.error is None
 
     def test_log_failures(self, caplog):
@@ -72,7 +72,7 @@ class TestStandardizeHomoSapiens:
     def test_already_correctly_formatted(self, symbol):
         result = mh.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.highest_precision == symbol
+        assert result.symbol == symbol
 
     @pytest.mark.parametrize(
         "symbol", ("foobar", "yoinkdoink", "HLA-FOOBAR123456", "=======")
@@ -80,17 +80,17 @@ class TestStandardizeHomoSapiens:
     def test_invalid_mh(self, symbol, caplog):
         result = mh.standardize(symbol=symbol, species="homosapiens")
         assert "Failed to standardize" in caplog.text
-        assert result.highest_precision is None
+        assert result.symbol is None
         assert result.error is not None
-        assert not result.is_success
+        assert not result.is_standardized
 
     @pytest.mark.parametrize("symbol", ("HLA-A*01:01:1:1:1:1:1:1",))
     def test_bad_allele_designation(self, symbol, caplog):
         result = mh.standardize(symbol=symbol, species="homosapiens")
         assert "Failed to standardize" in caplog.text
-        assert result.highest_precision is None
+        assert result.symbol is None
         assert result.error is not None
-        assert not result.is_success
+        assert not result.is_standardized
 
 
     @pytest.mark.parametrize(
@@ -105,9 +105,9 @@ class TestStandardizeHomoSapiens:
     def test_fix_deprecated_names(self, symbol, expected):
         result = mh.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.is_success
+        assert result.is_standardized
         assert result.error is None
-        assert result.highest_precision == expected
+        assert result.symbol == expected
 
     @pytest.mark.parametrize(
         "symbol",
@@ -123,9 +123,9 @@ class TestStandardizeHomoSapiens:
     def test_remove_expression_qualifier(self, symbol):
         result = mh.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.is_success
+        assert result.is_standardized
         assert result.error is None
-        assert result.highest_precision == "HLA-A*01:01:01:01"
+        assert result.symbol == "HLA-A*01:01:01:01"
 
     @pytest.mark.parametrize(
         ("symbol", "expected"),
@@ -144,7 +144,7 @@ class TestStandardizeHomoSapiens:
     def test_various_typos(self, symbol, expected):
         result = mh.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.highest_precision == expected
+        assert result.symbol == expected
 
 
 class TestStandardizeMusMusculus:
@@ -152,16 +152,16 @@ class TestStandardizeMusMusculus:
     def test_already_correctly_formatted(self, symbol):
         result = mh.standardize(symbol=symbol, species="musmusculus")
 
-        assert result.highest_precision == symbol
-        assert result.is_success
+        assert result.symbol == symbol
+        assert result.is_standardized
         assert result.error is None
 
     @pytest.mark.parametrize("symbol", ("foobar", "yoinkdoink", "MH1-ABC", "======="))
     def test_invalid_mh(self, symbol, caplog):
         result = mh.standardize(symbol=symbol, species="musmusculus")
         assert "Failed to standardize" in caplog.text
-        assert result.highest_precision is None
-        assert not result.is_success
+        assert result.symbol is None
+        assert not result.is_standardized
         assert result.error is not None
 
     @pytest.mark.parametrize(
@@ -170,7 +170,7 @@ class TestStandardizeMusMusculus:
     def test_fix_deprecated_names(self, symbol, expected):
         result = mh.standardize(symbol=symbol, species="musmusculus")
 
-        assert result.highest_precision == expected
+        assert result.symbol == expected
 
 
 class TestQuery:

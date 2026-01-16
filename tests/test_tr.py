@@ -10,8 +10,8 @@ class TestStandardize:
         assert "Unsupported" in caplog.text
         assert "Unsupported" in result.error
         assert result.original_input == "foobarbaz"
-        assert result.highest_precision is None
-        assert not result.is_success
+        assert result.symbol is None
+        assert not result.is_standardized
         assert result.species is None
 
     @pytest.mark.parametrize("symbol", (1234, None))
@@ -21,9 +21,9 @@ class TestStandardize:
 
     def test_default_homosapiens(self):
         result = tr.standardize("TRBV20/OR9-2*01")
-        assert result.is_success
+        assert result.is_standardized
         assert result.error is None
-        assert result.highest_precision == "TRBV20/OR9-2*01"
+        assert result.symbol == "TRBV20/OR9-2*01"
         assert result.species == "homosapiens"
 
 
@@ -37,9 +37,9 @@ class TestStandardize:
     )
     def test_any_species(self, symbol, expected):
         result = tr.standardize(symbol, species="any")
-        assert result.is_success
+        assert result.is_standardized
         assert result.error is None
-        assert result.highest_precision == expected
+        assert result.symbol == expected
 
     @pytest.mark.parametrize(
         ("symbol", "expected"),
@@ -48,9 +48,9 @@ class TestStandardize:
     def test_remove_pollutants(self, symbol, expected):
         result = tr.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.is_success
+        assert result.is_standardized
         assert result.error is None
-        assert result.highest_precision == expected
+        assert result.symbol == expected
         assert result.allele == expected
 
     @pytest.mark.filterwarnings("ignore:Failed to standardize")
@@ -70,7 +70,7 @@ class TestStandardize:
             symbol=symbol, species="homosapiens", enforce_functional=enforce_functional,
         )
 
-        assert result.highest_precision == expected
+        assert result.symbol == expected
         assert result.allele == expected or result.gene == expected
 
     @pytest.mark.filterwarnings("ignore:Failed to standardize")
@@ -88,7 +88,7 @@ class TestStandardize:
             symbol=symbol, species="homosapiens", allow_subgroup=allow_subgroup,
         )
 
-        assert result.highest_precision == expected
+        assert result.symbol == expected
         assert result.allele is None
         assert result.gene == expected or result.subgroup == expected
 
@@ -113,8 +113,8 @@ class TestStandardize:
             symbol=symbol, species="homosapiens",
         )
 
-        assert result.is_success
-        assert result.highest_precision == expected
+        assert result.is_standardized
+        assert result.symbol == expected
         assert result.species == "homosapiens"
 
 
@@ -126,7 +126,7 @@ class TestStandardize:
     # ("IGLV8", False, None, None, None, None),
 
     @pytest.mark.parametrize(
-        ("symbol", "allow_subgroup", "expected_allele", "expected_gene", "expected_subgroup", "expected_highest_precision"),
+        ("symbol", "allow_subgroup", "expected_allele", "expected_gene", "expected_subgroup", "expected_symbol"),
         (
             ("TRBV24/OR9-2*01", True, "TRBV24/OR9-2*01", "TRBV24/OR9-2", "TRBV24/OR9", "TRBV24/OR9-2*01"),
             ("TRBV24/OR9-2*01", False, "TRBV24/OR9-2*01", "TRBV24/OR9-2", "TRBV24/OR9", "TRBV24/OR9-2*01"),
@@ -136,7 +136,7 @@ class TestStandardize:
             ("TRBV24/OR9", False, None, None, None, None),
         ),
     )
-    def test_precision(self, symbol, allow_subgroup, expected_allele, expected_gene, expected_subgroup, expected_highest_precision):
+    def test_precision(self, symbol, allow_subgroup, expected_allele, expected_gene, expected_subgroup, expected_symbol):
         result = tr.standardize(
             symbol=symbol, species="homosapiens", allow_subgroup=allow_subgroup,
         )
@@ -144,16 +144,16 @@ class TestStandardize:
         assert result.allele == expected_allele
         assert result.gene == expected_gene
         assert result.subgroup == expected_subgroup
-        assert result.highest_precision == expected_highest_precision
-        if result.is_success:
-            assert str(result) == expected_highest_precision
+        assert result.symbol == expected_symbol
+        if result.is_standardized:
+            assert str(result) == expected_symbol
         else:
             assert str(result) == ""
 
     def test_standardise(self):
         result = tr.standardise("TRBV20/OR9-2*01")
 
-        assert result.highest_precision == "TRBV20/OR9-2*01"
+        assert result.symbol == "TRBV20/OR9-2*01"
 
     def test_log_failures(self, caplog):
         tr.standardize("foobarbaz", log_failures=False)
@@ -165,13 +165,13 @@ class TestStandardizeHomoSapiens:
     def test_already_correctly_formatted(self, symbol):
         result = tr.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.highest_precision == symbol
+        assert result.symbol == symbol
 
     @pytest.mark.parametrize("symbol", ("foobar", "TRAV3D-3*01"))
     def test_invalid_tr(self, symbol, caplog):
         result = tr.standardize(symbol=symbol, species="homosapiens")
         assert "Failed to standardize" in caplog.text
-        assert result.highest_precision is None
+        assert result.symbol is None
         assert str(result) == ""
 
     @pytest.mark.parametrize(
@@ -185,7 +185,7 @@ class TestStandardizeHomoSapiens:
     def test_resolve_alternate_tr_names(self, symbol, expected):
         result = tr.standardize(symbol=symbol, species="homosapiens")
 
-        assert result.highest_precision == expected
+        assert result.symbol == expected
 
     @pytest.mark.parametrize(
         ("symbol", "expected", "species"),
@@ -213,7 +213,7 @@ class TestStandardizeHomoSapiens:
     def test_various_typos(self, symbol, expected, species):
         result = tr.standardize(symbol=symbol, species=species)
 
-        assert result.highest_precision == expected
+        assert result.symbol == expected
         assert result.species == species
 
 
@@ -222,15 +222,15 @@ class TestStandardizeMusMusculus:
     def test_already_correctly_formatted(self, symbol):
         result = tr.standardize(symbol=symbol, species="musmusculus")
 
-        assert result.highest_precision == symbol
+        assert result.symbol == symbol
         assert result.species == "musmusculus"
 
     @pytest.mark.parametrize("symbol", ("foobar", "noice"))
     def test_invalid_tr(self, symbol, caplog):
         result = tr.standardize(symbol=symbol, species="musmusculus")
         assert "Failed to standardize" in caplog.text
-        assert not result.is_success
-        assert result.highest_precision is None
+        assert not result.is_standardized
+        assert result.symbol is None
         assert result.species == "musmusculus"
 
 

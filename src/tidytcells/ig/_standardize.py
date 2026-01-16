@@ -92,7 +92,7 @@ def standardize(
         IG standardised results will be returned as a ReceptorGeneResult.
         When standardisation is a success, attributes 'allele', 'gene' and 'subgroup' can be used to retrieve the corrected information.
         >>> result = tt.ig.standardize("IGHV1-2*01")
-        >>> result.is_success
+        >>> result.is_standardized
         True
         >>> result.allele
         'IGHV1-2*01'
@@ -104,24 +104,24 @@ def standardize(
         Attributes 'allele', 'gene' and 'subgroup' only return a result if the symbol could be standardised up to that level.
         Attribute 'highest_precision' is never None for a successful standardisation, and always returns the most
         detailed available result between 'allele', 'gene' and 'subgroup'.
-        >>> tt.ig.standardize("IGHV1-2*01").highest_precision
+        >>> tt.ig.standardize("IGHV1-2*01").symbol
         'IGHV1-2*01'
         >>> tt.ig.standardize("IGHV1-2").allele
         None
         >>> tt.ig.standardize("IGHV1-2").gene
         'IGHV1-12'
-        >>> tt.ig.standardize("IGHV1-2").highest_precision
+        >>> tt.ig.standardize("IGHV1-2").symbol
         'IGHV1-12'
 
         Non-standardised input strings will intelligently be corrected to IMGT-compliant gene / allele symbols.
-        >>> tt.ig.standardize("hj1").highest_precision
+        >>> tt.ig.standardize("hj1").symbol
         'IGHJ1'
 
         The `enforce_functional` setting will cause non-functional genes or alleles to be rejected.
         For failed standardisations, the 'error' attribute explains why the standardisation failed, and
         the 'attempted_fix' attribute contains the best attempted result found during standardisation.
         >>> result = tt.ig.standardize("ighV1-12", enforce_functional=True)
-        >>> result.is_success
+        >>> result.is_standardized
         False
         >>> result.error
         'Gene has no functional alleles'
@@ -129,7 +129,7 @@ def standardize(
         'IGHV1-12'
 
         Known synonyms are included in the standardisation
-        >>> tt.ig.standardize("A10").highest_precision
+        >>> tt.ig.standardize("A10").symbol
         'IGKV6D-21'
 
         *Mus musculus* is a supported species.
@@ -224,7 +224,7 @@ def standardize(
                                                         enforce_functional=enforce_functional,
                                                         allow_subgroup=allow_subgroup)
 
-            if ig_standardizer.result.is_success:
+            if ig_standardizer.result.is_standardized:
                 return ig_standardizer.result
 
             if species == "homosapiens":
@@ -248,7 +248,7 @@ def standardize(
                                                 enforce_functional=enforce_functional,
                                                 allow_subgroup=allow_subgroup)
 
-    if (not ig_standardizer.result.is_success) and log_failures:
+    if (not ig_standardizer.result.is_standardized) and log_failures:
         _utils.warn_result_failure(
             result=ig_standardizer.result,
             logger=logger,

@@ -150,7 +150,7 @@ def standardize(
         'CSADAF'
         >>> result.cdr3
         'SADA'
-        >>> result.is_success
+        >>> result.is_standardized
         True
 
         Strings that are valid amino acid sequences but do not start and end
@@ -168,7 +168,7 @@ def standardize(
         >>> result = tt.junction.standardize("ASWEHGH", locus="TR")
         >>> print(result.junction)
         None
-        >>> result.is_success
+        >>> result.is_standardized
         False
         >>> result.error
         'J alignment unsuccessful; J side reconstruction unsuccessful.'
@@ -412,7 +412,7 @@ def standardize(
                                                       allow_v_reconstruction=allow_v_reconstruction,
                                                       allow_j_reconstruction=allow_j_reconstruction).result
 
-    if (not result.is_success) and log_failures:
+    if (not result.is_standardized) and log_failures:
         _utils.warn_result_failure(
             result=result,
             logger=logger,

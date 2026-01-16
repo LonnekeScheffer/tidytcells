@@ -96,7 +96,7 @@ def standardize(
         TR standardised results will be returned as a ReceptorGeneResult.
         When standardisation is a success, attributes 'allele', 'gene' and 'subgroup' can be used to retrieve the corrected information.
         >>> result = tt.tr.standardize("TRAV1-1*01")
-        >>> result.is_success
+        >>> result.is_standardized
         True
         >>> result.allele
         'TRAV1-1*01'
@@ -108,13 +108,13 @@ def standardize(
         Attributes 'allele', 'gene' and 'subgroup' only return a result if the symbol could be standardised up to that level.
         Attribute 'highest_precision' is never None for a successful standardisation, and always returns the most
         detailed available result between 'allele', 'gene' and 'subgroup'.
-        >>> tt.tr.standardize("TRAV1-1*01").highest_precision
+        >>> tt.tr.standardize("TRAV1-1*01").symbol
         'TRAV1-1*01'
         >>> tt.tr.standardize("TRAV1-1").allele
         None
         >>> tt.tr.standardize("TRAV1-1").gene
         'TRAV1-1'
-        >>> tt.tr.standardize("TRAV1-1").highest_precision
+        >>> tt.tr.standardize("TRAV1-1").symbol
         'TRAV1-1'
 
         Non-standardised input strings will intelligently be corrected to IMGT-compliant gene / allele symbols.
@@ -125,7 +125,7 @@ def standardize(
         For failed standardisations, the 'error' attribute explains why the standardisation failed, and
         the 'attempted_fix' attribute contains the best attempted result found during standardisation.
         >>> result = tt.tr.standardize("tcrBV1", enforce_functional=True)
-        >>> result.is_success
+        >>> result.is_standardized
         False
         >>> result.error
         'Gene has no functional alleles'
@@ -133,7 +133,7 @@ def standardize(
         'TRBV1'
 
         Known synonyms are included in the standardisation
-        >>> tt.tr.standardize("V4P").highest_precision
+        >>> tt.tr.standardize("V4P").symbol
         'TRGV11'
 
         *Mus musculus* is a supported species.
@@ -235,7 +235,7 @@ def standardize(
                                                         enforce_functional=enforce_functional,
                                                         allow_subgroup=allow_subgroup)
 
-            if tr_standardizer.result.is_success:
+            if tr_standardizer.result.is_standardized:
                 return tr_standardizer.result
 
             if species == "homosapiens":
@@ -259,7 +259,7 @@ def standardize(
                                                 enforce_functional=enforce_functional,
                                                 allow_subgroup=allow_subgroup)
 
-    if (not tr_standardizer.result.is_success) and log_failures:
+    if (not tr_standardizer.result.is_standardized) and log_failures:
         _utils.warn_result_failure(
             result=tr_standardizer.result,
             logger=logger,

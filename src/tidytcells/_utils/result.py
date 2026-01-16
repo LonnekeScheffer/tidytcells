@@ -10,13 +10,13 @@ class MhGene:
         self._allele_designation = allele_designation if allele_designation is not None and len(allele_designation) > 0 else None
         self._species = species
 
-        self._highest_precision = self._gene_name
+        self._highest_precision_symbol = self._gene_name
 
         if self._gene_name is not None and self._allele_designation is not None:
-            self._highest_precision = f'{self._gene_name}*{":".join(self._allele_designation)}'
+            self._highest_precision_symbol = f'{self._gene_name}*{":".join(self._allele_designation)}'
 
     def __str__(self):
-        str_repr = self.highest_precision
+        str_repr = self.symbol
 
         if str_repr is not None:
             return str_repr
@@ -32,27 +32,27 @@ class MhGene:
         return self._error
 
     @property
-    def is_success(self) -> bool:
+    def is_standardized(self) -> bool:
         return self.error is None
 
     @property
     def attempted_fix(self) -> Optional[str]:
-        if not self.is_success:
-            return self._highest_precision
+        if not self.is_standardized:
+            return self._highest_precision_symbol
 
     @property
-    def highest_precision(self) -> Optional[str]:
-        if self.is_success:
-            return self._highest_precision
+    def symbol(self) -> Optional[str]:
+        if self.is_standardized:
+            return self._highest_precision_symbol
 
     @property
     def allele(self) -> Optional[str]:
-        if self.is_success and self._allele_designation is not None and self._gene_name is not None:
+        if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f'{self._gene_name}*{":".join(self._allele_designation)}'
 
     @property
     def gene(self) -> Optional[str]:
-        if self.is_success and self._gene_name is not None:
+        if self.is_standardized and self._gene_name is not None:
             return self._gene_name
 
     @property
@@ -66,7 +66,7 @@ class HLAGene(MhGene):
 
     @property
     def protein(self) -> Optional[str]:
-        if self.is_success and self._allele_designation is not None and self._gene_name is not None:
+        if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f'{self._gene_name}*{":".join(self._allele_designation[:2])}'
 
 
@@ -80,17 +80,17 @@ class ReceptorGene:
         self._subgroup_name = subgroup_name
         self._species = species
 
-        self._highest_precision = None
+        self._highest_precision_symbol = None
 
         if self._gene_name is not None and self._allele_designation is not None:
-            self._highest_precision = f"{self._gene_name}*{self._allele_designation}"
+            self._highest_precision_symbol = f"{self._gene_name}*{self._allele_designation}"
         elif self._gene_name is not None:
-            self._highest_precision = self._gene_name
+            self._highest_precision_symbol = self._gene_name
         elif self._subgroup_name is not None:
-            self._highest_precision = self._subgroup_name
+            self._highest_precision_symbol = self._subgroup_name
 
     def __str__(self):
-        str_repr = self.highest_precision
+        str_repr = self.symbol
 
         if str_repr is not None:
             return str_repr
@@ -106,37 +106,37 @@ class ReceptorGene:
         return self._error
 
     @property
-    def is_success(self) -> bool:
+    def is_standardized(self) -> bool:
         return self.error is None
 
     @property
     def attempted_fix(self) -> Optional[str]:
-        if not self.is_success:
-            return self._highest_precision
+        if not self.is_standardized:
+            return self._highest_precision_symbol
 
     @property
-    def highest_precision(self) -> Optional[str]:
-        if self.is_success:
-            return self._highest_precision
+    def symbol(self) -> Optional[str]:
+        if self.is_standardized:
+            return self._highest_precision_symbol
 
     @property
     def allele(self) -> Optional[str]:
-        if self.is_success and self._allele_designation is not None and self._gene_name is not None:
+        if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f"{self._gene_name}*{self._allele_designation}"
 
     @property
     def gene(self) -> Optional[str]:
-        if self.is_success:
+        if self.is_standardized:
             return self._gene_name
 
     @property
     def subgroup(self) -> Optional[str]:
-        if self.is_success:
+        if self.is_standardized:
             return self._subgroup_name
 
     @property
     def locus(self) -> Optional[str]:
-        if self.is_success:
+        if self.is_standardized:
             locus = self._gene_name[0:3]
             if "/D" in self._gene_name:
                 locus += "/D"
@@ -144,7 +144,7 @@ class ReceptorGene:
 
     @property
     def gene_type(self) -> Optional[str]:
-        if self.is_success:
+        if self.is_standardized:
             return self._gene_name[4]
 
     @property
@@ -177,22 +177,22 @@ class Junction:
         return self._error
 
     @property
-    def is_success(self) -> bool:
+    def is_standardized(self) -> bool:
         return self.error is None
 
     @property
     def attempted_fix(self) -> Optional[str]:
-        if not self.is_success:
+        if not self.is_standardized:
             return self._corrected_junction
 
     @property
     def junction(self) -> Optional[str]:
-        if self.is_success:
+        if self.is_standardized:
             return self._corrected_junction
 
     @property
     def cdr3(self) -> Optional[str]:
-        if self.is_success:
+        if self.is_standardized:
             if self._corrected_junction is not None and len(self._corrected_junction) > 2:
                 return self._corrected_junction[1:-1]
 
