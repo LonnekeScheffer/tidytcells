@@ -5,7 +5,7 @@ from typing import Optional
 class MhGene:
     def __init__(self, original_input, error, gene_name=None, allele_designation=None, species=None):
         self._original_input = original_input
-        self._error = None if error == "" else error
+        self._error = error
         self._gene_name = gene_name
         self._allele_designation = allele_designation if allele_designation is not None and len(allele_designation) > 0 else None
         self._species = species
@@ -74,7 +74,7 @@ class ReceptorGene:
 
     def __init__(self, original_input, error, gene_name=None, allele_designation=None, subgroup_name=None, species=None):
         self._original_input = original_input
-        self._error = None if error == "" else error
+        self._error = error
         self._gene_name = gene_name
         self._allele_designation = allele_designation
         self._subgroup_name = subgroup_name
@@ -156,7 +156,7 @@ class Junction:
 
     def __init__(self, original_input, error, corrected_junction=None, species=None):
         self._original_input = original_input
-        self._error = None if error == "" else error
+        self._error = error
         self._corrected_junction = corrected_junction
         self._species = species
 

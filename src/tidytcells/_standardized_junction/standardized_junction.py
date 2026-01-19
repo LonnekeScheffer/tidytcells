@@ -52,7 +52,9 @@ class JunctionStandardizer(ABC):
         self.reasons_invalid = []
         self._resolve_juncton()
 
-        self.result = Junction(self.orig_seq, "; ".join(self.reasons_invalid), self.corrected_seq, self._species)
+        error =  "; ".join(self.reasons_invalid) if len(self.reasons_invalid) > 0 else None
+
+        self.result = Junction(self.orig_seq, error, self.corrected_seq, self._species)
 
 
     def _resolve_juncton(self):
