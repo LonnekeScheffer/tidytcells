@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Dict, Optional
 
 from tidytcells._utils.result import Junction
 from tidytcells._utils.alignment import *
@@ -52,9 +53,7 @@ class JunctionStandardizer(ABC):
         self.reasons_invalid = []
         self._resolve_juncton()
 
-        error =  "; ".join(self.reasons_invalid) if len(self.reasons_invalid) > 0 else None
-
-        self.result = Junction(self.orig_seq, error, self.corrected_seq, self._species)
+        self.result = Junction(self.orig_seq, self.get_reason_why_invalid(), self.corrected_seq, self._species)
 
 
     def _resolve_juncton(self):
@@ -71,6 +70,11 @@ class JunctionStandardizer(ABC):
             self.reasons_invalid.append("junction too short")
 
     def get_aa_dict_from_symbol(self, gene) -> dict:
+        '''
+        Given the user-provided allele/gene/subgroup symbol (v_symbol, j_symbol), this function returns
+        the sequence_dictionary information for any of the alleles applicable to the given symbol.
+        '''
+
         symbol = self.locus[0:2]
 
         if gene == "J" and self.j_symbol is not None:
@@ -79,6 +83,7 @@ class JunctionStandardizer(ABC):
         if gene == "V" and self.v_symbol is not None:
             symbol = self.v_symbol
 
+        # if symbol is an allele, return only info for the given allele
         if "*" in symbol:
             if gene not in symbol:
                 self.reasons_invalid.append(f"not a {gene} gene: {symbol}")
@@ -89,15 +94,23 @@ class JunctionStandardizer(ABC):
             else:
                 self.reasons_invalid.append("no sequence information known for " + symbol)
 
+        # if symbol is less specific than allele, retrieve any alleles that are valid extensions of the given symbol
         enforce_functional = self.enforce_functional_v if gene == "V" else self.enforce_functional_j
-
         allele_symbols = get_compatible_symbols(symbol, self._sequence_dictionary, gene, self.locus, enforce_functional)
+
+        # if all alleles for one gene have the same sequence info, collapse the gene to 1 dict item
         aas_per_allele = {ext_symbol: self._sequence_dictionary[ext_symbol] for ext_symbol in allele_symbols}
         aas_per_gene = collapse_aa_dict_per_gene(aas_per_allele)
 
         return aas_per_gene
 
     def correct_sequencing_err_j_side(self, best_alignments_orig, conserved_aa):
+        '''
+        Try correcting sequencing error on the J side (replace last amino acid with conserved_aa; 'F' or 'W').
+        If the alignments improve, keep corrected sequence + alignments based on the corrected sequence
+        Else, keep original sequence + original alignments
+        '''
+
         best_score = -1 if len(best_alignments_orig) == 0 else best_alignments_orig[0]["score"]
         corrected_seq = self.orig_seq[:-1] + conserved_aa
 
@@ -120,6 +133,12 @@ class JunctionStandardizer(ABC):
 
 
     def correct_sequencing_err_v_side(self, best_alignments_orig):
+        '''
+        Try correcting sequencing error on the V side (replace first amino acid with 'C').
+        If the alignments improve, keep corrected sequence + alignments based on the corrected sequence
+        Else, keep original sequence + original alignments
+        '''
+
         best_score = -1 if len(best_alignments_orig) == 0 else best_alignments_orig[0]["score"]
         corrected_seq = "C" + self.orig_seq[1:]
 
@@ -142,6 +161,10 @@ class JunctionStandardizer(ABC):
 
 
     def align_j(self):
+        '''
+        Compute alignments for each sequence in self.j_aa_dict, keep only the best alignments
+        '''
+
         best_alignments = align_j_regions(self.orig_seq, self.j_aa_dict, self.min_j_score, self.mismatch_penalty, self.max_j_mismatches)
 
         if self.allow_fw_correction and self.orig_seq[-1] in F_MISMATCH_AAS:
@@ -163,6 +186,10 @@ class JunctionStandardizer(ABC):
         return best_alignments
 
     def align_v(self):
+        '''
+        Compute alignments for each sequence in self.v_aa_dict, keep only the best alignments
+        '''
+
         best_alignments = align_v_regions(self.orig_seq, self.v_aa_dict, self.min_v_score, self.mismatch_penalty, self.max_v_mismatches)
 
         if self.allow_c_correction and self.orig_seq[0] in C_MISMATCH_AAS:
@@ -181,6 +208,15 @@ class JunctionStandardizer(ABC):
         return best_alignments
 
     def correct_seq_j_side(self, seq):
+        '''
+        Compute corrected sequence for J side
+
+        For each alginment in self.j_alignments, compute the corrected sequence.
+        Only return a result if
+          1. There exists an alignment matching the sequence perfectly (no correction) or
+          2. An unambiguous correction can be determined (no disagreement between alignments)
+        '''
+
         corrected_seqs = set()
 
         for alignment_details in self.j_alignments:
@@ -229,6 +265,14 @@ class JunctionStandardizer(ABC):
         return corrected_seqs.pop()
 
     def correct_seq_v_side(self, seq):
+        '''
+        Compute corrected sequence for V side
+
+        For each alginment in self.v_alignments, compute the corrected sequence.
+        Only return a result if
+          1. There exists an alignment matching the sequence perfectly (no correction) or
+          2. An unambiguous correction can be determined (no disagreement between alignments)
+        '''
         corrected_seqs = set()
 
         for alignment_details in self.v_alignments:
@@ -273,5 +317,5 @@ class JunctionStandardizer(ABC):
         if len(self.reasons_invalid) == 0:
             return None
 
-        return ", ".join(self.reasons_invalid)
+        return "; ".join(self.reasons_invalid)
 
