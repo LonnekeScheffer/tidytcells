@@ -94,6 +94,7 @@ def standardize(
 
         MH standardised results will be returned as a MhGeneResult (or HLAGeneResult for human genes).
         When standardisation is a success, attributes 'allele', 'protein' and 'gene' can be used to retrieve the corrected information.
+
         >>> result = tt.mh.standardize("HLA-DRB3*01:01:02:01")
         >>> result.is_standardized
         True
@@ -108,6 +109,7 @@ def standardize(
         Attributes 'allele', 'protein' and 'gene' only return a result if the symbol could be standardised up to that level.
         Attribute 'highest_precision' is never None for a successful standardisation, and always returns the most
         detailed available result between 'allele', 'protein' and 'gene'.
+
         >>> tt.mh.standardize("HLA-DRB3*01:01:02:01").symbol
         'HLA-DRB3*01:01:02:01'
         >>> tt.mh.standardize("HLA-DRB3").allele
@@ -118,10 +120,12 @@ def standardize(
         'HLA-DRB3'
 
         Non-standardised input strings will intelligently be corrected to IMGT-compliant symbols.
+
         >>> tt.mh.standardize("A1").allele
         'HLA-A*01'
 
         *Mus musculus* is a supported species. # todo update example with MRO
+
         >>> tt.mh.standardize("CRW2", species="musmusculus").gene
         'MH1-M5'
 

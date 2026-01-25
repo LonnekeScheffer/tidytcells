@@ -95,6 +95,7 @@ def standardize(
 
         TR standardised results will be returned as a ReceptorGeneResult.
         When standardisation is a success, attributes 'allele', 'gene' and 'subgroup' can be used to retrieve the corrected information.
+
         >>> result = tt.tr.standardize("TRAV1-1*01")
         >>> result.is_standardized
         True
@@ -108,6 +109,7 @@ def standardize(
         Attributes 'allele', 'gene' and 'subgroup' only return a result if the symbol could be standardised up to that level.
         Attribute 'highest_precision' is never None for a successful standardisation, and always returns the most
         detailed available result between 'allele', 'gene' and 'subgroup'.
+
         >>> tt.tr.standardize("TRAV1-1*01").symbol
         'TRAV1-1*01'
         >>> tt.tr.standardize("TRAV1-1").allele
@@ -118,12 +120,14 @@ def standardize(
         'TRAV1-1'
 
         Non-standardised input strings will intelligently be corrected to IMGT-compliant gene / allele symbols.
+
         >>> tt.tr.standardize("aj1").gene
         'TRAJ1'
 
         The `enforce_functional` setting will cause non-functional genes or alleles to be rejected.
         For failed standardisations, the 'error' attribute explains why the standardisation failed, and
         the 'attempted_fix' attribute contains the best attempted result found during standardisation.
+
         >>> result = tt.tr.standardize("tcrBV1", enforce_functional=True)
         >>> result.is_standardized
         False
@@ -133,10 +137,12 @@ def standardize(
         'TRBV1'
 
         Known synonyms are included in the standardisation
+
         >>> tt.tr.standardize("V4P").symbol
         'TRGV11'
 
         *Mus musculus* is a supported species.
+
         >>> tt.tr.standardize("TRBV1", species="musmusculus").gene
         'TRBV1'
 

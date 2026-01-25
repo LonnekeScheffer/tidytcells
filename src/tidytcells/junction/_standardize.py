@@ -156,15 +156,18 @@ def standardize(
         Strings that are valid amino acid sequences but do not start and end
         with the appropriate residues can be corrected based on V/J gene or locus information.
         When no gene information is provided, all possible genes for a given locus are tried.
+
         >>> tt.junction.standardize("sada", locus="TR").junction
         'CSADAF'
 
         When the provided sequence is too long, it will be trimmed
+
         >>> tt.junction.standardize("yicsadafg", locus="TR").junction
         'CSADAF'
 
         Sequences which cannot be standardized to junctions (no matches with V/J genes) will be rejected.
         The result object will provide an error message and attempted partial fix.
+
         >>> result = tt.junction.standardize("ASWEHGH", locus="TR")
         >>> print(result.junction)
         None
@@ -177,6 +180,7 @@ def standardize(
 
         The conserved trailing residue can be intelligently inferred if
         `j_symbol` is supplied.
+
         >>> tt.junction.standardize("CSADKLI", locus="TR" j_symbol="TRAJ38").junction
         'CSADKLIW'
         >>> tt.junction.standardize("CSADKLI", locus="TR" j_symbol="TRAJ37").junction
@@ -184,6 +188,7 @@ def standardize(
 
         Missing conserved leading C residues can be inferred from the `v_symbol`, even
         when the provided sequence already starts with a C.
+
         >>> tt.junction.standardize("CSYAYVF", locus="IG" v_symbol="IGLV2-11").junction
         'CCSYAYVF'
         >>> tt.junction.standardize("CSYAYVF", locus="IG" v_symbol="IGLV2-11").cdr3
@@ -194,6 +199,7 @@ def standardize(
         Auotmatic correction of sequencing errors in the leading/trailing amino acid may be
         enabled with `allow_c_correction` and `allow_fw_correction`. This will only correct
         amino acids which could have occurred with 1 nucleotide difference in the codon.
+
         >>> tt.junction.standardize("WASSPGVFGANVLTF", locus="TR", allow_c_correction=True).junction
         'CASSPGVFGANVLTF'
 
@@ -201,6 +207,7 @@ def standardize(
         and `allow_j_reconstruction`. Since this option potentially adds many amino acids to the
         provided sequence, it is recommended to set `v_symbol` and `j_symbol` to as detailed
         information as possible to ensure correct results.
+
         >>> tt.junction.standardize("MRESENMD", locus="TR", \
                                     allow_v_reconstruction=True, allow_j_reconstruction=True, \
                                     v_symbol="TRAV14/DV4", j_symbol="TRAJ12").junction
