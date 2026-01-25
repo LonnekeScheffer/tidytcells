@@ -89,6 +89,15 @@
         "FR3-IMGT": "EDGRFTAHVNRASQYISLLIRDSKLSDSATYLC",
         "V-REGION": "RKEVEQDPGPFNVPEGATVAFNCTYSNSASQSFFWYRQDCRKEPKLLMSVYSSGNEDGRFTAHVNRASQYISLLIRDSKLSDSATYLCVVN"
     },
+    "TRAV12-1*03": {
+        "functionality": "F",
+        "FR1-IMGT": "RKEVEQDPGPFNVPEGATVAFNCTYS",
+        "CDR1-IMGT": "NSASQS",
+        "FR2-IMGT": "FFWYRQDCRKEPKLLMS",
+        "CDR2-IMGT": "VYSSGN",
+        "FR3-IMGT": "EDGRFTAQLNRASQYISLLIRDSKLSDSATYLC",
+        "V-REGION": "RKEVEQDPGPFNVPEGATVAFNCTYSNSASQSFFWYRQDCRKEPKLLMSVYSSGNEDGRFTAQLNRASQYISLLIRDSKLSDSATYLCAVN"
+    },
     "TRAV12-2*01": {
         "functionality": "F",
         "FR1-IMGT": "QKEVEQNSGPLSVPEGAIASLNCTYS",
@@ -116,6 +125,15 @@
         "FR3-IMGT": "KEDGRFTAQLNKASQYVSLLIRDSQPSDSATYLC",
         "V-REGION": "QKEVEQNSGPLSVPEGAIASLNCTYSDRVSQSFFWYRQYSGKSPELIMSIYSNGDKEDGRFTAQLNKASQYVSLLIRDSQPSDSATYLCAVN"
     },
+    "TRAV12-2*04": {
+        "functionality": "F",
+        "FR1-IMGT": "QKEVEQNSGPLSVPEGAIASLNCTYS",
+        "CDR1-IMGT": "DQGSQS",
+        "FR2-IMGT": "FFWYRQYSGKSPELIMF",
+        "CDR2-IMGT": "IYSNGD",
+        "FR3-IMGT": "KEDGRFTAQLNKASQYVSLLIRDSQPSDSATYLC",
+        "V-REGION": "QKEVEQNSGPLSVPEGAIASLNCTYSDQGSQSFFWYRQYSGKSPELIMFIYSNGDKEDGRFTAQLNKASQYVSLLIRDSQPSDSATYLCAVN"
+    },
     "TRAV12-3*01": {
         "functionality": "F",
         "FR1-IMGT": "QKEVEQDPGPLSVPEGAIVSLNCTYS",
@@ -133,6 +151,15 @@
         "CDR2-IMGT": "TYSSGN",
         "FR3-IMGT": "KEDGRFTAQVDKSSKYISLFIRDSQPSDSATYLC",
         "V-REGION": "QKEVEQDPGPLSVPEGAIVSLNCTYSNSAFQYFMWYRQYSRIGPELLMYTYSSGNKEDGRFTAQVDKSSKYISLFIRDSQPSDSATYLCAMS"
+    },
+    "TRAV12-3*03": {
+        "functionality": "F",
+        "FR1-IMGT": "QKEVEKDPGPLSVPEGAIVSLNCTYS",
+        "CDR1-IMGT": "NSAFQY",
+        "FR2-IMGT": "FMWYRQYSRKGPELLMY",
+        "CDR2-IMGT": "TY",
+        "FR3-IMGT": "SSGNKEDGRFTAQVDKSSKYISLFIRDSQPSDSATYLC",
+        "V-REGION": "QKEVEKDPGPLSVPEGAIVSLNCTYSNSAFQYFMWYRQYSRKGPELLMYTYSSGNKEDGRFTAQVDKSSKYISLFIRDSQPSDSATYLCAMS"
     },
     "TRAV13-1*01": {
         "functionality": "F",
@@ -206,6 +233,15 @@
         "FR3-IMGT": "AIGHYSLHLQKASKSINLSSPLHNWRTQ*CVF",
         "V-REGION": "C*EVTQIKPSVLVHEKEAVTLDCNYDTSAGSYSPFWHK*PRSGEMIFLIHQDSRSAISNRSLLIAFAEGKQIHQLVISTSQLENSVMCFCALKE"
     },
+    "TRAV14-1*04": {
+        "functionality": "P",
+        "FR1-IMGT": "C*EVTQIKPSVLVHEKEAVTLDCNYD",
+        "CDR1-IMGT": "TSAGSYS",
+        "FR2-IMGT": "PFWHK*PRSGEMIFLIH",
+        "CDR2-IMGT": "QDSRSAI",
+        "FR3-IMGT": "AIGHYSLNLQKASKSINLSSPLHNWRTQ*CVS",
+        "V-REGION": "C*EVTQIKPSVLVHEKEAVTLDCNYDTSAGSYSPFWHK*PRSGEMIFLIHQDSRSAISNRSLLIEFAEGKQIHQLVISTSQLENSVMCFCALKE"
+    },
     "TRAV14/DV4*01": {
         "functionality": "F",
         "FR1-IMGT": "AQKITQTQPGMFVQEKEAVTLDCTYD",
@@ -225,13 +261,13 @@
         "V-REGION": "AQKITQTQPGMFVQEKEAVTLDCTYDTSDQSYGLFWYKQPSSGEMIFLIYQGSYDEQNATEGRYSLNFQKARKSANLVISASQLGDSAMYFCAMRE"
     },
     "TRAV14/DV4*03": {
-        "functionality": "(F)",
+        "functionality": "F",
         "FR1-IMGT": "AQKITQTQPGMFVQEKEAVTLDCTYD",
         "CDR1-IMGT": "TSDPSYG",
         "FR2-IMGT": "LFWYKQPSSGEMIFLIY",
         "CDR2-IMGT": "QGSYDQQN",
         "FR3-IMGT": "ATEGRYSLNFQKARKSANLVISASQLGDSAMYFC",
-        "V-REGION": "AQKITQTQPGMFVQEKEAVTLDCTYDTSDPSYGLFWYKQPSSGEMIFLIYQGSYDQQNATEGRYSLNFQKARKSANLVISASQLGDSAMYFCAM"
+        "V-REGION": "AQKITQTQPGMFVQEKEAVTLDCTYDTSDPSYGLFWYKQPSSGEMIFLIYQGSYDQQNATEGRYSLNFQKARKSANLVISASQLGDSAMYFCAMRE"
     },
     "TRAV14/DV4*04": {
         "functionality": "[F]",
@@ -242,6 +278,15 @@
         "FR3-IMGT": "ATEGRYSLNFQKARKSANLVISASQLGDSAMYF",
         "V-REGION": "QKITQTQPGMFVQEKEAVTLDCTYDTSDQSYGLFWYKQPSSGEMIFLIYQGSYDEQNATEGRYSLNFQKARKSANLVISASQLGDSAMYF"
     },
+    "TRAV14/DV4*05": {
+        "functionality": "F",
+        "FR1-IMGT": "AQKITQTQPGMFVQEKEAVTLDCTYD",
+        "CDR1-IMGT": "TSDQSYG",
+        "FR2-IMGT": "LFWYKQPSSGEMIFLIY",
+        "CDR2-IMGT": "QGSYDEQN",
+        "FR3-IMGT": "ATEGRYSLNFQKARKSANLVISASQLGDSAMYFC",
+        "V-REGION": "AQKITQTQPGMFVQEKEAVTLDCTYDTSDQSYGLFWYKQPSSGEMIFLIYQGSYDEQNATEGRYSLNFQKARKSANLVISASQLGDSAMYFCAMRE"
+    },
     "TRAV15*02": {
         "functionality": "P",
         "FR1-IMGT": "LHILE*SPSFIPEYLGGNAQHS*LHL*",
@@ -250,6 +295,15 @@
         "CDR2-IMGT": "IQSSQME",
         "FR3-IMGT": "EGDKHFKEALGKEKFYSVLNMLVSHPGDSGTYFC",
         "V-REGION": "LHILE*SPSFIPEYLGGNAQHS*LHL*GENVLLTSTGSGRVWKRTCVFDLNSIKPDGGGRQTF*RSAWKREVL*CFEYAGLSSWRFRHLLLCFE"
+    },
+    "TRAV15*03": {
+        "functionality": "P",
+        "FR1-IMGT": "LHILE*SPSFIPEYPGGNAQHS*LHL*",
+        "CDR1-IMGT": "ERTFS*",
+        "FR2-IMGT": "FYRFWQGLEKDLCL*P",
+        "CDR2-IMGT": "IQSSQME",
+        "FR3-IMGT": "EGDKHFKEALGKEKFYSVLNMLVSHPGDSGTYFC",
+        "V-REGION": "LHILE*SPSFIPEYPGGNAQHS*LHL*GENVLLTSTGSGRVWKRTCVFDLNSIKPDGGGRQTF*RSAWKREVL*CFEYAGLSSWRFRHLLLCFE"
     },
     "TRAV16*01": {
         "functionality": "F",
@@ -386,11 +440,11 @@
         "V-REGION": "QQQVKQSPQSLIVQKGGISIINCAYENTAFDYFPWYQQFPGKGPALLIAIRPDVSEKKEGRFTISFNKSAKQFSLHIMDSQPGDSATYFCAAS"
     },
     "TRAV23/DV6*02": {
-        "functionality": "(F)",
+        "functionality": "F",
         "FR1-IMGT": "QQQVKQSPQSLIVQKGGIPIINCAYE",
         "CDR1-IMGT": "NTAFDY",
         "FR2-IMGT": "FPWYQQFPGKGPALLIA",
-        "CDR2-IMGT": "QM*V",
+        "CDR2-IMGT": "IRPDVSE",
         "FR3-IMGT": "KKEGRFTISFNKSAKQFSLHIMDSQPGDSATYFC",
         "V-REGION": "QQQVKQSPQSLIVQKGGIPIINCAYENTAFDYFPWYQQFPGKGPALLIAIRPDVSEKKEGRFTISFNKSAKQFSLHIMDSQPGDSATYFCAAS"
     },
@@ -456,6 +510,15 @@
         "CDR2-IMGT": "LVKSGEV",
         "FR3-IMGT": "KKQKRLTFQFGEAKKNSSLHITATQTTDVGTYFC",
         "V-REGION": "GQQVMQIPQYQHVQEGEDFTTYCNSSTTLSNIQWYKQRPGGHPVFLIQLVKSGEVKKQKRLTFQFGEAKKNSSLHITATQTTDVGTYFCAG"
+    },
+    "TRAV25*03": {
+        "functionality": "P",
+        "FR1-IMGT": "GQQVMQIPQYQHVQEGEDFTTYCNSS",
+        "CDR1-IMGT": "TTLSN",
+        "FR2-IMGT": "IQWYKQRPGGHPVFLIQ",
+        "CDR2-IMGT": "L*RVEK",
+        "FR3-IMGT": "KKQKRLTFQFGEAKKNSSLHITATQTTDVGTYFC",
+        "V-REGION": "GQQVMQIPQYQHVQEGEDFTTYCNSSTTLSNIQWYKQRPGGHPVFLIQL*RVEK*RSRKD*HFSLEKQKRTAPCTSQPPRLQM*EPTSVQ"
     },
     "TRAV26-1*01": {
         "functionality": "F",
@@ -663,6 +726,15 @@
         "CDR2-IMGT": "LLKGGEQ",
         "FR3-IMGT": "KGHDKISASFNEKKQQSSLYLTASQLSYSGTYFC",
         "V-REGION": "QQPVQSPQAVILREGEDAVINCSSSKALYSVHWYRQKHGEAPVFLMILLKGGEQKGHDKISASFNEKKQQSSLYLTASQLSYSGTYFCGTE"
+    },
+    "TRAV30*08": {
+        "functionality": "F",
+        "FR1-IMGT": "QQPVQSPQAVILREGEDAVINCSSS",
+        "CDR1-IMGT": "KALYS",
+        "FR2-IMGT": "VHWYRQKHGEAPVFLMI",
+        "CDR2-IMGT": "LLKGGEQ",
+        "FR3-IMGT": "MRHEKISASFNEKKQQSSLYLTASQLSYSGTYFC",
+        "V-REGION": "QQPVQSPQAVILREGEDAVINCSSSKALYSVHWYRQKHGEAPVFLMILLKGGEQMRHEKISASFNEKKQQSSLYLTASQLSYSGTYFCGTE"
     },
     "TRAV31*02": {
         "functionality": "P",
@@ -1077,6 +1149,15 @@
         "FR3-IMGT": "KGINGFEAEFKKSETSFHLTKPSAHMSDAAEYFC",
         "V-REGION": "AQSVTQLGSHVSVSEGALVLLRCNYSSSVPPYLFWYVQYPNQGLQLLLKYTSAATLVKGINGFEAEFKKSETSFHLTKPSAHMSDAAEYFCAVS"
     },
+    "TRAV8-4*09": {
+        "functionality": "F",
+        "FR1-IMGT": "AQSVTQLGSHVSVSEGALVLLRCNYS",
+        "CDR1-IMGT": "SSVPPY",
+        "FR2-IMGT": "LFWYVQYPNQGLQLLLK",
+        "CDR2-IMGT": "YTSAATLV",
+        "FR3-IMGT": "KGINGFEAEFKKSETSFHLTKPSAHMSDAAEYFC",
+        "V-REGION": "AQSVTQLGSHVSVSEGALVLLRCNYSSSVPPYLFWYVQYPNQGLQLLLKYTSAATLVKGINGFEAEFKKSETSFHLTKPSAHMSDAAEYFCAVS"
+    },
     "TRAV8-5*01": {
         "functionality": "P",
         "FR1-IMGT": "AQSVTQPDIRITVSEGASLELRCNYS",
@@ -1122,6 +1203,15 @@
         "FR3-IMGT": "SGINGFEAECKKNENCFLLRKPSAYWNDTLSTS",
         "V-REGION": "AHSVTQPDVHVAVSEGAPLELRCNYY*SSVPTYIF*YVQYLSQGLQLLLKYLSGYRVLSGINGFEAECKKNENCFLLRKPSAYWNDTLSTSVLSP"
     },
+    "TRAV8-6-1*03": {
+        "functionality": "P",
+        "FR1-IMGT": "AHSVTQPDVHVAVSEGAPLELRCNYY*",
+        "CDR1-IMGT": "SSVPTY",
+        "FR2-IMGT": "IF*YVQYLSQGLQLLLK",
+        "CDR2-IMGT": "YLSGYRVV",
+        "FR3-IMGT": "SGINGFEAECKKNENCFLLRKPSAYWNDTLSTS",
+        "V-REGION": "AHSVTQPDVHVAVSEGAPLELRCNYY*SSVPTYIF*YVQYLSQGLQLLLKYLSGYRVVSGINGFEAECKKNENCFLLRKPSAYWNDTLSTSVLSP"
+    },
     "TRAV8-7*01": {
         "functionality": "P",
         "FR1-IMGT": "TQSVTQLDGHITVSEEAPLELKCNYS",
@@ -1148,6 +1238,15 @@
         "CDR2-IMGT": "AMKANDK",
         "FR3-IMGT": "GRNKGFEAMYRKETTSFHLEKDSVQESDSAVYFC",
         "V-REGION": "GDSVVQTEGQVLPSEGDSLIVNCSYETTQYPSLFWYVQYPGEGPQLHLKAMKANDKGRNKGFEAMYRKETTSFHLEKDSVQESDSAVYFCALS"
+    },
+    "TRAV9-1*02": {
+        "functionality": "F",
+        "FR1-IMGT": "GDSVVQTEGQVLPSEGDSLIVNCSYE",
+        "CDR1-IMGT": "TTQYPS",
+        "FR2-IMGT": "LFWFVQYPGEGPQLHLK",
+        "CDR2-IMGT": "AMKANDK",
+        "FR3-IMGT": "GRNKGFEAMYRKETTSFHLEKDSVQESDSAVYFC",
+        "V-REGION": "GDSVVQTEGQVLPSEGDSLIVNCSYETTQYPSLFWFVQYPGEGPQLHLKAMKANDKGRNKGFEAMYRKETTSFHLEKDSVQESDSAVYFCALS"
     },
     "TRAV9-2*01": {
         "functionality": "F",
@@ -3147,6 +3246,15 @@
         "FR3-IMGT": "SEGADFTQGRFSVKHILTQKAFHLVISPVRTEDSATYYC",
         "V-REGION": "CDKVTQSSPDQTVASGSEVVLLCTYDTVYSNPDLFWYWIRPDYSFQFVFYGDNSRSEGADFTQGRFSVKHILTQKAFHLVISPVRTEDSATYYCAF"
     },
+    "TRDV3*03": {
+        "functionality": "F",
+        "FR1-IMGT": "CDKVTQSSPDQTVASGSEVVLLCTYN",
+        "CDR1-IMGT": "TVYSNPD",
+        "FR2-IMGT": "LFWYRIRPDYSFQFVFY",
+        "CDR2-IMGT": "GDNSR",
+        "FR3-IMGT": "SEGADFTQGRFSVKHILTQKAFHLVISPVRTEDSATYYC",
+        "V-REGION": "CDKVTQSSPDQTVASGSEVVLLCTYNTVYSNPDLFWYRIRPDYSFQFVFYGDNSRSEGADFTQGRFSVKHILTQKAFHLVISPVRTEDSATYYCAF"
+    },
     "TRAV8-4*07": {
         "functionality": "(F)",
         "CDR1-IMGT": "VEPY",
@@ -3174,6 +3282,10 @@
     "TRAV11-1*01": {
         "functionality": "P",
         "V-REGION": "LHTPEQSPSFLSIQEGMHAILNCLCVGGTFFITSVSKQK*RIMHHLSYVKKLNLYGIMFPFVIIEISFLNVDHTDPGPACPESFHSFTVCSER"
+    },
+    "TRAV11-1*02": {
+        "functionality": "P",
+        "V-REGION": "LHTPEQSPSFLSTQEGMHAILNCLCVGGTFFITSVSKQK*RIMHHLSYVKKLNLYGIMFPFVIIEISFLNVDHTDPGPACPESFHSFTVCSER"
     },
     "TRAV15*01": {
         "functionality": "P",
@@ -3214,6 +3326,10 @@
     "TRAVC*01": {
         "functionality": "P",
         "V-REGION": "SQKVTQTQAAISMLQKEAVTLDCV*EAKT*LLFTLVQTSTKWENYFPYRSGVF**AEWNKGLVFSELAETSQFHQLYFHSLTA*GFGNVLSSPE*N"
+    },
+    "TRAVC*02": {
+        "functionality": "P",
+        "V-REGION": "SQKVTQTQAAISMLQKEAVTLDCV*EAKT*LLFTLVQTSTKWENYFPYRSGVF**AEWNKGLVFSELAETSQFHQLCFHSLTA*GFGNVLSSPE*N"
     },
     "TRBV22/OR9-2*01": {
         "functionality": "P",
@@ -3294,679 +3410,496 @@
     "TRAJ1*01": {
         "functionality": "ORF",
         "J-REGION": "YESITSQLQFGKGTRVSTSP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "YESITSQLQF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ10*01": {
         "functionality": "F",
         "J-REGION": "ILTGGGNKLTFGTGTQLKVEL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "ILTGGGNKLTF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ11*01": {
         "functionality": "F",
         "J-REGION": "NSGYSTLTFGKGTMLLVSP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NSGYSTLTF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ12*01": {
         "functionality": "F",
         "J-REGION": "MDSSYKLIFGSGTRLLVRP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "MDSSYKLIF"
+        "J-MOTIF": "FGSG"
     },
     "TRAJ13*01": {
         "functionality": "F",
         "J-REGION": "NSGGYQKVTFGIGTKLQVIP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGIG",
-        "J-CDR3-END": "NSGGYQKVTF"
+        "J-MOTIF": "FGIG"
     },
     "TRAJ13*02": {
         "functionality": "F",
         "J-REGION": "NSGGYQKVTFGTGTKLQVIP",
-        "J-MOTIF": "FGTG",
-        "J-PHE": "F",
-        "J-CDR3-END": "NSGGYQKVTF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ14*01": {
         "functionality": "F",
         "J-REGION": "IYSTFIFGSGTRLSVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "IYSTFIF"
+        "J-MOTIF": "FGSG"
     },
     "TRAJ15*01": {
         "functionality": "F",
         "J-REGION": "NQAGTALIFGKGTTLSVSS",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NQAGTALIF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ15*02": {
         "functionality": "F",
         "J-REGION": "NQAGTALIFGKGTHLSVSS",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NQAGTALIF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ16*01": {
         "functionality": "F",
         "J-REGION": "FSDGQKLLFARGTMLKVDL",
-        "J-PHE": "F",
-        "J-MOTIF": "FARG",
-        "J-CDR3-END": "FSDGQKLLF"
+        "J-MOTIF": "FARG"
     },
     "TRAJ16*02": {
         "functionality": "F",
         "J-REGION": "FSDGQKLLFARGTMLKVDL",
-        "J-MOTIF": "FARG",
-        "J-PHE": "F",
-        "J-CDR3-END": "FSDGQKLLF"
+        "J-MOTIF": "FARG"
     },
     "TRAJ17*01": {
         "functionality": "F",
         "J-REGION": "IKAAGNKLTFGGGTRVLVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "IKAAGNKLTF"
+        "J-MOTIF": "FGGG"
     },
     "TRAJ18*01": {
         "functionality": "F",
         "J-REGION": "DRGSTLGRLYFGRGTQLTVWP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGRG",
-        "J-CDR3-END": "DRGSTLGRLYF"
+        "J-MOTIF": "FGRG"
     },
     "TRAJ19*01": {
         "functionality": "ORF",
         "J-REGION": "YQRFYNFTFGKGSKHNVTP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "YQRFYNFTF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ2*01": {
         "functionality": "ORF",
         "J-REGION": "NTGGTIDKLTFGKGTHVFIIS",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NTGGTIDKLTF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ20*01": {
         "functionality": "F",
         "J-REGION": "SNDYKLSFGAGTTVTVRA",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAG",
-        "J-CDR3-END": "SNDYKLSF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ21*01": {
         "functionality": "F",
         "J-REGION": "YNFNKFYFGSGTKLNVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "YNFNKFYF"
+        "J-MOTIF": "FGSG"
     },
     "TRAJ22*01": {
         "functionality": "F",
         "J-REGION": "SSGSARQLTFGSGTQLTVLP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "SSGSARQLTF"
+        "J-MOTIF": "FGSG"
     },
     "TRAJ23*01": {
         "functionality": "F",
         "J-REGION": "IYNQGGKLIFGQGTELSVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGQG",
-        "J-CDR3-END": "IYNQGGKLIF"
+        "J-MOTIF": "FGQG"
     },
     "TRAJ23*02": {
         "functionality": "F",
         "J-REGION": "IYNQGGKLIFGQGTELSVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGQG",
-        "J-CDR3-END": "IYNQGGKLIF"
+        "J-MOTIF": "FGQG"
     },
     "TRAJ24*01": {
         "functionality": "F",
         "J-REGION": "TTDSWGKFEFGAGTQVVVTP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAG",
-        "J-CDR3-END": "TTDSWGKFEF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ24*02": {
         "functionality": "F",
         "J-REGION": "TTDSWGKLQFGAGTQVVVTP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAG",
-        "J-CDR3-END": "TTDSWGKLQF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ24*03": {
         "functionality": "F",
         "J-REGION": "TTDSWGKFQFGAGTQVVVTP",
-        "J-MOTIF": "FGAG",
-        "J-PHE": "F",
-        "J-CDR3-END": "TTDSWGKFQF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ25*01": {
         "functionality": "ORF",
         "J-REGION": "EGQGFSFIFGKGTRLLVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "EGQGFSFIF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ26*01": {
         "functionality": "F",
         "J-REGION": "DNYGQNFVFGPGTRLSVLP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGPG",
-        "J-CDR3-END": "DNYGQNFVF"
+        "J-MOTIF": "FGPG"
     },
     "TRAJ27*01": {
         "functionality": "F",
         "J-REGION": "NTNAGKSTFGDGTTLTVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGDG",
-        "J-CDR3-END": "NTNAGKSTF"
+        "J-MOTIF": "FGDG"
     },
     "TRAJ28*01": {
         "functionality": "F",
         "J-REGION": "YSGAGSYQLTFGKGTKLSVIP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "YSGAGSYQLTF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ29*01": {
         "functionality": "F",
         "J-REGION": "NSGNTPLVFGKGTRLSVIA",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NSGNTPLVF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ3*01": {
         "functionality": "F",
         "J-REGION": "GYSSASKIIFGSGTRLSIRP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "GYSSASKIIF"
+        "J-MOTIF": "FGSG"
     },
     "TRAJ30*01": {
         "functionality": "F",
         "J-REGION": "NRDDKIIFGKGTRLHILP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NRDDKIIF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ31*01": {
         "functionality": "F",
         "J-REGION": "NNNARLMFGDGTQLVVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGDG",
-        "J-CDR3-END": "NNNARLMF"
+        "J-MOTIF": "FGDG"
     },
     "TRAJ32*01": {
         "functionality": "F",
         "J-REGION": "NYGGATNKLIFGTGTLLAVQP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "NYGGATNKLIF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ32*02": {
         "functionality": "F",
         "J-REGION": "NYGGATNKLIFGTGTLLAVQP",
-        "J-MOTIF": "FGTG",
-        "J-PHE": "F",
-        "J-CDR3-END": "NYGGATNKLIF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ33*01": {
         "functionality": "F",
         "J-REGION": "DSNYQLIWGAGTKLIIKP",
-        "J-TRP": "W",
-        "J-MOTIF": "WGAG",
-        "J-CDR3-END": "DSNYQLIW"
+        "J-MOTIF": "WGAG"
     },
     "TRAJ34*01": {
         "functionality": "F",
         "J-REGION": "SYNTDKLIFGTGTRLQVFP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "SYNTDKLIF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ35*01": {
         "functionality": "F",
         "J-REGION": "IGFGNVLHCGSGTQVIVLP",
-        "J-CYS": "C",
-        "J-MOTIF": "CGSG",
-        "J-CDR3-END": "IGFGNVLHC"
+        "J-MOTIF": "CGSG"
     },
     "TRAJ36*01": {
         "functionality": "F",
         "J-REGION": "QTGANNLFFGTGTRLTVIP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "QTGANNLFF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ37*01": {
         "functionality": "F",
         "J-REGION": "GSGNTGKLIFGQGTTLQVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGQG",
-        "J-CDR3-END": "GSGNTGKLIF"
+        "J-MOTIF": "FGQG"
     },
     "TRAJ37*02": {
         "functionality": "F",
         "J-REGION": "GSSNTGKLIFGQGTTLQVKP",
-        "J-MOTIF": "FGQG",
-        "J-PHE": "F",
-        "J-CDR3-END": "GSSNTGKLIF"
+        "J-MOTIF": "FGQG"
     },
     "TRAJ38*01": {
         "functionality": "F",
         "J-REGION": "NAGNNRKLIWGLGTSLAVNP",
-        "J-TRP": "W",
-        "J-MOTIF": "WGLG",
-        "J-CDR3-END": "NAGNNRKLIW"
+        "J-MOTIF": "WGLG"
     },
     "TRAJ39*01": {
         "functionality": "F",
         "J-REGION": "NNNAGNMLTFGGGTRLMVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "NNNAGNMLTF"
+        "J-MOTIF": "FGGG"
     },
     "TRAJ4*01": {
         "functionality": "F",
         "J-REGION": "FSGGYNKLIFGAGTRLAVHP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAG",
-        "J-CDR3-END": "FSGGYNKLIF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ40*01": {
         "functionality": "F",
         "J-REGION": "TTSGTYKYIFGTGTRLKVLA",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "TTSGTYKYIF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ41*01": {
         "functionality": "F",
         "J-REGION": "NSNSGYALNFGKGTSLLVTP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NSNSGYALNF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ42*01": {
         "functionality": "F",
         "J-REGION": "NYGGSQGNLIFGKGTKLSVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NYGGSQGNLIF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ43*01": {
         "functionality": "F",
         "J-REGION": "NNNDMRFGAGTRLTVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAG",
-        "J-CDR3-END": "NNNDMRF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ44*01": {
         "functionality": "F",
         "J-REGION": "NTGTASKLTFGTGTRLQVTL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "NTGTASKLTF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ45*01": {
         "functionality": "F",
         "J-REGION": "YSGGGADGLTFGKGTHLIIQP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "YSGGGADGLTF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ46*01": {
         "functionality": "F",
         "J-REGION": "KKSSGDKLTFGTGTRLAVRP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "KKSSGDKLTF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ47*01": {
         "functionality": "F",
         "J-REGION": "EYGNKLVFGAGTILRVKS",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAG",
-        "J-CDR3-END": "EYGNKLVF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ47*02": {
         "functionality": "F",
         "J-REGION": "EYGNKLVFGAGTILRVKS",
-        "J-MOTIF": "FGAG",
-        "J-PHE": "F",
-        "J-CDR3-END": "EYGNKLVF"
+        "J-MOTIF": "FGAG"
     },
     "TRAJ48*01": {
         "functionality": "F",
         "J-REGION": "SNFGNEKLTFGTGTRLTIIP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "SNFGNEKLTF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ49*01": {
         "functionality": "F",
         "J-REGION": "NTGNQFYFGTGTSLTVIP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "NTGNQFYF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ5*01": {
         "functionality": "F",
         "J-REGION": "DTGRRALTFGSGTRLQVQP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "DTGRRALTF"
+        "J-MOTIF": "FGSG"
     },
     "TRAJ50*01": {
         "functionality": "F",
         "J-REGION": "KTSYDKVIFGPGTSLSVIP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGPG",
-        "J-CDR3-END": "KTSYDKVIF"
+        "J-MOTIF": "FGPG"
     },
     "TRAJ51*01": {
         "functionality": "P",
         "J-REGION": "MRDSYEKLIFGKET*LTVKP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKE",
-        "J-CDR3-END": "MRDSYEKLIF"
+        "J-MOTIF": "FGKE"
     },
     "TRAJ52*01": {
         "functionality": "F",
         "J-REGION": "NAGGTSYGKLTFGQGTILTVHP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGQG",
-        "J-CDR3-END": "NAGGTSYGKLTF"
+        "J-MOTIF": "FGQG"
     },
     "TRAJ53*01": {
         "functionality": "F",
         "J-REGION": "NSGGSNYKLTFGKGTLLTVNP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "NSGGSNYKLTF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ54*01": {
         "functionality": "F",
         "J-REGION": "IQGAQKLVFGQGTRLTINP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGQG",
-        "J-CDR3-END": "IQGAQKLVF"
+        "J-MOTIF": "FGQG"
     },
     "TRAJ55*01": {
         "functionality": "P",
         "J-REGION": "KCW*CSCWGKGMSTKINP",
-        "J-MOTIF": "WGKG",
-        "J-TRP": "W",
-        "J-CDR3-END": "KCW*CSCW"
+        "J-MOTIF": "WGKG"
     },
     "TRAJ56*01": {
         "functionality": "F",
         "J-REGION": "YTGANSKLTFGKGITLSVRP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "YTGANSKLTF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ57*01": {
         "functionality": "F",
         "J-REGION": "TQGGSEKLVFGKGTKLTVNP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "TQGGSEKLVF"
+        "J-MOTIF": "FGKG"
+    },
+    "TRAJ57*02": {
+        "functionality": "F",
+        "J-REGION": "TQGGSEKLVFGKGMKLTVNP",
+        "J-MOTIF": "FGKG"
     },
     "TRAJ58*01": {
         "functionality": "ORF",
         "J-REGION": "*ETSGSRLTFGEGTQLTVNP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGEG",
-        "J-CDR3-END": "ETSGSRLTF"
+        "J-MOTIF": "FGEG"
     },
     "TRAJ59*01": {
         "functionality": "ORF",
         "J-REGION": "KEGNRKFTFGMGTQVRVKL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGMG",
-        "J-CDR3-END": "KEGNRKFTF"
+        "J-MOTIF": "FGMG"
     },
     "TRAJ6*01": {
         "functionality": "F",
         "J-REGION": "ASGGSYIPTFGRGTSLIVHP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGRG",
-        "J-CDR3-END": "ASGGSYIPTF"
+        "J-MOTIF": "FGRG"
     },
     "TRAJ60*01": {
         "functionality": "P",
         "J-REGION": "KIT*MLNFGKGTELIVSL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "KIT*MLNF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ61*01": {
         "functionality": "ORF",
         "J-REGION": "YRVNRKLTFGANTRGIMKL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAN",
-        "J-CDR3-END": "YRVNRKLTF"
+        "J-MOTIF": "FGAN"
     },
     "TRAJ7*01": {
         "functionality": "F",
         "J-REGION": "DYGNNRLAFGKGNQVVVIP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "DYGNNRLAF"
+        "J-MOTIF": "FGKG"
     },
     "TRAJ8*01": {
         "functionality": "F",
         "J-REGION": "NTGFQKLVFGTGTRLLVSP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "NTGFQKLVF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ8*02": {
         "functionality": "P",
         "J-REGION": "NTGFQKLVFGTGT*LLVSP",
-        "J-MOTIF": "FGTG",
-        "J-PHE": "F",
-        "J-CDR3-END": "NTGFQKLVF"
+        "J-MOTIF": "FGTG"
     },
     "TRAJ9*01": {
         "functionality": "F",
         "J-REGION": "GNTGGFKTIFGAGTRLFVKA",
-        "J-PHE": "F",
-        "J-MOTIF": "FGAG",
-        "J-CDR3-END": "GNTGGFKTIF"
+        "J-MOTIF": "FGAG"
     },
     "TRBJ1-1*01": {
         "functionality": "F",
         "J-REGION": "NTEAFFGQGTRLTVV",
-        "J-MOTIF": "FGQG",
-        "J-PHE": "F",
-        "J-CDR3-END": "NTEAFF"
+        "J-MOTIF": "FGQG"
     },
     "TRBJ1-2*01": {
         "functionality": "F",
         "J-REGION": "NYGYTFGSGTRLTVV",
-        "J-MOTIF": "FGSG",
-        "J-PHE": "F",
-        "J-CDR3-END": "NYGYTF"
+        "J-MOTIF": "FGSG"
     },
     "TRBJ1-3*01": {
         "functionality": "F",
         "J-REGION": "SGNTIYFGEGSWLTVV",
-        "J-MOTIF": "FGEG",
-        "J-PHE": "F",
-        "J-CDR3-END": "SGNTIYF"
+        "J-MOTIF": "FGEG"
     },
     "TRBJ1-4*01": {
         "functionality": "F",
         "J-REGION": "TNEKLFFGSGTQLSVL",
-        "J-MOTIF": "FGSG",
-        "J-PHE": "F",
-        "J-CDR3-END": "TNEKLFF"
+        "J-MOTIF": "FGSG"
     },
     "TRBJ1-5*01": {
         "functionality": "F",
         "J-REGION": "SNQPQHFGDGTRLSIL",
-        "J-MOTIF": "FGDG",
-        "J-PHE": "F",
-        "J-CDR3-END": "SNQPQHF"
+        "J-MOTIF": "FGDG"
     },
     "TRBJ1-6*01": {
         "functionality": "F",
         "J-REGION": "SYNSPLHFGNGTRLTVT",
-        "J-MOTIF": "FGNG",
-        "J-PHE": "F",
-        "J-CDR3-END": "SYNSPLHF"
+        "J-MOTIF": "FGNG"
     },
     "TRBJ1-6*02": {
         "functionality": "F",
         "J-REGION": "SYNSPLHFGNGTRLTVT",
-        "J-MOTIF": "FGNG",
-        "J-PHE": "F",
-        "J-CDR3-END": "SYNSPLHF"
+        "J-MOTIF": "FGNG"
     },
     "TRBJ2-1*01": {
         "functionality": "F",
         "J-REGION": "SYNEQFFGPGTRLTVL",
-        "J-MOTIF": "FGPG",
-        "J-PHE": "F",
-        "J-CDR3-END": "SYNEQFF"
+        "J-MOTIF": "FGPG"
     },
     "TRBJ2-2*01": {
         "functionality": "F",
         "J-REGION": "NTGELFFGEGSRLTVL",
-        "J-MOTIF": "FGEG",
-        "J-PHE": "F",
-        "J-CDR3-END": "NTGELFF"
+        "J-MOTIF": "FGEG"
     },
     "TRBJ2-2P*01": {
         "functionality": "ORF",
         "J-REGION": "LRGAAGRLGGGLLVL",
-        "J-MOTIF": "GRLG",
-        "J-CDR3-END": "LRGAAG"
+        "J-MOTIF": "GRLG"
     },
     "TRBJ2-3*01": {
         "functionality": "F",
         "J-REGION": "STDTQYFGPGTRLTVL",
-        "J-MOTIF": "FGPG",
-        "J-PHE": "F",
-        "J-CDR3-END": "STDTQYF"
+        "J-MOTIF": "FGPG"
     },
     "TRBJ2-4*01": {
         "functionality": "F",
         "J-REGION": "AKNIQYFGAGTRLSVL",
-        "J-MOTIF": "FGAG",
-        "J-PHE": "F",
-        "J-CDR3-END": "AKNIQYF"
+        "J-MOTIF": "FGAG"
     },
     "TRBJ2-5*01": {
         "functionality": "F",
         "J-REGION": "QETQYFGPGTRLLVL",
-        "J-MOTIF": "FGPG",
-        "J-PHE": "F",
-        "J-CDR3-END": "QETQYF"
+        "J-MOTIF": "FGPG"
     },
     "TRBJ2-6*01": {
         "functionality": "F",
         "J-REGION": "SGANVLTFGAGSRLTVL",
-        "J-MOTIF": "FGAG",
-        "J-PHE": "F",
-        "J-CDR3-END": "SGANVLTF"
+        "J-MOTIF": "FGAG"
     },
     "TRBJ2-7*01": {
         "functionality": "F",
         "J-REGION": "SYEQYFGPGTRLTVT",
-        "J-MOTIF": "FGPG",
-        "J-PHE": "F",
-        "J-CDR3-END": "SYEQYF"
+        "J-MOTIF": "FGPG"
     },
     "TRBJ2-7*02": {
         "functionality": "ORF",
         "J-REGION": "SYEQYVGPGTRLTVT",
-        "J-MOTIF": "VGPG",
-        "J-VAL": "V",
-        "J-CDR3-END": "SYEQYV"
+        "J-MOTIF": "VGPG"
     },
     "TRGJ1*01": {
         "functionality": "F",
         "J-REGION": "NYYKKLFGSGTTLVVT",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "NYYKKLF"
+        "J-MOTIF": "FGSG"
     },
     "TRGJ1*02": {
         "functionality": "F",
         "J-REGION": "NYYKKLFGSGTTLVVT",
-        "J-MOTIF": "FGSG",
-        "J-PHE": "F",
-        "J-CDR3-END": "NYYKKLF"
+        "J-MOTIF": "FGSG"
     },
     "TRGJ2*01": {
         "functionality": "F",
         "J-REGION": "NYYKKLFGSGTTLVVT",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "NYYKKLF"
+        "J-MOTIF": "FGSG"
     },
     "TRGJP*01": {
         "functionality": "F",
         "J-REGION": "GQELGKKIKVFGPGTKLIIT",
-        "J-PHE": "F",
-        "J-MOTIF": "FGPG",
-        "J-CDR3-END": "GQELGKKIKVF"
+        "J-MOTIF": "FGPG"
     },
     "TRGJP1*01": {
         "functionality": "F",
         "J-REGION": "TTGWFKIFAEGTKLIVTSP",
-        "J-PHE": "F",
-        "J-MOTIF": "FAEG",
-        "J-CDR3-END": "TTGWFKIF"
+        "J-MOTIF": "FAEG"
     },
     "TRGJP2*01": {
         "functionality": "F",
         "J-REGION": "SSDWIKTFAKGTRLIVTSP",
-        "J-PHE": "F",
-        "J-MOTIF": "FAKG",
-        "J-CDR3-END": "SSDWIKTF"
+        "J-MOTIF": "FAKG"
     },
     "TRDJ1*01": {
         "functionality": "F",
         "J-REGION": "TDKLIFGKGTRVTVEP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "TDKLIF"
+        "J-MOTIF": "FGKG"
     },
     "TRDJ2*01": {
         "functionality": "F",
         "J-REGION": "LTAQLFFGKGTQLIVEP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "LTAQLFF"
+        "J-MOTIF": "FGKG"
     },
     "TRDJ3*01": {
         "functionality": "F",
         "J-REGION": "SWDTRQMFFGTGIKLFVEP",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "SWDTRQMFF"
+        "J-MOTIF": "FGTG"
     },
     "TRDJ4*01": {
         "functionality": "F",
         "J-REGION": "RPLIFGKGTYLEVQQ",
-        "J-PHE": "F",
-        "J-MOTIF": "FGKG",
-        "J-CDR3-END": "RPLIF"
+        "J-MOTIF": "FGKG"
+    },
+    "TRDJ4*02": {
+        "functionality": "F",
+        "J-REGION": "RPLIFGKGTYLEVQQ",
+        "J-MOTIF": "FGKG"
     }
 }

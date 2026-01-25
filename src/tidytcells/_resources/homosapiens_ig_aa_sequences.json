@@ -5276,6 +5276,15 @@
         "FR3-IMGT": "N*GSGVSSCFSKSKDALASAGNLLISGVQPEDKTICSIYYC",
         "V-REGION": "QLVLTQLCPPPHFLYLWEHLPDSPAP*AVAAVLTFISYPAVSKSQ*ALPSIS*STSQKSSKTRALESPAASLNPKMPWPVQAICSSLGSSQRTRLSVLSITVRPGILI"
     },
+    "IGLV(IV)-59*03": {
+        "functionality": "P",
+        "FR1-IMGT": "QLVLTQLCPPPHFLYLWEHLPDSPAP*",
+        "CDR1-IMGT": "SGCSVDIYL",
+        "FR2-IMGT": "ISRCQQKPVSPSQYLLI",
+        "CDR2-IMGT": "YLSKVK*",
+        "FR3-IMGT": "N*GSGVSSCFSKSKDALASAGNLLISGVQPEDKTICSIYYC",
+        "V-REGION": "QLVLTQLCPPPHFLYLWEHLPDSPAP*AVAAVLTFISYPAVSKSQ*ALPSIS*STSQKSSKTRALESPAASLNPKMPWPVQAICSSLGSSQRTRLSVLSITVRPGILI"
+    },
     "IGLV(IV)-64*02": {
         "functionality": "P",
         "FR1-IMGT": "QPVLTQPPSLSAPPDQPDSPAP*",
@@ -5735,6 +5744,15 @@
         "FR3-IMGT": "KRPSGVSNRFSGSKSGNTASLTISGLQAEDEADYYC",
         "V-REGION": "QSALTQPASVSGSPGQSITISCTGTSSDVGGYNYVSWYQQHPGKAPKLMIYDVSKRPSGVSNRFSGSKSGNTASLTISGLQAEDEADYYCCSYAGSSTF"
     },
+    "IGLV2-23*05": {
+        "functionality": "F",
+        "FR1-IMGT": "QSALTQPASVSGSPGQSITISCTGT",
+        "CDR1-IMGT": "SSDVGGYNY",
+        "FR2-IMGT": "VSWYQQHPGKAPKLMIY",
+        "CDR2-IMGT": "DVS",
+        "FR3-IMGT": "KRPSGVSNRFSGSKSGNTASLTISGLQAEDEADYYC",
+        "V-REGION": "QSALTQPASVSGSPGQSITISCTGTSSDVGGYNYVSWYQQHPGKAPKLMIYDVSKRPSGVSNRFSGSKSGNTASLTISGLQAEDEADYYCCSYAGSSTF"
+    },
     "IGLV2-28*01": {
         "functionality": "P",
         "FR1-IMGT": "QSALTQPHSVPGSPGQSVTISCTGT",
@@ -5941,6 +5959,15 @@
         "CDR2-IMGT": "GDS",
         "FR3-IMGT": "GRPSGISERFSGSNLGNVATLTINRTQGGDKAIT",
         "V-REGION": "TYELTQSPSASVAPGQMTRITCGESSIGSKSAQWYQQKPARPVCGSSMGIVGGLQGSLRDSLAPTWGTWPP*PSTGPRVGTRLLL*DVGH*HSSS"
+    },
+    "IGLV3-15*03": {
+        "functionality": "P",
+        "FR1-IMGT": "TYELTQSPSASVAPGQMTRITCGES",
+        "CDR1-IMGT": "SIGSKS",
+        "FR2-IMGT": "AQWYQQKPASPCVGHL",
+        "CDR2-IMGT": "GDS",
+        "FR3-IMGT": "GRPSGISERFSGSNLGNVATLTINRTQGGDKAIT",
+        "V-REGION": "TYELTQSPSASVAPGQMTRITCGESSIGSKSAQWYQQKPASPCVGHLWG*RAAFRDL*EILWLQLGERGHPDHQQDPGWGQGYYCKMWDISTPH"
     },
     "IGLV3-16*01": {
         "functionality": "F",
@@ -6149,6 +6176,15 @@
         "FR3-IMGT": "ERPSGIPERFSGSSSGTTVTLTISGAQVEDEADYYC",
         "V-REGION": "SYELTQPSSVSVSPGQTARITCSGDVLAKKYARWFQQKPGQAPVLVIYKDSERPSGIPERFSGSSSGTTVTLTISGAQVEDEADYYCYSAADNN"
     },
+    "IGLV3-27*02": {
+        "functionality": "P",
+        "FR1-IMGT": "SYELTQPSSVSVSPGQTARITCSGD",
+        "CDR1-IMGT": "VLAKKY",
+        "FR2-IMGT": "ARWFQQKPGQAPVLVIY",
+        "CDR2-IMGT": "KDS",
+        "FR3-IMGT": "ERPSGSLSDSPAPAQGPQSP*PSAGPRLRMRLTIT",
+        "V-REGION": "SYELTQPSSVSVSPGQTARITCSGDVLAKKYARWFQQKPGQAPVLVIYKDSERPSGSLSDSPAPAQGPQSP*PSAGPRLRMRLTITVTLRLTTI"
+    },
     "IGLV3-29*01": {
         "functionality": "P",
         "FR1-IMGT": "SYVLTQPPSVSVAPGQTPRITCRGN",
@@ -6184,6 +6220,15 @@
         "CDR2-IMGT": "KDS",
         "FR3-IMGT": "KWPSRTPE*FSGSNLWNTATLTISGAQARDEAIT",
         "V-REGION": "TYELSQPPSVSVAPLQMARITCCGNTVGGGYVYWYQQKSGQTPVPVIYKDSKWPSRTPE*FSGSNLWNTATLTISGAQARDEAITVAPMMAEGAAGSG"
+    },
+    "IGLV3-30*04": {
+        "functionality": "P",
+        "FR1-IMGT": "TYELSQPPSVSVAPLQMARITCCGN",
+        "CDR1-IMGT": "TVGGGY",
+        "FR2-IMGT": "VYWYQQKSGQTPVPVIY",
+        "CDR2-IMGT": "KDS",
+        "FR3-IMGT": "KWPSRTPE*FSGSNLWNTATLTTSGAQARDEAIT",
+        "V-REGION": "TYELSQPPSVSVAPLQMARITCCGNTVGGGYVYWYQQKSGQTPVPVIYKDSKWPSRTPE*FSGSNLWNTATLTTSGAQARDEAITVAPMMAEGAAGSG"
     },
     "IGLV3-31*01": {
         "functionality": "P",
@@ -6436,7 +6481,7 @@
         "V-REGION": "QAVLTQLASLSASPGASASLTCTLRSGINVGTYRIYWYQQKPGSPPQYLLRYKSDSDKQQGSGVPSRFSGSKDASANAGILLISGLQSEDEADYYCMIWHSSAS"
     },
     "IGLV5-48*01": {
-        "functionality": "ORF",
+        "functionality": "F",
         "FR1-IMGT": "QPVLTQPTSLSASPGASARLTCTLR",
         "CDR1-IMGT": "SGINLGSYR",
         "FR2-IMGT": "IFWYQQKPESPPRYLLS",
@@ -8624,6 +8669,10 @@
         "functionality": "P",
         "V-REGION": "SYVQRQLVSVLVALGLTIMSTYSGDNLEINMH*GTSRIQASPWCWSSSITATDPQGHLPNS*ASTQGTWPP*PLMEPKPGKRLTIAELQIITVG"
     },
+    "IGLV(II)-24-1*02": {
+        "functionality": "P",
+        "V-REGION": "SYVQRQLVSVLVALGLTIMSTYSGDNLEINMH*GTSRIQASPWCWSSSITATDPQGHLPNS*ASTQGTWPP*PLMEPKPRKRLTIAELQIITVG"
+    },
     "IGLV(III)-60-1*01": {
         "functionality": "P",
         "V-REGION": "QAVVTQEPSLTVS*RERLILMCGFSTTALNSAEAWSSPQDIDV*HR*QTPLDAHLILWLPPGGKLP*PLKGPSLRMRLSILWATPQWSL"
@@ -8759,6 +8808,10 @@
     "IGLV3-4*01": {
         "functionality": "P",
         "V-REGION": "FSKLTQLPEVSVALGQMARITCHGEDLESYYAHWYQHKSVQTPNLIVYNDRKLCSEITERFSGSCSGGTATLTITGAHVEDEAIFVFLEIKTH"
+    },
+    "IGLV4-10-1*02": {
+        "functionality": "P",
+        "V-REGION": "LSVLTQPPSASAWL*ASAKVTYTSE*YQQRPRRSP*CIMEVKSNGSDSKGNRIPSHLLGSSPGAECYLIIFNLQSEDEAEYHCGESHMFDGEDG*"
     },
     "IGLV5-45*03": {
         "functionality": "F",
@@ -9007,9 +9060,7 @@
     "IGHJ1*01": {
         "functionality": "F",
         "J-REGION": "AEYFQHWGQGTLVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "AEYFQHW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ1P*01": {
         "functionality": "P",
@@ -9022,37 +9073,27 @@
     "IGHJ2*01": {
         "functionality": "F",
         "J-REGION": "YWYFDLWGRGTLVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGRG",
-        "J-CDR3-END": "YWYFDLW"
+        "J-MOTIF": "WGRG"
     },
     "IGHJ2P*01": {
         "functionality": "P",
         "J-REGION": "ATSAWSTGAGQPGHRLPGNV",
-        "J-MOTIF": "WSTG",
-        "J-TRP": "W",
-        "J-CDR3-END": "ATSAW"
+        "J-MOTIF": "WSTG"
     },
     "IGHJ2P*02": {
         "functionality": "P",
         "J-REGION": "YKCLEHWGQGSPATVSLGTS",
-        "J-MOTIF": "WGQG",
-        "J-TRP": "W",
-        "J-CDR3-END": "YKCLEHW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ3*01": {
         "functionality": "F",
         "J-REGION": "DAFDVWGQGTMVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "DAFDVW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ3*02": {
         "functionality": "F",
         "J-REGION": "DAFDIWGQGTMVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "DAFDIW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ3P*01": {
         "functionality": "P",
@@ -9065,225 +9106,161 @@
     "IGHJ4*01": {
         "functionality": "F",
         "J-REGION": "YFDYWGQGTLVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "YFDYW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ4*02": {
         "functionality": "F",
         "J-REGION": "YFDYWGQGTLVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "YFDYW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ4*03": {
         "functionality": "F",
         "J-REGION": "YFDYWGQGTLVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "YFDYW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ5*01": {
         "functionality": "F",
         "J-REGION": "NWFDSWGQGTLVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "NWFDSW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ5*02": {
         "functionality": "F",
         "J-REGION": "NWFDPWGQGTLVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "NWFDPW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ5*03": {
         "functionality": "P",
         "J-REGION": "NWFDPWGQGTLVAVSS",
-        "J-MOTIF": "WGQG",
-        "J-TRP": "W",
-        "J-CDR3-END": "NWFDPW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ5*04": {
         "functionality": "F",
         "J-REGION": "NWFDPWGQGTLVSVSS",
-        "J-MOTIF": "WGQG",
-        "J-TRP": "W",
-        "J-CDR3-END": "NWFDPW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ6*01": {
         "functionality": "F",
         "J-REGION": "YYYYYGMDVWGQGTTVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "YYYYYGMDVW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ6*02": {
         "functionality": "F",
         "J-REGION": "YYYYYGMDVWGQGTTVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGQG",
-        "J-CDR3-END": "YYYYYGMDVW"
+        "J-MOTIF": "WGQG"
     },
     "IGHJ6*03": {
         "functionality": "F",
         "J-REGION": "YYYYYYMDVWGKGTTVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGKG",
-        "J-CDR3-END": "YYYYYYMDVW"
+        "J-MOTIF": "WGKG"
     },
     "IGHJ6*04": {
         "functionality": "F",
         "J-REGION": "YYYYYGMDVWGKGTTVTVSS",
-        "J-TRP": "W",
-        "J-MOTIF": "WGKG",
-        "J-CDR3-END": "YYYYYGMDVW"
+        "J-MOTIF": "WGKG"
     },
     "IGLJ1*01": {
         "functionality": "F",
         "J-REGION": "YVFGTGTKVTVL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGTG",
-        "J-CDR3-END": "YVF"
+        "J-MOTIF": "FGTG"
     },
     "IGLJ2*01": {
         "functionality": "F",
         "J-REGION": "VVFGGGTKLTVL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "VVF"
+        "J-MOTIF": "FGGG"
     },
     "IGLJ2A*01": {
         "functionality": "F",
         "J-REGION": "VVFGGGTKLTVL",
-        "J-MOTIF": "FGGG",
-        "J-PHE": "F",
-        "J-CDR3-END": "VVF"
+        "J-MOTIF": "FGGG"
     },
     "IGLJ3*01": {
         "functionality": "F",
         "J-REGION": "VVFGGGTKLTVL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "VVF"
+        "J-MOTIF": "FGGG"
     },
     "IGLJ3*02": {
         "functionality": "F",
         "J-REGION": "WVFGGGTKLTVL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "WVF"
+        "J-MOTIF": "FGGG"
     },
     "IGLJ4*01": {
         "functionality": "ORF",
         "J-REGION": "FVFGGGTQLIIL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "FVF"
+        "J-MOTIF": "FGGG"
     },
     "IGLJ5*01": {
         "functionality": "ORF",
         "J-REGION": "WVFGEGTELTVL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGEG",
-        "J-CDR3-END": "WVF"
+        "J-MOTIF": "FGEG"
     },
     "IGLJ5*02": {
         "functionality": "ORF",
         "J-REGION": "WVFGEGTELTVL",
-        "J-MOTIF": "FGEG",
-        "J-PHE": "F",
-        "J-CDR3-END": "WVF"
+        "J-MOTIF": "FGEG"
     },
     "IGLJ6*01": {
         "functionality": "F",
         "J-REGION": "NVFGSGTKVTVL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGSG",
-        "J-CDR3-END": "NVF"
+        "J-MOTIF": "FGSG"
     },
     "IGLJ7*01": {
         "functionality": "F",
         "J-REGION": "AVFGGGTQLTVL",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "AVF"
+        "J-MOTIF": "FGGG"
     },
     "IGLJ7*02": {
         "functionality": "F",
         "J-REGION": "AVFGGGTQLTAL",
-        "J-MOTIF": "FGGG",
-        "J-PHE": "F",
-        "J-CDR3-END": "AVF"
+        "J-MOTIF": "FGGG"
     },
     "IGKJ1*01": {
         "functionality": "F",
         "J-REGION": "WTFGQGTKVEIK",
-        "J-MOTIF": "FGQG",
-        "J-PHE": "F",
-        "J-CDR3-END": "WTF"
+        "J-MOTIF": "FGQG"
     },
     "IGKJ2*01": {
         "functionality": "F",
         "J-REGION": "YTFGQGTKLEIK",
-        "J-MOTIF": "FGQG",
-        "J-PHE": "F",
-        "J-CDR3-END": "YTF"
+        "J-MOTIF": "FGQG"
     },
     "IGKJ2*02": {
         "functionality": "(F)",
         "J-REGION": "CTFGQGTKLEIK",
-        "J-PHE": "F",
-        "J-MOTIF": "FGQG",
-        "J-CDR3-END": "CTF"
+        "J-MOTIF": "FGQG"
     },
     "IGKJ2*03": {
         "functionality": "(F)",
         "J-REGION": "YSFGQGTKLEIK",
-        "J-PHE": "F",
-        "J-MOTIF": "FGQG",
-        "J-CDR3-END": "YSF"
+        "J-MOTIF": "FGQG"
     },
     "IGKJ2*04": {
         "functionality": "F",
         "J-REGION": "CSFGQGTKLEIK",
-        "J-MOTIF": "FGQG",
-        "J-PHE": "F",
-        "J-CDR3-END": "CSF"
+        "J-MOTIF": "FGQG"
     },
     "IGKJ3*01": {
         "functionality": "F",
         "J-REGION": "FTFGPGTKVDIK",
-        "J-MOTIF": "FGPG",
-        "J-PHE": "F",
-        "J-CDR3-END": "FTF"
+        "J-MOTIF": "FGPG"
     },
     "IGKJ4*01": {
         "functionality": "F",
         "J-REGION": "LTFGGGTKVEIK",
-        "J-MOTIF": "FGGG",
-        "J-PHE": "F",
-        "J-CDR3-END": "LTF"
+        "J-MOTIF": "FGGG"
     },
     "IGKJ4*02": {
         "functionality": "(F)",
         "J-REGION": "LTFGGGTKVEIK",
-        "J-PHE": "F",
-        "J-MOTIF": "FGGG",
-        "J-CDR3-END": "LTF"
+        "J-MOTIF": "FGGG"
     },
     "IGKJ4*03": {
         "functionality": "ORF",
         "J-REGION": "LNFGGGTKVEIK",
-        "J-MOTIF": "FGGG",
-        "J-PHE": "F",
-        "J-CDR3-END": "LNF"
+        "J-MOTIF": "FGGG"
     },
     "IGKJ5*01": {
         "functionality": "F",
         "J-REGION": "ITFGQGTRLEIK",
-        "J-MOTIF": "FGQG",
-        "J-PHE": "F",
-        "J-CDR3-END": "ITF"
+        "J-MOTIF": "FGQG"
     }
 }

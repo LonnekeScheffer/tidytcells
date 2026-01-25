@@ -141,16 +141,16 @@ def get_j_gene_sequence_data(species: str, gene_groups: Tuple[str]) -> dict:
     # Add known non-canonical cases
     if species == "Homo+sapiens":
         if "TRAJ" in gene_groups:
-            data["TRAJ35*01"]["J-CYS"] = "C"
+            data["TRAJ35*01"]["J-conserved"] = "C"
             data["TRAJ35*01"]["J-MOTIF"] = "CGSG"
         if "TRBJ" in gene_groups:
-            data["TRBJ2-7*02"]["J-VAL"] = "V"
+            data["TRBJ2-7*02"]["J-conserved"] = "V"
     elif species == "Mus+musculus":
         if "TRAJ" in gene_groups:
-            data["TRAJ7*01"]["J-LEU"] = "L"
+            data["TRAJ7*01"]["J-conserved"] = "L"
             data["TRAJ7*01"]["J-MOTIF"] = "LGKG"
 
-    return add_j_motifs(data, species)
+    return add_j_motifs(data)
 
 
 def get_gene_sequence_data(
@@ -245,36 +245,18 @@ def get_motif(j_region, conserved_aa):
         return match.group(1)
 
 
-def add_j_motifs(j_aa_dict, species):
+def add_j_motifs(j_aa_dict):
     for allele, seq_data in j_aa_dict.items():
         if "J-REGION" not in seq_data or len(seq_data["J-REGION"]) < 4:
             continue
 
-        conserved_aa = seq_data["J-PHE"] if "J-PHE" in seq_data \
-            else seq_data["J-TRP"] if "J-TRP" in seq_data \
-            else seq_data["J-CYS"] if "J-CYS" in seq_data \
-            else seq_data["J-VAL"] if "J-VAL" in seq_data \
-            else seq_data["J-LEU"] if "J-LEU" in seq_data \
-            else None
+        conserved_aa = seq_data.pop("J-PHE", seq_data.pop("J-TRP", seq_data.pop("J-conserved", None)))
 
         if not ("J-MOTIF" in seq_data and len(seq_data["J-MOTIF"]) == 4):
             motif_from_seq = get_motif(seq_data["J-REGION"], conserved_aa)
 
             if motif_from_seq is not None:
                 seq_data["J-MOTIF"] = motif_from_seq
-
-        if "J-MOTIF" in seq_data and len(seq_data["J-MOTIF"]) == 4:
-            if conserved_aa is None:
-                conserved_aa = seq_data["J-MOTIF"][0]
-                if conserved_aa == "F":
-                    seq_data["J-PHE"] = "F"
-                elif conserved_aa == "W":
-                    seq_data["J-TRP"] = "W"
-
-            cdr3_end_motif = seq_data["J-REGION"][0:seq_data["J-REGION"].index(seq_data["J-MOTIF"]) + 1]
-
-            if len(cdr3_end_motif) > 1:
-                j_aa_dict[allele]["J-CDR3-END"] = cdr3_end_motif.lstrip("*")
 
     return j_aa_dict
 
