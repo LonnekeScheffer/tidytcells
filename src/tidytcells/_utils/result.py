@@ -145,7 +145,7 @@ class ReceptorGene:
     @property
     def gene_type(self) -> Optional[str]:
         if self.is_standardized:
-            return self._gene_name[4]
+            return self._gene_name[3]
 
     @property
     def species(self) -> str:

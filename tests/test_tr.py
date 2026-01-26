@@ -25,6 +25,7 @@ class TestStandardize:
         assert result.error is None
         assert result.symbol == "TRBV20/OR9-2*01"
         assert result.species == "homosapiens"
+        assert result.gene_type == "V"
 
 
     @pytest.mark.parametrize(
@@ -72,6 +73,8 @@ class TestStandardize:
 
         assert result.symbol == expected
         assert result.allele == expected or result.gene == expected
+        if result.is_standardized:
+            assert result.gene_type == "V"
 
     @pytest.mark.filterwarnings("ignore:Failed to standardize")
     @pytest.mark.parametrize(

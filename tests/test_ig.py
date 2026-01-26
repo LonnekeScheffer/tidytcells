@@ -72,6 +72,8 @@ class TestStandardize:
         assert result.symbol == expected
         assert result.allele == expected or result.gene == expected
         assert result.species == "homosapiens"
+        if result.is_standardized:
+            assert result.gene_type == "V"
 
 
     @pytest.mark.filterwarnings("ignore:Failed to standardize")
