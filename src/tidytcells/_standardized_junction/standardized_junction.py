@@ -30,7 +30,7 @@ class JunctionStandardizer(ABC):
                  allow_c_correction: bool = False, allow_fw_correction: bool = False,
                  allow_v_reconstruction: bool = False, allow_j_reconstruction: bool = False,
                  mismatch_penalty: float = -1.5, max_v_mismatches: int = 0, max_j_mismatches: int = 1,
-                 min_j_score: int = 2, min_v_score: int = 1) -> None:
+                 min_j_score: int = 1, min_v_score: int = 1) -> None:
         self.orig_seq = seq
         self.corrected_seq = seq
         self.locus = locus
