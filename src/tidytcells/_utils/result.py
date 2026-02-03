@@ -1,5 +1,6 @@
-from abc import ABC, abstractmethod
 from typing import Optional
+from tidytcells._utils.alignment import get_compatible_symbols
+from tidytcells._resources import SUPPORTED_RECEPTOR_SPECIES_AND_THEIR_AA_SEQUENCES
 
 
 class MhGene:
@@ -155,6 +156,46 @@ class ReceptorGene:
     @property
     def species(self) -> str:
         return self._species
+
+    def get_all_alleles(self, enforce_functional=True):
+        '''
+        Get all alleles related to the standardized symbol
+
+        :param enforce_functional: If 'true', only functional alleles are returned
+        :return: A list of allele names
+        '''
+        if self.is_standardized:
+            aa_dict = SUPPORTED_RECEPTOR_SPECIES_AND_THEIR_AA_SEQUENCES[self.receptor_type][self.species]
+
+            return get_compatible_symbols(self.symbol, aa_dict, self.gene_type, self.locus, enforce_functional)
+
+    def get_aa_sequences(self, sequence_type="ALL", enforce_functional=True):
+        '''
+        Get amino acid sequence information related to the alleles of the standardized symbol
+
+        :param sequence_type: which sequence to return. This can be:
+                                For V genes: 'FR1', 'FR2', 'FR3', 'CDR1', 'CDR2', 'V-REGION'
+                                For D genes: 'D-REGION'
+                                For J genes: 'J-REGION', 'J-MOTIF'
+                                Or 'ALL' to return all available sequences
+        :param enforce_functional: If 'true', only information for functional alleles is returned
+        :return: A dictionary with allele names as keys and sequences as values
+                 When sequence_type is 'ALL', the result is a nested dictionary with allele names
+                 as outer keys, sequence types as inner keys, and sequences as inner values.
+        '''
+        sequence_type = sequence_type.upper()
+        sequence_type = sequence_type + "-IMGT" if sequence_type in {"FR1", "FR2", "FR3", "CDR1", "CDR2"} else sequence_type
+
+        if self.is_standardized:
+            aa_dict = SUPPORTED_RECEPTOR_SPECIES_AND_THEIR_AA_SEQUENCES[self.receptor_type][self.species]
+
+            alleles_of_interest = self.get_all_alleles(enforce_functional)
+
+            if sequence_type == "ALL":
+                return {allele: aa_dict[allele] for allele in alleles_of_interest}
+            else:
+                return {allele: aa_dict[allele][sequence_type] if sequence_type in aa_dict[allele] else None
+                        for allele in alleles_of_interest}
 
 
 class Junction:

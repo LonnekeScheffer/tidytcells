@@ -121,6 +121,7 @@ class TestStandardize:
         (
             ("IGLV7-43*01", True, "IGLV7-43*01", "IGLV7-43", "IGLV7", "IGLV7-43*01"),
             ("IGLV7-43*01", False, "IGLV7-43*01", "IGLV7-43", "IGLV7", "IGLV7-43*01"),
+            ("IGHV3-30-3*01", False, "IGHV3-30-3*01", "IGHV3-30-3", "IGHV3", "IGHV3-30-3*01"),
             ("IGLV8-61", True, None, "IGLV8-61", "IGLV8", "IGLV8-61"),
             ("IGLV8-61", False, None, "IGLV8-61", "IGLV8", "IGLV8-61"),
             ("IGLV8", True, None, None, "IGLV8", "IGLV8"),
@@ -198,6 +199,47 @@ class TestStandardizeHomoSapiens:
 
         assert result.symbol == expected
         assert result.species == "homosapiens"
+
+    @pytest.mark.parametrize(
+        ("symbol", "expected_alleles", "enforce_functional", "species"),
+        (
+            ("IGHV1-3", ["IGHV1-3*01", "IGHV1-3*02", "IGHV1-3*03", "IGHV1-3*04", "IGHV1-3*05"], True, "homosapiens"),
+            ("IGHV1-1", [], True, "musmusculus"),
+            ("IGHV1-1", ["IGHV1-1*01", "IGHV1-1*02", "IGHV1-1*03"], False, "musmusculus"),
+            ("IGKJ5", ["IGKJ5*01"], True, "homosapiens"),
+            ("IGHV3-36", [], True, "homosapiens"),
+            ("IGHV3-36", ["IGHV3-36*01", "IGHV3-36*02", "IGHV3-36*03"], False, "homosapiens"),
+        ),
+    )
+    def test_get_all_alleles(self, symbol, expected_alleles, enforce_functional, species):
+        result = ig.standardize(symbol=symbol, species=species, allow_subgroup=True)
+
+        assert result.symbol == symbol
+        assert result.species == species
+        assert sorted(result.get_all_alleles(enforce_functional=enforce_functional)) == sorted(expected_alleles)
+
+
+    @pytest.mark.parametrize(
+        ("symbol", "sequence_type", "expected_result"),
+        (
+            ("IGLV1-40", "CDR1-IMGT", {"IGLV1-40*01": "SSNIGAGYD", "IGLV1-40*02": "SSNIGAGYD", "IGLV1-40*03": "SSNIGAGYD"}),
+            ("IGLV1-40", "CDR1", {"IGLV1-40*01": "SSNIGAGYD", "IGLV1-40*02": "SSNIGAGYD", "IGLV1-40*03": "SSNIGAGYD"}),
+            ("IGLV1-40", "cdr1", {"IGLV1-40*01": "SSNIGAGYD", "IGLV1-40*02": "SSNIGAGYD", "IGLV1-40*03": "SSNIGAGYD"}),
+            ("IGKJ5", "all", {"IGKJ5*01": {
+                                    "functionality": "F",
+                                    "J-REGION": "ITFGQGTRLEIK",
+                                    "J-MOTIF": "FGQG"
+                                }}),
+        ),
+    )
+    def test_get_aa_sequences(self, symbol, sequence_type, expected_result):
+        result = ig.standardize(symbol=symbol, species="homosapiens", allow_subgroup=True)
+
+        assert result.symbol == symbol
+        assert result.get_aa_sequences(sequence_type) == expected_result
+
+
+
 
 class TestStandardizeMusMusculus:
 
