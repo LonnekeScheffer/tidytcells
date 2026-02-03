@@ -51,7 +51,7 @@ For example, given a table of TR/junction data (a similar procedure would work f
 >>> import pandas as pd
 >>> df = pd.DataFrame(
 ...     data=[
-...         ["TRBV13*01",    "CASSYLPGQGDHYSNQPQHF", "trbj1-5*01"],
+...         ["TRBV13",    "CASSYLPGQGDHYSNQPQHF", "trbj1-5*01"],
 ...         ["TCRBV28S1*01", "CASSLGQSGANVLTF",      "TRBJ2-6*01"],
 ...         ["unknown",      "ASSDWGSQNTLY",         "TRBJ2-4*01"]
 ...     ],
@@ -59,43 +59,55 @@ For example, given a table of TR/junction data (a similar procedure would work f
 ... )
 >>> df
               v              junction           j
-0     TRBV13*01  CASSYLPGQGDHYSNQPQHF  trbj1-5*01
+0        TRBV13  CASSYLPGQGDHYSNQPQHF  trbj1-5*01
 1  TCRBV28S1*01       CASSLGQSGANVLTF  TRBJ2-6*01
 2       unknown          ASSDWGSQNTLY  TRBJ2-4*01
 
-One can apply the ``standardize`` functions from :py:mod:`tidytcells` over the whole table at once, like so:
+One can apply the ``standardize`` functions from :py:mod:`tidytcells` over the whole table at once.
+Use 'map' for standardization with default parameters, and 'apply' when parameters need to be set:
 
 >>> cleaned = df.copy()
 >>> cleaned[["v", "j"]] = df[["v", "j"]].map(tt.tr.standardize)
->>> cleaned["junction"] = df["junction"].map(tt.junction.standardize)
+>>> cleaned["junction"] = df["junction"].apply(junction.standardize, locus="TRB")
 >>> cleaned
            v              junction           j
-0  TRBV13*01  CASSYLPGQGDHYSNQPQHF  TRBJ1-5*01
+0     TRBV13  CASSYLPGQGDHYSNQPQHF  TRBJ1-5*01
 1  TRBV28*01       CASSLGQSGANVLTF  TRBJ2-6*01
 2       None        CASSDWGSQNTLYF  TRBJ2-4*01
 
-To apply the functions with optional arguments, one can wrap the ``standardize`` functions using lambda functions (see below).
+Alternatively, for full control over the input parameters and retrieving different output values from the results objects,
+one one can wrap the ``standardize`` functions using lambda functions (see below).
 For use cases that require more flexibility, one could even define a wrapper function explicitly in the code.
 
+>>> pd.set_option("display.max_columns", None)
 >>> cleaned = df.copy()
->>> cleaned[["v", "j"]] = df[["v", "j"]].map(
+>>> cleaned["v_allele"] = df["v"].map(
 ...     lambda x: tt.tr.standardize(
 ...         symbol=x,
-...         species="homosapiens",
-...         precision="gene"
-...     )
+...     ).allele
 ... )
->>> cleaned["junction"] = df["junction"].map(
+>>> cleaned["v_gene"] = df["v"].map(
+...     lambda x: tt.tr.standardize(
+...         symbol=x,
+...     ).gene
+... )
+>>> cleaned["v_subgroup"] = df["v"].map(
+...     lambda x: tt.tr.standardize(
+...         symbol=x,
+...     ).subgroup
+... )
+>>> cleaned["cdr3"] = df["junction"].map(
 ...     lambda x: tt.junction.standardize(
-...         seq=x,
-...         strict=True
-...     )
+...         symbol=x,
+...         locus="TRB",
+...     ).cdr3
 ... )
 >>> cleaned
-        v              junction        j
-0  TRBV13  CASSYLPGQGDHYSNQPQHF  TRBJ1-5
-1  TRBV28       CASSLGQSGANVLTF  TRBJ2-6
-2    None                  None  TRBJ2-4
+           v              junction           j   v_allele  v_gene v_subgroup                cdr3
+0             CASSYLPGQGDHYSNQPQHF  TRBJ1-5*01       None  TRBV13     TRBV13  ASSYLPGQGDHYSNQPQH
+1  TRBV28*01       CASSLGQSGANVLTF  TRBJ2-6*01  TRBV28*01  TRBV28     TRBV28       ASSLGQSGANVLT
+2                   CASSDWGSQNTLYF  TRBJ2-4*01       None    None       None        ASSDWGSQNTLY
+
 
 For more complete documentations of the ``standardize`` functions, refer to :ref:`the api reference <api>`.
 
