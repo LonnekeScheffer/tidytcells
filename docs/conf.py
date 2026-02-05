@@ -20,7 +20,6 @@ release = tidytcells.VERSION
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
-    "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
 ]
 
@@ -28,8 +27,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 autosummary_imported_members = True
 autodoc_typehints = "description"
-napoleon_google_docstring = False
-napoleon_numpy_docstring = True
+
 
 
 # -- Options for HTML output -------------------------------------------------
