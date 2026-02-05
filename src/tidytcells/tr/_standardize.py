@@ -267,5 +267,8 @@ def standardize(
 def standardise(*args, **kwargs) -> ReceptorGene:
     """
     Alias for :py:func:`tidytcells.tr.standardize`.
+
+    :rtype:
+        :py:class:`~tidytcells.result.ReceptorGene`
     """
     return standardize(*args, **kwargs)

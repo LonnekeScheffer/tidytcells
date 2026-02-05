@@ -424,5 +424,8 @@ def standardize(
 def standardise(*args, **kwargs) -> Junction:
     """
     Alias for :py:func:`tidytcells.junction.standardize`.
+
+    :rtype:
+        :py:class:`~tidytcells.result.Junction`
     """
     return standardize(*args, **kwargs)

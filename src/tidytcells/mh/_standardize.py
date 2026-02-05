@@ -246,5 +246,8 @@ def standardize(
 def standardise(*args, **kwargs) -> MhGene:
     """
     Alias for :py:func:`tidytcells.mh.standardize`.
+
+    :rtype:
+        :py:class:`~tidytcells.result.MhGene`
     """
     return standardize(*args, **kwargs)

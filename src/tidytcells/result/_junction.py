@@ -29,7 +29,7 @@ class Junction:
 
     @property
     def error(self) -> Optional[str]:
-        '''The error message, only if standardization failed, otherwise None.'''
+        '''The error message, only if standardization failed, otherwise ``None``.'''
         return self._error
 
     @property
@@ -41,20 +41,20 @@ class Junction:
     def attempted_fix(self) -> Optional[str]:
         '''
         The best attempt at fixing the input sequence, only of standardization failed,
-        if the standardization was a success this returns None.
+        if the standardization was a success this returns ``None``.
         '''
         if not self.is_standardized:
             return self._corrected_junction
 
     @property
     def junction(self) -> Optional[str]:
-        '''The IMGT-junction, including conserved leading C and trailing F / W / C if the standardization was successful, otherwise None.'''
+        '''The IMGT-junction, including conserved leading C and trailing F / W / C if the standardization was successful, otherwise ``None``.'''
         if self.is_standardized:
             return self._corrected_junction
 
     @property
     def cdr3(self) -> Optional[str]:
-        '''The IMGT-CDR3, excluding conserved leading C and trailing F / W / C if the standardization was successful, otherwise None.'''
+        '''The IMGT-CDR3, excluding conserved leading C and trailing F / W / C if the standardization was successful, otherwise ``None``.'''
         if self.is_standardized:
             if self._corrected_junction is not None and len(self._corrected_junction) > 2:
                 return self._corrected_junction[1:-1]
