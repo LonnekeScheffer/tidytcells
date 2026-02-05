@@ -37,85 +37,55 @@ class ReceptorGene:
 
     @property
     def original_input(self) -> Optional[str]:
-        '''
-        :return:
-            The original input symbol.
-        '''
+        '''The original input symbol.'''
         return self._original_input
 
     @property
     def error(self) -> Optional[str]:
-        '''
-        :return:
-            The error message, only if standardization failed, otherwise None.
-        '''
+        '''The error message, only if standardization failed, otherwise None.'''
         return self._error
 
     @property
     def is_standardized(self) -> bool:
-        '''
-        :return:
-            ``True`` if the standardization was successful, ``False`` otherwise.
-        '''
+        '''``True`` if the standardization was successful, ``False`` otherwise.'''
         return self.error is None
 
     @property
     def attempted_fix(self) -> Optional[str]:
-        '''
-        :return:
-            The best attempt at fixing the input symbol, only of standardization failed,
-            if the standardization was a success this returns None.
-        '''
+        '''The best attempt at fixing the input symbol, only of standardization failed, if the standardization was a success this returns None.'''
         if not self.is_standardized:
             return self._highest_precision_symbol
 
     @property
     def symbol(self) -> Optional[str]:
-        '''
-        :return:
-            The allele, gene or subgroup (whichever is most precise) if standardization was successful,
-            otherwise None.
-        '''
+        '''The allele, gene or subgroup (whichever is most precise) if standardization was successful, otherwise None.'''
         if self.is_standardized:
             return self._highest_precision_symbol
 
     @property
     def allele(self) -> Optional[str]:
-        '''
-        :return:
-            The allele name, if standardization was successful and allele-level information is available,
-            otherwise None.
-        '''
+        '''The allele name, if standardization was successful and allele-level information is available, otherwise None.'''
         if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f"{self._gene_name}*{self._allele_designation}"
 
     @property
     def gene(self) -> Optional[str]:
-        '''
-        :return:
-            The gene name, if standardization was successful and gene-level information is available,
-            otherwise None.
-        '''
+        '''The gene name, if standardization was successful and gene-level information is available, otherwise None.'''
         if self.is_standardized:
             return self._gene_name
 
     @property
     def subgroup(self) -> Optional[str]:
-        '''
-        :return:
-            The subgroup name, if standardization was successful,
-            otherwise None.
-        '''
+        '''The subgroup name, if standardization was successful, otherwise None.'''
         if self.is_standardized:
             return self._subgroup_name
 
     @property
     def locus(self) -> Optional[str]:
         '''
-        :return:
-            The locus of the gene.
-            This is typically the three-letter code ('TRA', 'TRB', 'TRG', 'TRD', 'IGH', 'IGL', 'IGK'),
-            but for TRAV/DV genes, 'TRA/D' is returned.
+        The locus of the gene.
+        This is typically the three-letter code ('TRA', 'TRB', 'TRG', 'TRD', 'IGH', 'IGL', 'IGK'),
+        but for TRAV/DV genes, 'TRA/D' is returned.
         '''
         if self.is_standardized:
             locus = self.symbol[0:3]
@@ -125,39 +95,32 @@ class ReceptorGene:
 
     @property
     def receptor_type(self):
-        '''
-        :return:
-            'TR' for T cell receptor genes, or 'IG' for antibody genes if standardization was successful,
-            otherwise None.
-        '''
+        ''''TR' for T cell receptor genes, or 'IG' for antibody genes if standardization was successful, otherwise None.'''
         if self.is_standardized:
             return self.symbol[0:2]
 
     @property
     def gene_type(self) -> Optional[str]:
-        '''
-        :return:
-            The gene type ('V', 'D' or 'J'), if standardization was successful,
-            otherwise None.
-        '''
+        '''The gene type ('V', 'D' or 'J'), if standardization was successful, otherwise None.'''
         if self.is_standardized:
             return self.symbol[3]
 
     @property
     def species(self) -> str:
-        '''
-        :return:
-            The species used to validate the gene name.
-        '''
+        '''The species used to validate the gene name.'''
         return self._species
 
     def get_all_alleles(self, enforce_functional=True):
         '''
         Get all alleles related to the standardized symbol
 
-        :param enforce_functional:
+        Parameters
+        ----------
+        enforce_functional : bool
             If ``True``, only functional alleles are returned
-        :return:
+        Returns
+        -------
+        list
             A list of allele names
         '''
         if self.is_standardized:
