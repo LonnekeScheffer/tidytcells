@@ -111,7 +111,7 @@ class ReceptorGene:
         return self._species
 
     def get_all_alleles(self, enforce_functional=True):
-        '''
+        """
         Get all alleles related to the standardized symbol
 
         Parameters
@@ -122,29 +122,33 @@ class ReceptorGene:
         -------
         list
             A list of allele names
-        '''
+        """
         if self.is_standardized:
             aa_dict = SUPPORTED_RECEPTOR_SPECIES_AND_THEIR_AA_SEQUENCES[self.receptor_type][self.species]
 
             return get_compatible_symbols(self.symbol, aa_dict, self.gene_type, self.locus, enforce_functional)
 
     def get_aa_sequences(self, sequence_type="ALL", enforce_functional=True):
-        '''
+        """
         Get amino acid sequence information related to the alleles of the standardized symbol
 
-        :param sequence_type:
-            which sequence to return. This can be:
+        Parameters
+        ----------
+        sequence_type : str
+            Which sequence to return. This can be:
             - For V genes: 'FR1', 'FR2', 'FR3', 'CDR1', 'CDR2', 'V-REGION'
             - For D genes: 'D-REGION'
             - For J genes: 'J-REGION', 'J-MOTIF'
             - Or 'ALL' to return all available sequences
-        :param enforce_functional:
+        enforce_functional : bool
             If ``True``, only information for functional alleles is returned
-        :return:
+        Returns
+        -------
+        dict
             A dictionary with allele names as keys and sequences as values
             When sequence_type is 'ALL', the result is a nested dictionary with allele names
             as outer keys, sequence types as inner keys, and sequences as inner values.
-        '''
+        """
         sequence_type = sequence_type.upper()
         sequence_type = sequence_type + "-IMGT" if sequence_type in {"FR1", "FR2", "FR3", "CDR1", "CDR2"} else sequence_type
 
