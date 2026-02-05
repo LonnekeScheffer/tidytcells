@@ -3,76 +3,13 @@ from tidytcells._utils.alignment import get_compatible_symbols
 from tidytcells._resources import SUPPORTED_RECEPTOR_SPECIES_AND_THEIR_AA_SEQUENCES
 
 
-class MhGene:
-    def __init__(self, original_input, error, gene_name=None, allele_designation=None, species=None):
-        self._original_input = original_input
-        self._error = error
-        self._gene_name = gene_name
-        self._allele_designation = allele_designation if allele_designation is not None and len(allele_designation) > 0 else None
-        self._species = species
-
-        self._highest_precision_symbol = self._gene_name
-
-        if self._gene_name is not None and self._allele_designation is not None:
-            self._highest_precision_symbol = f'{self._gene_name}*{":".join(self._allele_designation)}'
-
-    def __str__(self):
-        str_repr = self.symbol
-
-        if str_repr is not None:
-            return str_repr
-        else:
-            return ""
-
-    @property
-    def original_input(self) -> Optional[str]:
-        return self._original_input
-
-    @property
-    def error(self) -> Optional[str]:
-        return self._error
-
-    @property
-    def is_standardized(self) -> bool:
-        return self.error is None
-
-    @property
-    def attempted_fix(self) -> Optional[str]:
-        if not self.is_standardized:
-            return self._highest_precision_symbol
-
-    @property
-    def symbol(self) -> Optional[str]:
-        if self.is_standardized:
-            return self._highest_precision_symbol
-
-    @property
-    def allele(self) -> Optional[str]:
-        if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
-            return f'{self._gene_name}*{":".join(self._allele_designation)}'
-
-    @property
-    def gene(self) -> Optional[str]:
-        if self.is_standardized and self._gene_name is not None:
-            return self._gene_name
-
-    @property
-    def species(self) -> str:
-        return self._species
-
-
-class HLAGene(MhGene):
-    def __init__(self, original_input, error, gene_name=None, allele_designation=None):
-        super().__init__(original_input, error, gene_name, allele_designation, species="homosapiens")
-
-    @property
-    def protein(self) -> Optional[str]:
-        if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
-            return f'{self._gene_name}*{":".join(self._allele_designation[:2])}'
-
-
 class ReceptorGene:
+    '''
+    A wrapper object for the receptor gene.
 
+    If standardization was successful, this object provides access to the standardized allele/gene/subgroup and other properties.
+    When failed, the error message(s) and attempted partially standardized gene symbol can be retrieved.
+    '''
     def __init__(self, original_input, error, gene_name=None, allele_designation=None, subgroup_name=None, species=None):
         self._original_input = original_input
         self._error = error
@@ -100,43 +37,72 @@ class ReceptorGene:
 
     @property
     def original_input(self) -> Optional[str]:
+        '''
+        :return: The original input symbol.
+        '''
         return self._original_input
 
     @property
     def error(self) -> Optional[str]:
+        '''
+        :return: The error message, only if standardization failed, otherwise None.
+        '''
         return self._error
 
     @property
     def is_standardized(self) -> bool:
+        '''
+        :return: True if the standardization was successful, False otherwise.
+        '''
         return self.error is None
 
     @property
     def attempted_fix(self) -> Optional[str]:
+        '''
+        :return: The best attempt at fixing the input symbol, only of standardization failed, if the standardization was a success this returns None.
+        '''
         if not self.is_standardized:
             return self._highest_precision_symbol
 
     @property
     def symbol(self) -> Optional[str]:
+        '''
+        :return: The allele, gene or subgroup (whichever is most precise) if standardization was successful, otherwise None.
+        '''
         if self.is_standardized:
             return self._highest_precision_symbol
 
     @property
     def allele(self) -> Optional[str]:
+        '''
+        :return: The allele name, if standardization was successful and allele-level information is available, otherwise None.
+        '''
         if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f"{self._gene_name}*{self._allele_designation}"
 
     @property
     def gene(self) -> Optional[str]:
+        '''
+        :return: The gene name, if standardization was successful and gene-level information is available, otherwise None.
+        '''
         if self.is_standardized:
             return self._gene_name
 
     @property
     def subgroup(self) -> Optional[str]:
+        '''
+        :return: The subgroup name, if standardization was successful, otherwise None.
+        '''
         if self.is_standardized:
             return self._subgroup_name
 
     @property
     def locus(self) -> Optional[str]:
+        '''
+        :return: The locus of the gene.
+                 This is typically the three-letter code ('TRA', 'TRB', 'TRG', 'TRD', 'IGH', 'IGL', 'IGK'), but
+                 for TRAV/DV genes, 'TRA/D' is returned.
+        '''
         if self.is_standardized:
             locus = self.symbol[0:3]
             if "/D" in self.symbol:
@@ -145,16 +111,25 @@ class ReceptorGene:
 
     @property
     def receptor_type(self):
+        '''
+        :return: 'TR' for T cell receptor genes, or 'IG' for antibody genes if standardization was successful, otherwise None.
+        '''
         if self.is_standardized:
             return self.symbol[0:2]
 
     @property
     def gene_type(self) -> Optional[str]:
+        '''
+        :return: The gene type ('V', 'D' or 'J'), if standardization was successful, otherwise None.
+        '''
         if self.is_standardized:
             return self.symbol[3]
 
     @property
     def species(self) -> str:
+        '''
+        :return: The species used to validate the gene name.
+        '''
         return self._species
 
     def get_all_alleles(self, enforce_functional=True):
@@ -196,52 +171,3 @@ class ReceptorGene:
             else:
                 return {allele: aa_dict[allele][sequence_type] if sequence_type in aa_dict[allele] else None
                         for allele in alleles_of_interest}
-
-
-class Junction:
-
-    def __init__(self, original_input, error, corrected_junction=None, species=None):
-        self._original_input = original_input
-        self._error = error
-        self._corrected_junction = corrected_junction
-        self._species = species
-
-    def __str__(self):
-        str_repr = self.junction
-
-        if str_repr is not None:
-            return str_repr
-        else:
-            return ""
-
-    @property
-    def original_input(self) -> Optional[str]:
-        return self._original_input
-
-    @property
-    def error(self) -> Optional[str]:
-        return self._error
-
-    @property
-    def is_standardized(self) -> bool:
-        return self.error is None
-
-    @property
-    def attempted_fix(self) -> Optional[str]:
-        if not self.is_standardized:
-            return self._corrected_junction
-
-    @property
-    def junction(self) -> Optional[str]:
-        if self.is_standardized:
-            return self._corrected_junction
-
-    @property
-    def cdr3(self) -> Optional[str]:
-        if self.is_standardized:
-            if self._corrected_junction is not None and len(self._corrected_junction) > 2:
-                return self._corrected_junction[1:-1]
-
-    @property
-    def species(self) -> str:
-        return self._species
