@@ -38,28 +38,33 @@ class ReceptorGene:
     @property
     def original_input(self) -> Optional[str]:
         '''
-        :return: The original input symbol.
+        :return:
+            The original input symbol.
         '''
         return self._original_input
 
     @property
     def error(self) -> Optional[str]:
         '''
-        :return: The error message, only if standardization failed, otherwise None.
+        :return:
+            The error message, only if standardization failed, otherwise None.
         '''
         return self._error
 
     @property
     def is_standardized(self) -> bool:
         '''
-        :return: True if the standardization was successful, False otherwise.
+        :return:
+            ``True`` if the standardization was successful, ``False`` otherwise.
         '''
         return self.error is None
 
     @property
     def attempted_fix(self) -> Optional[str]:
         '''
-        :return: The best attempt at fixing the input symbol, only of standardization failed, if the standardization was a success this returns None.
+        :return:
+            The best attempt at fixing the input symbol, only of standardization failed,
+            if the standardization was a success this returns None.
         '''
         if not self.is_standardized:
             return self._highest_precision_symbol
@@ -67,7 +72,9 @@ class ReceptorGene:
     @property
     def symbol(self) -> Optional[str]:
         '''
-        :return: The allele, gene or subgroup (whichever is most precise) if standardization was successful, otherwise None.
+        :return:
+            The allele, gene or subgroup (whichever is most precise) if standardization was successful,
+            otherwise None.
         '''
         if self.is_standardized:
             return self._highest_precision_symbol
@@ -75,7 +82,9 @@ class ReceptorGene:
     @property
     def allele(self) -> Optional[str]:
         '''
-        :return: The allele name, if standardization was successful and allele-level information is available, otherwise None.
+        :return:
+            The allele name, if standardization was successful and allele-level information is available,
+            otherwise None.
         '''
         if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f"{self._gene_name}*{self._allele_designation}"
@@ -83,7 +92,9 @@ class ReceptorGene:
     @property
     def gene(self) -> Optional[str]:
         '''
-        :return: The gene name, if standardization was successful and gene-level information is available, otherwise None.
+        :return:
+            The gene name, if standardization was successful and gene-level information is available,
+            otherwise None.
         '''
         if self.is_standardized:
             return self._gene_name
@@ -91,7 +102,9 @@ class ReceptorGene:
     @property
     def subgroup(self) -> Optional[str]:
         '''
-        :return: The subgroup name, if standardization was successful, otherwise None.
+        :return:
+            The subgroup name, if standardization was successful,
+            otherwise None.
         '''
         if self.is_standardized:
             return self._subgroup_name
@@ -99,9 +112,10 @@ class ReceptorGene:
     @property
     def locus(self) -> Optional[str]:
         '''
-        :return: The locus of the gene.
-                 This is typically the three-letter code ('TRA', 'TRB', 'TRG', 'TRD', 'IGH', 'IGL', 'IGK'), but
-                 for TRAV/DV genes, 'TRA/D' is returned.
+        :return:
+            The locus of the gene.
+            This is typically the three-letter code ('TRA', 'TRB', 'TRG', 'TRD', 'IGH', 'IGL', 'IGK'),
+            but for TRAV/DV genes, 'TRA/D' is returned.
         '''
         if self.is_standardized:
             locus = self.symbol[0:3]
@@ -112,7 +126,9 @@ class ReceptorGene:
     @property
     def receptor_type(self):
         '''
-        :return: 'TR' for T cell receptor genes, or 'IG' for antibody genes if standardization was successful, otherwise None.
+        :return:
+            'TR' for T cell receptor genes, or 'IG' for antibody genes if standardization was successful,
+            otherwise None.
         '''
         if self.is_standardized:
             return self.symbol[0:2]
@@ -120,7 +136,9 @@ class ReceptorGene:
     @property
     def gene_type(self) -> Optional[str]:
         '''
-        :return: The gene type ('V', 'D' or 'J'), if standardization was successful, otherwise None.
+        :return:
+            The gene type ('V', 'D' or 'J'), if standardization was successful,
+            otherwise None.
         '''
         if self.is_standardized:
             return self.symbol[3]
@@ -128,7 +146,8 @@ class ReceptorGene:
     @property
     def species(self) -> str:
         '''
-        :return: The species used to validate the gene name.
+        :return:
+            The species used to validate the gene name.
         '''
         return self._species
 
@@ -136,8 +155,10 @@ class ReceptorGene:
         '''
         Get all alleles related to the standardized symbol
 
-        :param enforce_functional: If 'true', only functional alleles are returned
-        :return: A list of allele names
+        :param enforce_functional:
+            If ``True``, only functional alleles are returned
+        :return:
+            A list of allele names
         '''
         if self.is_standardized:
             aa_dict = SUPPORTED_RECEPTOR_SPECIES_AND_THEIR_AA_SEQUENCES[self.receptor_type][self.species]
@@ -148,15 +169,18 @@ class ReceptorGene:
         '''
         Get amino acid sequence information related to the alleles of the standardized symbol
 
-        :param sequence_type: which sequence to return. This can be:
-                                For V genes: 'FR1', 'FR2', 'FR3', 'CDR1', 'CDR2', 'V-REGION'
-                                For D genes: 'D-REGION'
-                                For J genes: 'J-REGION', 'J-MOTIF'
-                                Or 'ALL' to return all available sequences
-        :param enforce_functional: If 'true', only information for functional alleles is returned
-        :return: A dictionary with allele names as keys and sequences as values
-                 When sequence_type is 'ALL', the result is a nested dictionary with allele names
-                 as outer keys, sequence types as inner keys, and sequences as inner values.
+        :param sequence_type:
+            which sequence to return. This can be:
+            - For V genes: 'FR1', 'FR2', 'FR3', 'CDR1', 'CDR2', 'V-REGION'
+            - For D genes: 'D-REGION'
+            - For J genes: 'J-REGION', 'J-MOTIF'
+            - Or 'ALL' to return all available sequences
+        :param enforce_functional:
+            If ``True``, only information for functional alleles is returned
+        :return:
+            A dictionary with allele names as keys and sequences as values
+            When sequence_type is 'ALL', the result is a nested dictionary with allele names
+            as outer keys, sequence types as inner keys, and sequences as inner values.
         '''
         sequence_type = sequence_type.upper()
         sequence_type = sequence_type + "-IMGT" if sequence_type in {"FR1", "FR2", "FR3", "CDR1", "CDR2"} else sequence_type

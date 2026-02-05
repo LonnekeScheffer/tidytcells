@@ -31,28 +31,33 @@ class MhGene:
     @property
     def original_input(self) -> Optional[str]:
         '''
-        :return: The original input symbol.
+        :return:
+            The original input symbol.
         '''
         return self._original_input
 
     @property
     def error(self) -> Optional[str]:
         '''
-        :return: The error message, only if standardization failed, otherwise None.
+        :return:
+            The error message, only if standardization failed, otherwise None.
         '''
         return self._error
 
     @property
     def is_standardized(self) -> bool:
         '''
-        :return: True if the standardization was successful, False otherwise.
+        :return:
+            ``True`` if the standardization was successful, ``False`` otherwise.
         '''
         return self.error is None
 
     @property
     def attempted_fix(self) -> Optional[str]:
         '''
-        :return: The best attempt at fixing the input symbol, only of standardization failed, if the standardization was a success this returns None.
+        :return:
+            The best attempt at fixing the input symbol, only of standardization failed,
+            if the standardization was a success this returns None.
         '''
         if not self.is_standardized:
             return self._highest_precision_symbol
@@ -60,7 +65,9 @@ class MhGene:
     @property
     def symbol(self) -> Optional[str]:
         '''
-        :return: The allele or gene (whichever is most precise) if standardization was successful, otherwise None.
+        :return:
+            The allele or gene (whichever is most precise) if standardization was successful,
+            otherwise None.
         '''
         if self.is_standardized:
             return self._highest_precision_symbol
@@ -68,7 +75,9 @@ class MhGene:
     @property
     def allele(self) -> Optional[str]:
         '''
-        :return: The allele name, if standardization was successful and allele-level information is available, otherwise None.
+        :return:
+            The allele name, if standardization was successful and allele-level information is available,
+            otherwise None.
         '''
         if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f'{self._gene_name}*{":".join(self._allele_designation)}'
@@ -76,7 +85,8 @@ class MhGene:
     @property
     def gene(self) -> Optional[str]:
         '''
-        :return: The gene name, if standardization was successful, otherwise None.
+        :return:
+            The gene name, if standardization was successful, otherwise None.
         '''
         if self.is_standardized and self._gene_name is not None:
             return self._gene_name
@@ -84,19 +94,28 @@ class MhGene:
     @property
     def species(self) -> str:
         '''
-        :return: The species used to validate the gene name.
+        :return:
+            The species used to validate the gene name.
         '''
         return self._species
 
 
 class HLAGene(MhGene):
+    '''
+    A wrapper object for the HLA gene.
+
+    If standardization was successful, this object provides access to the standardized allele/protein/gene and other properties.
+    When failed, the error message(s) and attempted partially standardized gene symbol can be retrieved.
+    '''
     def __init__(self, original_input, error, gene_name=None, allele_designation=None):
         super().__init__(original_input, error, gene_name, allele_designation, species="homosapiens")
 
     @property
     def protein(self) -> Optional[str]:
         '''
-        :return: The protein name, if standardization was successful and protein-level information is available, otherwise None.
+        :return:
+            The protein name, if standardization was successful and protein-level information is available,
+            otherwise None.
         '''
         if self.is_standardized and self._allele_designation is not None and self._gene_name is not None:
             return f'{self._gene_name}*{":".join(self._allele_designation[:2])}'
